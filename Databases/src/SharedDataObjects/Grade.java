@@ -1,0 +1,38 @@
+package SharedDataObjects;
+
+public class Grade {
+    private int gradeID;
+    private int assignmentID;
+    private int studentID;
+    private int courseID;
+    private int assignmentGrade;
+
+    public Grade(int gradeID, int assignmentID, int studentID, int courseID, int assignmentGrade) {
+        this.gradeID = gradeID;
+        this.assignmentID = assignmentID;
+        this.studentID = studentID;
+        this.courseID = courseID;
+        this.assignmentGrade = assignmentGrade;
+    }
+    // Helper methods
+    // get
+    public int getGradeID() {
+        return this.gradeID;
+    }
+    public int getAssignmentID() {
+        return this.assignmentID;
+    }
+    public int getStudentID() {
+        return this.studentID;
+    }
+    public int getCourseID() {
+        return this.courseID;
+    }
+    public int getAssignmentGrade() {
+        return this.assignmentGrade;
+    }
+    // set
+    public void setAssignmentGrade(int assignmentGrade) {
+        this.assignmentGrade = assignmentGrade;
+    }
+}
