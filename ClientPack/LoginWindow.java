@@ -1,6 +1,8 @@
 package ClientPack;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 /*
@@ -12,15 +14,9 @@ import net.miginfocom.swing.*;
 /**
  * @author Aysha Panatch
  */
-    class LoginWindow extends JFrame {
+    class LoginWindow extends JFrame implements ActionListener {
 
     LoginWindow() {
-        initComponents();
-    }
-
-    private void initComponents() {
-        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         label4 = new JLabel();
         label1 = new JLabel();
         panel1 = new JPanel();
@@ -29,7 +25,13 @@ import net.miginfocom.swing.*;
         panel2 = new JPanel();
         label6 = new JLabel();
         passwordField1 = new JPasswordField();
-        button1 = new JButton();
+        loginButton = new JButton();
+        loginButton.addActionListener(this);
+        initComponents();
+    }
+
+    private void initComponents() {
+        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 
         //======== this ========
         setBackground(new Color(51, 102, 255));
@@ -99,20 +101,20 @@ import net.miginfocom.swing.*;
         contentPane.add(panel2, "cell 1 3");
 
         //---- button1 ----
-        button1.setText("OK");
-        button1.setBackground(Color.darkGray);
-        button1.setFont(new Font("Geneva", Font.PLAIN, 12));
-        contentPane.add(button1, "cell 1 4,align center center,grow 0 0");
+        loginButton.setText("OK");
+        loginButton.setBackground(Color.darkGray);
+        loginButton.setFont(new Font("Geneva", Font.PLAIN, 12));
+        contentPane.add(loginButton, "cell 1 4,align center center,grow 0 0");
         pack();
         setLocationRelativeTo(getOwner());
-        // JFormDesigner - End of component initialization  //GEN-END:initComponents
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 
-    String getUser() {
+    private String getUser() {
         return usernameField1.getText();
     }
-    char[] getPass() {
+    private char[] getPass() {
         return passwordField1.getPassword();
     }
 
@@ -126,8 +128,17 @@ import net.miginfocom.swing.*;
     private JPanel panel2;
     private JLabel label6;
     private JPasswordField passwordField1;
-    private JButton button1;
+    private JButton loginButton;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
+    public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource() == loginButton) {
+            System.out.println("It works.");
+            String userName = getUser();
+            char[] pass = getPass();
+            this.setVisible(false);
+        }
+    }
 
 }

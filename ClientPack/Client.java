@@ -1,32 +1,29 @@
 package ClientPack;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
-public class Client implements ActionListener {
+public class Client {
 
 //    private ProfGui professor;
 //    private StudGui student;
     private LoginWindow login;
     private boolean isProfessor;
+    private Socket socket;
 
     private Client() {
         login = new LoginWindow();
-        String userName = login.getUser();
-        char[] pass = login.getPass();
-        if(isProfessor) {
-            professor = new ProfGui();
-        }
-        else {
-            student = new StudGui();
-        }
 
-    }
+//        if(isProfessor) {
+//            professor = new ProfGui();
+//        }
+//        else {
+//            student = new StudGui();
+//        }
 
-    private void actionPerformed(ActionEvent e) {
-
-        if()
     }
 
     public static void main(String[] args) {
