@@ -32,8 +32,12 @@ public class Assignment {
     public String getAssignmentPath() {
         return this.assignmentPath;
     }
-    public boolean getActive() {
-        return this.active;
+    public int getActive() {
+        if(this.active == true) {
+            return 1;
+        }
+        else
+            return 0;
     }
     public String getDueDate() {
         return this.dueDate;

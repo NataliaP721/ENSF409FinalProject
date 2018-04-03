@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.sql.*;
 import java.util.Scanner;
 import SharedDataObjects.*;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  * This class allows you to create and manage a client database.
@@ -230,7 +231,7 @@ public class DatabaseHelper {
             while(sc.hasNext())
             {
                 String assignmentInfo[] = sc.nextLine().split(";");
-                addAssignment( new Assignment(totalEnteries, Integer.parseInt(assignmentInfo[0]), assignmentInfo[1], assignmentInfo[2], true, assignmentInfo[4]));
+                addAssignment( new Assignment(totalEnteries, Integer.parseInt(assignmentInfo[0]), assignmentInfo[1], assignmentInfo[2], Boolean.valueOf(assignmentInfo[3]), assignmentInfo[4]));
                 totalEnteries++;
 
             }
@@ -249,6 +250,66 @@ public class DatabaseHelper {
     /**
      * Add a Client to the database table
      */
+//    public void addAssignment(Assignment assignment)
+//    {
+//        String sql = "INSERT INTO " + assignmentTableName +
+//                " VALUES ( " +
+//                assignment.getAssignmentID() + ", '" +
+//                assignment.getCourseID() + "', '" +
+//                assignment.getAssignmentTitle() + "', '" +
+//                assignment.getAssignmentPath() + "', " +
+//                assignment.getActive()+ ", '" +
+//                assignment.getDueDate()+ "');";
+//
+//        try{
+//            statement = jdbc_connection.prepareStatement(sql);
+//            statement.executeUpdate();
+//        }
+//        catch(SQLException e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
+//    public void addAssignment(Assignment assignment)
+//    {
+//        String sql = "INSERT INTO " + assignmentTableName +
+//                " VALUES ( " +
+//                assignment.getAssignmentID() + ", '" +
+//                assignment.getCourseID() + "', '" +
+//                assignment.getAssignmentTitle() + "', '" +
+//                assignment.getAssignmentPath() + "', " +
+//                assignment.getActive()+ ", '" +
+//                assignment.getDueDate()+ "');";
+//
+//        try{
+//            statement = jdbc_connection.prepareStatement(sql);
+//            statement.executeUpdate();
+//        }
+//        catch(SQLException e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
+    public void addStudentEnrollment(StudentEnrollment studentEnrollment)
+    {
+        String sql = "INSERT INTO " + assignmentTableName +
+                " VALUES ( " +
+                studentEnrollment.getAssignmentID() + ", '" +
+                studentEnrollment.getCourseID() + "', '" +
+                studentEnrollment.getAssignmentTitle() + "', '" +
+                studentEnrollment.getAssignmentPath() + "', " +
+                studentEnrollment.getActive()+ ", '" +
+                studentEnrollment.getDueDate()+ "');";
+
+        try{
+            statement = jdbc_connection.prepareStatement(sql);
+            statement.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
     public void addAssignment(Assignment assignment)
     {
         String sql = "INSERT INTO " + assignmentTableName +
@@ -256,8 +317,8 @@ public class DatabaseHelper {
                 assignment.getAssignmentID() + ", '" +
                 assignment.getCourseID() + "', '" +
                 assignment.getAssignmentTitle() + "', '" +
-                assignment.getAssignmentPath() + "', '" +
-                0 + "', '" +
+                assignment.getAssignmentPath() + "', " +
+                assignment.getActive()+ ", '" +
                 assignment.getDueDate()+ "');";
 
         try{
@@ -380,20 +441,19 @@ public class DatabaseHelper {
         try {
             String sql = "SELECT * FROM " + assignmentTableName;
             statement = jdbc_connection.prepareStatement(sql);
-            ResultSet clients = statement.executeQuery();
-            System.out.println("Clients:");
-            while(clients.next())
+            ResultSet assignments = statement.executeQuery();
+            System.out.println("\nAssignments:");
+            while(assignments.next())
             {
-//                System.out.println(clients.getInt("ID") + " " +
-//                        clients.getString("FIRSTNAME") + " " +
-//                        clients.getString("LASTNAME") + " " +
-//                        clients.getString("ADDRESS") + " " +
-//                        clients.getString("POSTALCODE") + " " +
-//                        clients.getString("PHONENUMBER") + " " +
-//                        clients.getString("CLIENTTYPE"));
+                System.out.println(assignments.getString("ASSIGNMENTID") + " " +
+                        assignments.getString("COURSEID") + " " +
+                        assignments.getString("ASSIGNMENTTITLE") + " " +
+                        assignments.getString("ASSIGNMENTPATH") + " " +
+                        assignments.getString("ACTIVE") + " " +
+                        assignments.getString("DUEDATE")+ " ");
             }
-            System.out.println("\n");
-            clients.close();
+            System.out.println("");
+            assignments.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
