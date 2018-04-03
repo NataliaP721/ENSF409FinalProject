@@ -1,3 +1,5 @@
+package ClientPack;
+
 import java.awt.*;
 import javax.swing.*;
 import net.miginfocom.swing.*;
@@ -10,19 +12,20 @@ import net.miginfocom.swing.*;
 /**
  * @author Aysha Panatch
  */
-public class LoginWindow extends JFrame {
-    public LoginWindow() {
+    class LoginWindow extends JFrame {
+
+    LoginWindow() {
         initComponents();
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         label4 = new JLabel();
         label1 = new JLabel();
         panel1 = new JPanel();
         label5 = new JLabel();
-        textField1 = new JTextField();
+        usernameField1 = new JTextField();
         panel2 = new JPanel();
         label6 = new JLabel();
         passwordField1 = new JPasswordField();
@@ -31,22 +34,21 @@ public class LoginWindow extends JFrame {
         //======== this ========
         setBackground(new Color(51, 102, 255));
         setTitle("Login Window");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
-            "hidemode 3",
-            // columns
-            "[fill]" +
-            "[343,fill]",
-            // rows
-            "[]" +
-            "[32]" +
-            "[58]0" +
-            "[70]" +
-            "[]"));
+                "hidemode 3",
+                // columns
+                "[fill]" +
+                        "[343,fill]",
+                // rows
+                "[]" +
+                        "[32]" +
+                        "[58]0" +
+                        "[70]" +
+                        "[]"));
 
         //---- label4 ----
-        label4.setText("LOGIN TO PLATFORM:");
+        label4.setText("LOG IN TO PLATFORM:");
         label4.setFont(new Font("Geneva", Font.BOLD, 20));
         contentPane.add(label4, "cell 1 1");
         contentPane.add(label1, "cell 1 1");
@@ -54,21 +56,15 @@ public class LoginWindow extends JFrame {
         //======== panel1 ========
         {
 
-            // JFormDesigner evaluation mark
-            panel1.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel1.setLayout(new MigLayout(
-                "hidemode 3,aligny bottom",
-                // columns
-                "[119,fill]" +
-                "[288,fill]",
-                // rows
-                "[]0" +
-                "[39]0"));
+                    "hidemode 3,aligny bottom",
+                    // columns
+                    "[119,fill]" +
+                            "[288,fill]",
+                    // rows
+                    "[]0" +
+                            "[39]0"));
 
             //---- label5 ----
             label5.setText("Username:");
@@ -76,20 +72,20 @@ public class LoginWindow extends JFrame {
             panel1.add(label5, "cell 0 1");
 
             //---- textField1 ----
-            textField1.setBackground(Color.lightGray);
-            panel1.add(textField1, "cell 1 1 12 1");
+            usernameField1.setBackground(Color.lightGray);
+            panel1.add(usernameField1, "cell 1 1 12 1");
         }
         contentPane.add(panel1, "cell 1 2");
 
         //======== panel2 ========
         {
             panel2.setLayout(new MigLayout(
-                "hidemode 3,aligny top",
-                // columns
-                "[68,fill]" +
-                "[234,fill]",
-                // rows
-                "0[]0"));
+                    "hidemode 3,aligny top",
+                    // columns
+                    "[68,fill]" +
+                            "[234,fill]",
+                    // rows
+                    "0[]0"));
 
             //---- label6 ----
             label6.setText("Password:");
@@ -113,13 +109,20 @@ public class LoginWindow extends JFrame {
         this.setVisible(true);
     }
 
+    String getUser() {
+        return usernameField1.getText();
+    }
+    char[] getPass() {
+        return passwordField1.getPassword();
+    }
+
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JLabel label4;
     private JLabel label1;
     private JPanel panel1;
     private JLabel label5;
-    private JTextField textField1;
+    private JTextField usernameField1;
     private JPanel panel2;
     private JLabel label6;
     private JPasswordField passwordField1;
@@ -127,7 +130,4 @@ public class LoginWindow extends JFrame {
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
 
-    public static void main(String[] args) {
-        LoginWindow obj = new LoginWindow();
-    }
 }

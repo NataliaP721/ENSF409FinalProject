@@ -1,0 +1,83 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "hidemode 3"
+			"$columnConstraints": "[236,fill][215,fill][228,fill]"
+			"$rowConstraints": "[101][205][116]"
+		} ) {
+			name: "frame1"
+			"title": "Manage Course"
+			"background": new com.jformdesigner.model.SwingColor( "Button.darcula.defaultStartColor" )
+			"foreground": sfield java.awt.SystemColor textInactiveText
+			"defaultCloseOperation": 3
+			"font": new java.awt.Font( "Geneva", 0, 13 )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Course: ENCM 511"
+				"horizontalAlignment": 0
+				"font": new java.awt.Font( "Geneva", 0, 15 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 0"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[106,fill][fill][fill][fill][fill]"
+				"$rowConstraints": "[][][][][][]"
+			} ) {
+				name: "panel1"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button7"
+					"text": "Manage Assignments"
+					"font": new java.awt.Font( "Geneva", 0, 11 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 0"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button8"
+					"text": "Manage Submissions"
+					"font": new java.awt.Font( "Geneva", 0, 11 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 1"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button11"
+					"text": "Manage Grades"
+					"font": new java.awt.Font( "Geneva", 0, 11 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 2"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button9"
+					"text": "Email Students"
+					"font": new java.awt.Font( "Geneva", 0, 11 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 3"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button10"
+					"text": "Enroll Students"
+					"font": new java.awt.Font( "Geneva", 0, 11 )
+					"icon": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"preferredSize": new java.awt.Dimension( 100, 100 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 2 4"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 1"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button12"
+				"text": "Back"
+				"font": new java.awt.Font( "Geneva", 0, 11 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 2"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 20, 20 )
+			"size": new java.awt.Dimension( 680, 500 )
+		} )
+	}
+}
