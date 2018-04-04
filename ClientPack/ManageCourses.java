@@ -1,74 +1,206 @@
 package ClientPack;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 /*
  * Created by JFormDesigner on Sun Apr 01 12:59:24 MDT 2018
  */
 
-
-
-/**
- * @author Edward Gu
- */
-    class ManageCourses extends JFrame {
+    class ManageCourses extends JFrame implements ActionListener{
     ManageCourses() {
         initComponents();
+        //SET COURSE NAME HERE courseName.settext(whatever)
+        manageAssignments.addActionListener(this);
+        manageSubmissions.addActionListener(this);
+        emailStudents.addActionListener(this);
+        enrollStudents.addActionListener(this);
+        back.addActionListener(this);
+        manageGrades.addActionListener(this);
+        frame1.setSize(700, 700);
+        frame1.setVisible(true);
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         frame1 = new JFrame();
-        label2 = new JLabel();
+        panel2 = new JPanel();
+        back = new JButton();
+        panel3 = new JPanel();
+        courseName = new JLabel();
+        panel6 = new JPanel();
+        panel4 = new JPanel();
         panel1 = new JPanel();
-        button7 = new JButton();
-        button8 = new JButton();
-        button11 = new JButton();
-        button9 = new JButton();
-        button10 = new JButton();
-        button12 = new JButton();
+        manageAssignments = new JButton();
+        manageSubmissions = new JButton();
+        manageGrades = new JButton();
+        emailStudents = new JButton();
+        enrollStudents = new JButton();
+        panel5 = new JPanel();
+        panel7 = new JPanel();
+        panel8 = new JPanel();
 
         //======== frame1 ========
         {
             frame1.setTitle("Manage Course");
-            frame1.setBackground(UIManager.getColor("Button.darcula.defaultStartColor"));
-            frame1.setForeground(SystemColor.textInactiveText);
+            frame1.setBackground(UIManager.getColor("TextPane.selectionBackground"));
+            frame1.setForeground(UIManager.getColor("TextPane.selectionBackground"));
             frame1.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame1.setFont(new Font("Geneva", Font.PLAIN, 13));
             Container frame1ContentPane = frame1.getContentPane();
             frame1ContentPane.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
-                "[236,fill]" +
-                "[215,fill]" +
-                "[228,fill]",
+                "0[236,fill]0" +
+                "[198,fill]0" +
+                "[260,fill]0",
                 // rows
-                "[101]" +
-                "[205]" +
-                "[116]"));
+                "0[170]0" +
+                "[208]0" +
+                "[299]0"));
 
-            //---- label2 ----
-            label2.setText("Course: ENCM 511");
-            label2.setHorizontalAlignment(SwingConstants.CENTER);
-            label2.setFont(new Font("Geneva", Font.PLAIN, 15));
-            frame1ContentPane.add(label2, "cell 1 0");
-
-            //======== panel1 ========
+            //======== panel2 ========
             {
+                panel2.setBackground(new Color(115, 194, 251));
 
                 // JFormDesigner evaluation mark
-                panel1.setBorder(new javax.swing.border.CompoundBorder(
+                panel2.setBorder(new javax.swing.border.CompoundBorder(
                     new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
                         "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
                         javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                        java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
+                panel2.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "15[fill]",
+                    // rows
+                    "[]" +
+                    "[]"));
+
+                //---- back ----
+                back.setText("Back");
+                back.setForeground(Color.darkGray);
+                back.setBackground(Color.black);
+                back.setFont(back.getFont().deriveFont(back.getFont().getSize() + 2f));
+                panel2.add(back, "cell 0 0,align leading top,grow 0 0");
+            }
+            frame1ContentPane.add(panel2, "cell 0 0,grow");
+
+            //======== panel3 ========
+            {
+                panel3.setBackground(new Color(115, 194, 251));
+                panel3.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "0[306,fill]0",
+                    // rows
+                    "[67]" +
+                    "[14]"));
+
+                //---- courseName ----
+                courseName.setText("ENCM 511");
+                courseName.setHorizontalAlignment(SwingConstants.CENTER);
+                courseName.setFont(new Font(".SF NS Text", Font.BOLD, 30));
+                courseName.setBackground(new Color(51, 153, 255));
+                courseName.setForeground(Color.black);
+                panel3.add(courseName, "cell 0 0,alignx center,grow 0 100");
+            }
+            frame1ContentPane.add(panel3, "cell 1 0,grow");
+
+            //======== panel6 ========
+            {
+                panel6.setBackground(new Color(115, 194, 251));
+                panel6.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "[fill]",
+                    // rows
+                    "[]"));
+            }
+            frame1ContentPane.add(panel6, "cell 2 0,grow");
+
+            //======== panel4 ========
+            {
+                panel4.setBackground(new Color(115, 194, 251));
+                panel4.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "[fill]",
+                    // rows
+                    "[]"));
+            }
+            frame1ContentPane.add(panel4, "cell 0 1,grow");
+
+            //======== panel1 ========
+            {
+                panel1.setBackground(new Color(115, 194, 251));
                 panel1.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
-                    "[106,fill]" +
+                    "[0,fill]" +
+                    "[0,fill]" +
+                    "[175,fill]" +
+                    "[7,fill]" +
+                    "[fill]",
+                    // rows
+                    "0[90]0" +
+                    "[90]" +
+                    "[70]" +
+                    "[79]20" +
+                    "[33]" +
+                    "[233]"));
+
+                //---- manageAssignments ----
+                manageAssignments.setText("Manage Assignments");
+                manageAssignments.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
+                manageAssignments.setForeground(Color.darkGray);
+                manageAssignments.setBackground(Color.black);
+                panel1.add(manageAssignments, "cell 2 0");
+
+                //---- manageSubmissions ----
+                manageSubmissions.setText("Manage Submissions");
+                manageSubmissions.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
+                manageSubmissions.setForeground(Color.darkGray);
+                manageSubmissions.setBackground(Color.black);
+                panel1.add(manageSubmissions, "cell 2 1");
+
+                //---- manageGrades ----
+                manageGrades.setText("Manage Grades");
+                manageGrades.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
+                manageGrades.setForeground(Color.darkGray);
+                manageGrades.setBackground(Color.black);
+                panel1.add(manageGrades, "cell 2 2");
+
+                //---- emailStudents ----
+                emailStudents.setText("Email Students");
+                emailStudents.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
+                emailStudents.setForeground(Color.darkGray);
+                emailStudents.setBackground(Color.black);
+                panel1.add(emailStudents, "cell 2 3");
+
+                //---- enrollStudents ----
+                enrollStudents.setText("Enroll Students");
+                enrollStudents.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
+                enrollStudents.setIcon(null);
+                enrollStudents.setPreferredSize(new Dimension(120, 100));
+                enrollStudents.setForeground(Color.darkGray);
+                enrollStudents.setBackground(Color.black);
+                panel1.add(enrollStudents, "cell 2 4,aligny center,growy 0");
+            }
+            frame1ContentPane.add(panel1, "cell 1 1 1 2");
+
+            //======== panel5 ========
+            {
+                panel5.setBackground(new Color(115, 194, 251));
+                panel5.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "[fill]" +
+                    "[fill]" +
                     "[fill]" +
                     "[fill]" +
                     "[fill]" +
@@ -77,62 +209,72 @@ import net.miginfocom.swing.*;
                     "[]" +
                     "[]" +
                     "[]" +
-                    "[]" +
-                    "[]" +
                     "[]"));
-
-                //---- button7 ----
-                button7.setText("Manage Assignments");
-                button7.setFont(new Font("Geneva", Font.PLAIN, 11));
-                panel1.add(button7, "cell 2 0");
-
-                //---- button8 ----
-                button8.setText("Manage Submissions");
-                button8.setFont(new Font("Geneva", Font.PLAIN, 11));
-                panel1.add(button8, "cell 2 1");
-
-                //---- button11 ----
-                button11.setText("Manage Grades");
-                button11.setFont(new Font("Geneva", Font.PLAIN, 11));
-                panel1.add(button11, "cell 2 2");
-
-                //---- button9 ----
-                button9.setText("Email Students");
-                button9.setFont(new Font("Geneva", Font.PLAIN, 11));
-                panel1.add(button9, "cell 2 3");
-
-                //---- button10 ----
-                button10.setText("Enroll Students");
-                button10.setFont(new Font("Geneva", Font.PLAIN, 11));
-                button10.setIcon(null);
-                button10.setPreferredSize(new Dimension(100, 100));
-                panel1.add(button10, "cell 2 4");
             }
-            frame1ContentPane.add(panel1, "cell 1 1");
+            frame1ContentPane.add(panel5, "cell 2 1,grow");
 
-            //---- button12 ----
-            button12.setText("Back");
-            button12.setFont(new Font("Geneva", Font.PLAIN, 11));
-            frame1ContentPane.add(button12, "cell 2 2");
+            //======== panel7 ========
+            {
+                panel7.setBackground(new Color(115, 194, 251));
+                panel7.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "[fill]",
+                    // rows
+                    "[]"));
+            }
+            frame1ContentPane.add(panel7, "cell 0 2,grow");
+
+            //======== panel8 ========
+            {
+                panel8.setBackground(new Color(115, 194, 251));
+                panel8.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[157,fill]",
+                    // rows
+                    "[]" +
+                    "[346]"));
+            }
+            frame1ContentPane.add(panel8, "cell 2 2,grow");
             frame1.pack();
             frame1.setLocationRelativeTo(frame1.getOwner());
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
-        frame1.setVisible(true);
-        frame1.setSize(500, 500);
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JFrame frame1;
-    private JLabel label2;
+    private JPanel panel2;
+    private JButton back;
+    private JPanel panel3;
+    private JLabel courseName;
+    private JPanel panel6;
+    private JPanel panel4;
     private JPanel panel1;
-    private JButton button7;
-    private JButton button8;
-    private JButton button11;
-    private JButton button9;
-    private JButton button10;
-    private JButton button12;
+    private JButton manageAssignments;
+    private JButton manageSubmissions;
+    private JButton manageGrades;
+    private JButton emailStudents;
+    private JButton enrollStudents;
+    private JPanel panel5;
+    private JPanel panel7;
+    private JPanel panel8;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
-}
+    public static void main(String [] args){ //DONT DELETE THIS YET
+        ManageCourses obj= new ManageCourses();
+    }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+        }
+    }

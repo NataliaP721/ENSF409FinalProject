@@ -1,259 +1,220 @@
-import java.awt.*;
-import javax.swing.*;
-/*
- * Created by JFormDesigner on Sun Apr 01 13:57:38 MDT 2018
- */
+package ClientPack;
 
+import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+/*
+ * Created by JFormDesigner on Sun Apr 01 12:19:26 MDT 2018
+ */
 
 
 /**
  * @author Aysha Panatch
  */
-public class ManageGrades extends JPanel {
+public class ManageGrades extends JFrame implements ActionListener, ListSelectionListener{
     public ManageGrades() {
         initComponents();
+        search.addActionListener(this);
+        back.addActionListener(this);
+        downloadSubmission.addActionListener(this);
+        enterGrade.addActionListener(this);
+        gradeList.addListSelectionListener(this);
+        this.setSize(700, 700);
+        this.setVisible(true);
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Aysha Panatch
-        frame1 = new JFrame();
+        panel1 = new JPanel();
         panel4 = new JPanel();
-        panel5 = new JPanel();
-        scrollPane2 = new JScrollPane();
-        list1 = new JList();
-        panel7 = new JPanel();
-        panel32 = new JPanel();
-        panel33 = new JPanel();
-        panel34 = new JPanel();
-        panel35 = new JPanel();
-        panel37 = new JPanel();
-        panel38 = new JPanel();
-        panel39 = new JPanel();
-        label8 = new JLabel();
-        panel40 = new JPanel();
-        button3 = new JButton();
-        hSpacer40 = new JPanel(null);
-        hSpacer41 = new JPanel(null);
-        hSpacer44 = new JPanel(null);
-        hSpacer43 = new JPanel(null);
-        hSpacer42 = new JPanel(null);
-        panel41 = new JPanel();
-        panel42 = new JPanel();
-        label7 = new JLabel();
-        radioButton10 = new JRadioButton();
-        radioButton11 = new JRadioButton();
-        panel43 = new JPanel();
-        button4 = new JButton();
-        hSpacer49 = new JPanel(null);
-        hSpacer48 = new JPanel(null);
-        hSpacer47 = new JPanel(null);
-        hSpacer46 = new JPanel(null);
-        hSpacer45 = new JPanel(null);
-        panel44 = new JPanel();
+        panel2 = new JPanel();
+        back = new JButton();
+        label1 = new JLabel();
+        label10 = new JLabel();
+        IDradioButton = new JRadioButton();
+        lastNameradioButton = new JRadioButton();
+        label11 = new JLabel();
+        searchparameter = new JTextField();
+        search = new JButton();
+        scrollPane5 = new JScrollPane();
+        gradeList = new JList();
+        enterGrade = new JButton();
+        downloadSubmission = new JButton();
 
-        //======== frame1 ========
+        //======== this ========
+        setTitle("Grades Students");
+        setBackground(new Color(115, 194, 251));
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new MigLayout(
+            "hidemode 3",
+            // columns
+            "0[700]0",
+            // rows
+            "0[]0"));
+
+        //======== panel1 ========
         {
-            frame1.setTitle("Manage Grades");
-            frame1.setBackground(new Color(0, 153, 255));
-            Container frame1ContentPane = frame1.getContentPane();
-            frame1ContentPane.setLayout(new BorderLayout());
+            panel1.setBackground(new Color(115, 194, 251));
+
+            // JFormDesigner evaluation mark
+            panel1.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+
+            panel1.setLayout(new MigLayout(
+                "hidemode 3",
+                // columns
+                "0[700,fill]0",
+                // rows
+                "0[700,grow,fill]0"));
 
             //======== panel4 ========
             {
+                panel4.setBackground(new Color(115, 194, 251));
+                panel4.setLayout(new MigLayout(
+                    "hidemode 3",
+                    // columns
+                    "10[700,grow,fill]10" +
+                    "[fill]",
+                    // rows
+                    "0[0]0" +
+                    "[]0" +
+                    "[35]" +
+                    "[27]" +
+                    "[]" +
+                    "[]" +
+                    "[473]" +
+                    "[]0"));
 
-                // JFormDesigner evaluation mark
-                panel4.setBorder(new javax.swing.border.CompoundBorder(
-                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                        "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), panel4.getBorder())); panel4.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-                panel4.setLayout(new FlowLayout(FlowLayout.CENTER, 28, 5));
-            }
-            frame1ContentPane.add(panel4, BorderLayout.WEST);
-
-            //======== panel5 ========
-            {
-                panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 30));
-            }
-            frame1ContentPane.add(panel5, BorderLayout.SOUTH);
-
-            //======== scrollPane2 ========
-            {
-                scrollPane2.setViewportView(list1);
-            }
-            frame1ContentPane.add(scrollPane2, BorderLayout.CENTER);
-
-            //======== panel7 ========
-            {
-                panel7.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
-            }
-            frame1ContentPane.add(panel7, BorderLayout.EAST);
-
-            //======== panel32 ========
-            {
-                panel32.setLayout(new BorderLayout());
-
-                //======== panel33 ========
+                //======== panel2 ========
                 {
-                    panel33.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
-                }
-                panel32.add(panel33, BorderLayout.WEST);
+                    panel2.setBackground(new Color(115, 194, 251));
+                    panel2.setLayout(new MigLayout(
+                        "hidemode 3",
+                        // columns
+                        "0[51,fill]",
+                        // rows
+                        "0[]0"));
 
-                //======== panel34 ========
+                    //---- back ----
+                    back.setText("Back");
+                    back.setBackground(Color.black);
+                    back.setForeground(Color.darkGray);
+                    panel2.add(back, "cell 0 0");
+                }
+                panel4.add(panel2, "cell 0 1,alignx left,growx 0");
+
+                //---- label1 ----
+                label1.setFont(new Font(".SF NS Text", Font.BOLD, 26));
+                label1.setForeground(Color.black);
+                label1.setHorizontalAlignment(SwingConstants.RIGHT);
+                label1.setText("Manage Grades");
+                panel4.add(label1, "cell 0 1");
+
+                //---- label10 ----
+                label10.setText("  Search Grades By:");
+                label10.setFont(new Font(".SF NS Text", Font.PLAIN, 16));
+                label10.setForeground(Color.black);
+                label10.setBackground(new Color(115, 194, 251));
+                panel4.add(label10, "cell 0 2");
+
+                //---- IDradioButton ----
+                IDradioButton.setText("ID");
+                IDradioButton.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
+                IDradioButton.setBackground(new Color(115, 194, 251));
+                IDradioButton.setForeground(Color.black);
+                panel4.add(IDradioButton, "cell 0 3");
+
+                //---- lastNameradioButton ----
+                lastNameradioButton.setText("Last Name");
+                lastNameradioButton.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
+                lastNameradioButton.setBackground(new Color(115, 194, 251));
+                lastNameradioButton.setForeground(Color.black);
+                panel4.add(lastNameradioButton, "cell 0 3");
+
+                //---- label11 ----
+                label11.setText("  Enter Search Parameter:");
+                label11.setFont(new Font(".SF NS Text", Font.PLAIN, 16));
+                label11.setForeground(Color.black);
+                panel4.add(label11, "cell 0 4");
+
+                //---- searchparameter ----
+                searchparameter.setBackground(Color.white);
+                panel4.add(searchparameter, "cell 0 5");
+
+                //---- search ----
+                search.setText("Search");
+                search.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
+                search.setBackground(Color.black);
+                search.setForeground(Color.black);
+                panel4.add(search, "cell 0 5,alignx right,growx 0");
+
+                //======== scrollPane5 ========
                 {
-                    panel34.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 60));
+
+                    //---- gradeList ----
+                    gradeList.setBackground(Color.white);
+                    gradeList.setForeground(Color.black);
+                    scrollPane5.setViewportView(gradeList);
                 }
-                panel32.add(panel34, BorderLayout.EAST);
+                panel4.add(scrollPane5, "cell 0 6,grow");
 
-                //======== panel35 ========
-                {
-                    panel35.setLayout(new BorderLayout());
+                //---- enterGrade ----
+                enterGrade.setText("Enter Grade");
+                enterGrade.setFont(enterGrade.getFont().deriveFont(enterGrade.getFont().getSize() + 1f));
+                enterGrade.setBackground(Color.black);
+                enterGrade.setForeground(Color.black);
+                panel4.add(enterGrade, "cell 0 7");
 
-                    //======== panel37 ========
-                    {
-                        panel37.setMinimumSize(new Dimension(60, 30));
-                        panel37.setPreferredSize(new Dimension(60, 25));
-                        panel37.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
-                    }
-                    panel35.add(panel37, BorderLayout.EAST);
-
-                    //======== panel38 ========
-                    {
-                        panel38.setLayout(new FlowLayout());
-                    }
-                    panel35.add(panel38, BorderLayout.NORTH);
-
-                    //======== panel39 ========
-                    {
-                        panel39.setLayout(new FlowLayout());
-
-                        //---- label8 ----
-                        label8.setText("Student Grades");
-                        label8.setFont(label8.getFont().deriveFont(label8.getFont().getStyle() | Font.BOLD, label8.getFont().getSize() + 10f));
-                        panel39.add(label8);
-                    }
-                    panel35.add(panel39, BorderLayout.SOUTH);
-
-                    //======== panel40 ========
-                    {
-                        panel40.setMaximumSize(new Dimension(32767, 10000));
-                        panel40.setMinimumSize(new Dimension(410, 5));
-                        panel40.setPreferredSize(new Dimension(410, 5));
-                        panel40.setLayout(new GridLayout(1, 5));
-
-                        //---- button3 ----
-                        button3.setText("Back");
-                        button3.setMinimumSize(new Dimension(50, 30));
-                        button3.setMaximumSize(new Dimension(82, 30));
-                        button3.setPreferredSize(new Dimension(50, 25));
-                        panel40.add(button3);
-                        panel40.add(hSpacer40);
-                        panel40.add(hSpacer41);
-                        panel40.add(hSpacer44);
-                        panel40.add(hSpacer43);
-                        panel40.add(hSpacer42);
-                    }
-                    panel35.add(panel40, BorderLayout.CENTER);
-
-                    //======== panel41 ========
-                    {
-                        panel41.setMinimumSize(new Dimension(60, 30));
-                        panel41.setPreferredSize(new Dimension(60, 25));
-                        panel41.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
-                    }
-                    panel35.add(panel41, BorderLayout.WEST);
-                }
-                panel32.add(panel35, BorderLayout.NORTH);
-
-                //======== panel42 ========
-                {
-                    panel42.setLayout(new GridLayout(5, 1));
-
-                    //---- label7 ----
-                    label7.setText("Search Students by:");
-                    panel42.add(label7);
-
-                    //---- radioButton10 ----
-                    radioButton10.setText("ID");
-                    panel42.add(radioButton10);
-
-                    //---- radioButton11 ----
-                    radioButton11.setText("Last Name");
-                    panel42.add(radioButton11);
-
-                    //======== panel43 ========
-                    {
-                        panel43.setLayout(new GridLayout(1, 6));
-
-                        //---- button4 ----
-                        button4.setText("Search");
-                        panel43.add(button4);
-                        panel43.add(hSpacer49);
-                        panel43.add(hSpacer48);
-                        panel43.add(hSpacer47);
-                        panel43.add(hSpacer46);
-                        panel43.add(hSpacer45);
-                    }
-                    panel42.add(panel43);
-
-                    //======== panel44 ========
-                    {
-                        panel44.setLayout(new FlowLayout());
-                    }
-                    panel42.add(panel44);
-                }
-                panel32.add(panel42, BorderLayout.CENTER);
+                //---- downloadSubmission ----
+                downloadSubmission.setText("Download Submission");
+                downloadSubmission.setBackground(Color.black);
+                downloadSubmission.setForeground(Color.black);
+                downloadSubmission.setFont(downloadSubmission.getFont().deriveFont(downloadSubmission.getFont().getSize() + 1f));
+                panel4.add(downloadSubmission, "cell 0 7");
             }
-            frame1ContentPane.add(panel32, BorderLayout.NORTH);
-            frame1.pack();
-            frame1.setLocationRelativeTo(frame1.getOwner());
+            panel1.add(panel4, "cell 0 0,grow");
         }
+        contentPane.add(panel1, "cell 0 0,grow");
+        pack();
+        setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Aysha Panatch
-    private JFrame frame1;
+    private JPanel panel1;
     private JPanel panel4;
-    private JPanel panel5;
-    private JScrollPane scrollPane2;
-    private JList list1;
-    private JPanel panel7;
-    private JPanel panel32;
-    private JPanel panel33;
-    private JPanel panel34;
-    private JPanel panel35;
-    private JPanel panel37;
-    private JPanel panel38;
-    private JPanel panel39;
-    private JLabel label8;
-    private JPanel panel40;
-    private JButton button3;
-    private JPanel hSpacer40;
-    private JPanel hSpacer41;
-    private JPanel hSpacer44;
-    private JPanel hSpacer43;
-    private JPanel hSpacer42;
-    private JPanel panel41;
-    private JPanel panel42;
-    private JLabel label7;
-    private JRadioButton radioButton10;
-    private JRadioButton radioButton11;
-    private JPanel panel43;
-    private JButton button4;
-    private JPanel hSpacer49;
-    private JPanel hSpacer48;
-    private JPanel hSpacer47;
-    private JPanel hSpacer46;
-    private JPanel hSpacer45;
-    private JPanel panel44;
+    private JPanel panel2;
+    private JButton back;
+    private JLabel label1;
+    private JLabel label10;
+    private JRadioButton IDradioButton;
+    private JRadioButton lastNameradioButton;
+    private JLabel label11;
+    private JTextField searchparameter;
+    private JButton search;
+    private JScrollPane scrollPane5;
+    private JList gradeList;
+    private JButton enterGrade;
+    private JButton downloadSubmission;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
-
     public static void main(String[] args) {
         ManageGrades obj = new ManageGrades();
-        obj.frame1.setVisible(true);
-        obj.frame1.setSize(700, 700);
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    public void valueChanged(ListSelectionEvent e){
     }
 }

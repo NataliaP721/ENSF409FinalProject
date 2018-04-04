@@ -5,79 +5,164 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "hidemode 3"
-			"$columnConstraints": "[236,fill][215,fill][228,fill]"
-			"$rowConstraints": "[101][205][116]"
+			"$columnConstraints": "0[236,fill]0[198,fill]0[260,fill]0"
+			"$rowConstraints": "0[170]0[208]0[299]0"
 		} ) {
 			name: "frame1"
 			"title": "Manage Course"
-			"background": new com.jformdesigner.model.SwingColor( "Button.darcula.defaultStartColor" )
-			"foreground": sfield java.awt.SystemColor textInactiveText
+			"background": &SwingColor0 new com.jformdesigner.model.SwingColor( "TextPane.selectionBackground" )
+			"foreground": #SwingColor0
 			"defaultCloseOperation": 3
 			"font": new java.awt.Font( "Geneva", 0, 13 )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label2"
-				"text": "Course: ENCM 511"
-				"horizontalAlignment": 0
-				"font": new java.awt.Font( "Geneva", 0, 15 )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "15[fill]"
+				"$rowConstraints": "[][]"
+			} ) {
+				name: "panel2"
+				"background": new java.awt.Color( 115, 194, 251, 255 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "back"
+					"text": "Back"
+					"foreground": sfield java.awt.Color darkGray
+					"background": new java.awt.Color( 0, 0, 0, 255 )
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0,align leading top,grow 0 0"
+				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 0"
+				"value": "cell 0 0,grow"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
-				"$columnConstraints": "[106,fill][fill][fill][fill][fill]"
-				"$rowConstraints": "[][][][][][]"
+				"$columnConstraints": "0[306,fill]0"
+				"$rowConstraints": "[67][14]"
+			} ) {
+				name: "panel3"
+				"background": new java.awt.Color( 115, 194, 251, 255 )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "courseName"
+					"text": "ENCM 511"
+					"horizontalAlignment": 0
+					"font": new java.awt.Font( ".SF NS Text", 1, 30 )
+					"background": new java.awt.Color( 51, 153, 255, 255 )
+					"foreground": sfield java.awt.Color black
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 0,alignx center,grow 0 100"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 1 0,grow"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "panel6"
+				"background": new java.awt.Color( 115, 194, 251, 255 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 0,grow"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "panel4"
+				"background": new java.awt.Color( 115, 194, 251, 255 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1,grow"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[0,fill][0,fill][175,fill][7,fill][fill]"
+				"$rowConstraints": "0[90]0[90][70][79]20[33][233]"
 			} ) {
 				name: "panel1"
+				"background": new java.awt.Color( 115, 194, 251, 255 )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button7"
+					name: "manageAssignments"
 					"text": "Manage Assignments"
-					"font": new java.awt.Font( "Geneva", 0, 11 )
+					"font": new java.awt.Font( ".SF NS Text", 0, 20 )
+					"foreground": sfield java.awt.Color darkGray
+					"background": new java.awt.Color( 0, 0, 0, 255 )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 2 0"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button8"
+					name: "manageSubmissions"
 					"text": "Manage Submissions"
-					"font": new java.awt.Font( "Geneva", 0, 11 )
+					"font": new java.awt.Font( ".SF NS Text", 0, 20 )
+					"foreground": sfield java.awt.Color darkGray
+					"background": new java.awt.Color( 0, 0, 0, 255 )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 2 1"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button11"
+					name: "manageGrades"
 					"text": "Manage Grades"
-					"font": new java.awt.Font( "Geneva", 0, 11 )
+					"font": new java.awt.Font( ".SF NS Text", 0, 20 )
+					"foreground": sfield java.awt.Color darkGray
+					"background": new java.awt.Color( 0, 0, 0, 255 )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 2 2"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button9"
+					name: "emailStudents"
 					"text": "Email Students"
-					"font": new java.awt.Font( "Geneva", 0, 11 )
+					"font": new java.awt.Font( ".SF NS Text", 0, 20 )
+					"foreground": sfield java.awt.Color darkGray
+					"background": new java.awt.Color( 0, 0, 0, 255 )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 2 3"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button10"
+					name: "enrollStudents"
 					"text": "Enroll Students"
-					"font": new java.awt.Font( "Geneva", 0, 11 )
+					"font": new java.awt.Font( ".SF NS Text", 0, 20 )
 					"icon": sfield com.jformdesigner.model.FormObject NULL_VALUE
-					"preferredSize": new java.awt.Dimension( 100, 100 )
+					"preferredSize": new java.awt.Dimension( 120, 100 )
+					"foreground": sfield java.awt.Color darkGray
+					"background": new java.awt.Color( 0, 0, 0, 255 )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 2 4"
+					"value": "cell 2 4,aligny center,growy 0"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 1 1"
+				"value": "cell 1 1 1 2"
 			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button12"
-				"text": "Back"
-				"font": new java.awt.Font( "Geneva", 0, 11 )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[fill][fill][fill][fill][fill][fill]"
+				"$rowConstraints": "[][][][]"
+			} ) {
+				name: "panel5"
+				"background": new java.awt.Color( 115, 194, 251, 255 )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 2 2"
+				"value": "cell 2 1,grow"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "panel7"
+				"background": new java.awt.Color( 115, 194, 251, 255 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2,grow"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "hidemode 3"
+				"$columnConstraints": "[fill][fill][fill][fill][fill][fill][157,fill]"
+				"$rowConstraints": "[][346]"
+			} ) {
+				name: "panel8"
+				"background": new java.awt.Color( 115, 194, 251, 255 )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 2 2,grow"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 20, 20 )
-			"size": new java.awt.Dimension( 680, 500 )
+			"size": new java.awt.Dimension( 700, 700 )
 		} )
 	}
 }

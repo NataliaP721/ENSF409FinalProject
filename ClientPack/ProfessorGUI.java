@@ -1,6 +1,11 @@
+package ClientPack;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
-import net.miginfocom.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 /*
  * Created by JFormDesigner on Fri Mar 30 13:52:20 MDT 2018
  */
@@ -10,9 +15,14 @@ import net.miginfocom.swing.*;
 /**
  * @author unknown
  */
-public class gui extends JPanel {
-    public gui() {
+public class ProfessorGUI extends JPanel implements ActionListener,ListSelectionListener {
+    public ProfessorGUI() {
         initComponents();
+        //SET COMBO TEXT STUFF HERE
+        logout.addActionListener(this);
+        courseList.addListSelectionListener(this);
+        frame1.setSize(700, 700);
+        frame1.setVisible(true);
     }
 
     private void initComponents() {
@@ -29,7 +39,7 @@ public class gui extends JPanel {
         hSpacer5 = new JPanel(null);
         hSpacer2 = new JPanel(null);
         hSpacer1 = new JPanel(null);
-        comboBox1 = new JComboBox();
+        logout = new JButton();
         panel8 = new JPanel();
         panel9 = new JPanel();
         label2 = new JLabel();
@@ -39,7 +49,7 @@ public class gui extends JPanel {
         panel5 = new JPanel();
         panel6 = new JPanel();
         scrollPane2 = new JScrollPane();
-        list1 = new JList();
+        courseList = new JList();
 
         //======== frame1 ========
         {
@@ -50,6 +60,7 @@ public class gui extends JPanel {
 
             //======== panel1 ========
             {
+                panel1.setBackground(new Color(115, 194, 251));
 
                 // JFormDesigner evaluation mark
                 panel1.setBorder(new javax.swing.border.CompoundBorder(
@@ -62,70 +73,81 @@ public class gui extends JPanel {
 
                 //======== panel7 ========
                 {
-                    panel7.setBackground(new Color(187, 187, 187));
+                    panel7.setBackground(new Color(115, 194, 251));
                     panel7.setPreferredSize(new Dimension(1200, 34));
                     panel7.setMinimumSize(new Dimension(1200, 34));
                     panel7.setLayout(new GridLayout(1, 10));
 
                     //---- hSpacer3 ----
-                    hSpacer3.setBackground(new Color(187, 187, 187));
+                    hSpacer3.setBackground(new Color(115, 194, 251));
                     panel7.add(hSpacer3);
 
                     //---- hSpacer4 ----
-                    hSpacer4.setBackground(new Color(187, 187, 187));
+                    hSpacer4.setBackground(new Color(115, 194, 251));
                     panel7.add(hSpacer4);
 
                     //---- hSpacer6 ----
-                    hSpacer6.setBackground(new Color(187, 187, 187));
+                    hSpacer6.setBackground(new Color(115, 194, 251));
                     panel7.add(hSpacer6);
 
                     //---- hSpacer8 ----
-                    hSpacer8.setBackground(new Color(187, 187, 187));
+                    hSpacer8.setBackground(new Color(115, 194, 251));
                     panel7.add(hSpacer8);
 
                     //---- hSpacer7 ----
-                    hSpacer7.setBackground(new Color(187, 187, 187));
+                    hSpacer7.setBackground(new Color(115, 194, 251));
                     panel7.add(hSpacer7);
 
                     //---- hSpacer5 ----
-                    hSpacer5.setBackground(new Color(187, 187, 187));
+                    hSpacer5.setBackground(new Color(115, 194, 251));
                     panel7.add(hSpacer5);
 
                     //---- hSpacer2 ----
-                    hSpacer2.setBackground(new Color(187, 187, 187));
+                    hSpacer2.setBackground(new Color(115, 194, 251));
                     panel7.add(hSpacer2);
 
                     //---- hSpacer1 ----
-                    hSpacer1.setBackground(new Color(187, 187, 187));
+                    hSpacer1.setBackground(new Color(115, 194, 251));
                     panel7.add(hSpacer1);
-                    panel7.add(comboBox1);
+
+                    //---- logout ----
+                    logout.setText("Logout");
+                    logout.setForeground(Color.black);
+                    logout.setBackground(Color.black);
+                    panel7.add(logout);
                 }
                 panel1.add(panel7);
 
                 //======== panel8 ========
                 {
+                    panel8.setBackground(new Color(115, 194, 251));
                     panel8.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 1));
                 }
                 panel1.add(panel8);
 
                 //======== panel9 ========
                 {
+                    panel9.setBackground(new Color(115, 194, 251));
                     panel9.setLayout(new FlowLayout());
 
                     //---- label2 ----
-                    label2.setText("Welcome to the !D2L");
-                    label2.setFont(label2.getFont().deriveFont(label2.getFont().getStyle() | Font.BOLD, label2.getFont().getSize() + 9f));
+                    label2.setText("Welcome to !D2L");
+                    label2.setFont(new Font(".SF NS Text", Font.BOLD, 24));
+                    label2.setForeground(Color.black);
                     panel9.add(label2);
                 }
                 panel1.add(panel9);
 
                 //======== panel10 ========
                 {
+                    panel10.setForeground(new Color(115, 194, 251));
+                    panel10.setBackground(new Color(115, 194, 251));
                     panel10.setLayout(new FlowLayout());
 
                     //---- label3 ----
                     label3.setText("Courses");
-                    label3.setFont(label3.getFont().deriveFont(label3.getFont().getSize() + 4f));
+                    label3.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
+                    label3.setForeground(Color.black);
                     panel10.add(label3);
                 }
                 panel1.add(panel10);
@@ -134,25 +156,33 @@ public class gui extends JPanel {
 
             //======== panel4 ========
             {
+                panel4.setBackground(new Color(115, 194, 251));
                 panel4.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
             }
             frame1ContentPane.add(panel4, BorderLayout.WEST);
 
             //======== panel5 ========
             {
+                panel5.setBackground(new Color(115, 194, 251));
                 panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 30));
             }
             frame1ContentPane.add(panel5, BorderLayout.SOUTH);
 
             //======== panel6 ========
             {
+                panel6.setBackground(new Color(115, 194, 251));
                 panel6.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
             }
             frame1ContentPane.add(panel6, BorderLayout.EAST);
 
             //======== scrollPane2 ========
             {
-                scrollPane2.setViewportView(list1);
+
+                //---- courseList ----
+                courseList.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
+                courseList.setBackground(Color.white);
+                courseList.setForeground(Color.black);
+                scrollPane2.setViewportView(courseList);
             }
             frame1ContentPane.add(scrollPane2, BorderLayout.CENTER);
             frame1.pack();
@@ -174,7 +204,7 @@ public class gui extends JPanel {
     private JPanel hSpacer5;
     private JPanel hSpacer2;
     private JPanel hSpacer1;
-    private JComboBox comboBox1;
+    private JButton logout;
     private JPanel panel8;
     private JPanel panel9;
     private JLabel label2;
@@ -184,12 +214,17 @@ public class gui extends JPanel {
     private JPanel panel5;
     private JPanel panel6;
     private JScrollPane scrollPane2;
-    private JList list1;
+    private JList courseList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     public static void main(String[] args) {
-        gui obj = new gui();
-        obj.frame1.setVisible(true);
-        obj.frame1.setSize(700, 700);
+        ProfessorGUI obj = new ProfessorGUI();
+
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+    public void valueChanged(ListSelectionEvent e){
     }
 }
