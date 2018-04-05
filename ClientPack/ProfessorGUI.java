@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+//import javax.swing.event.ListSelectionEvent;
+//import javax.swing.event.ListSelectionListener;
 import SharedDataObjects.*;
 /*
  * Created by JFormDesigner on Fri Mar 30 13:52:20 MDT 2018
@@ -19,10 +19,12 @@ import SharedDataObjects.*;
 /**
  * @author unknown
  */
-public class ProfessorGUI extends JPanel implements ActionListener,ListSelectionListener {
-    public ProfessorGUI(ObjectInputStream in, ObjectOutputStream out) {
+public class ProfessorGUI extends JPanel implements ActionListener {
+
+    ProfessorGUI(ObjectInputStream in, ObjectOutputStream out, User prof) {
         this.in = in;
         this.out = out;
+        this.prof = prof;
         try {
             courses = (Course[])in.readObject();
         }
@@ -35,14 +37,17 @@ public class ProfessorGUI extends JPanel implements ActionListener,ListSelection
         initComponents();
         courseList.setListData(courses);
         logout.addActionListener(this);
-        courseList.addListSelectionListener(this);
+        //courseList.addListSelectionListener(this);
+        openCourse.addActionListener(this);
         addCourse.addActionListener(this);
         deleteCourse.addActionListener(this);
-        manager = new ManageCourses();
+        manager = new ManageCourses(in, out);
         manager.setVisible(false);
         frame1.setSize(700, 700);
         frame1.setVisible(true);
     }
+
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -66,6 +71,7 @@ public class ProfessorGUI extends JPanel implements ActionListener,ListSelection
         label3 = new JLabel();
         panel4 = new JPanel();
         panel5 = new JPanel();
+        openCourse = new JButton();
         addCourse = new JButton();
         deleteCourse = new JButton();
         panel6 = new JPanel();
@@ -188,6 +194,12 @@ public class ProfessorGUI extends JPanel implements ActionListener,ListSelection
                 panel5.setBackground(new Color(115, 194, 251));
                 panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 30));
 
+                //---- openCourse ----
+                openCourse.setText("Open Course");
+                openCourse.setForeground(Color.black);
+                openCourse.setBackground(Color.black);
+                panel5.add(openCourse);
+
                 //---- addCourse ----
                 addCourse.setText("Add Course");
                 addCourse.setBackground(Color.black);
@@ -246,16 +258,20 @@ public class ProfessorGUI extends JPanel implements ActionListener,ListSelection
     private JLabel label3;
     private JPanel panel4;
     private JPanel panel5;
+    private JButton openCourse;
     private JButton addCourse;
     private JButton deleteCourse;
     private JPanel panel6;
     private JScrollPane scrollPane2;
     private JList<Course> courseList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
+    private User prof;
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private Course[] courses;
     private ManageCourses manager;
+
+//
 //    public static void main(String[] args) {
 //        ProfessorGUI obj = new ProfessorGUI();
 //
@@ -265,13 +281,77 @@ public class ProfessorGUI extends JPanel implements ActionListener,ListSelection
         if(e.getSource() == logout) {
             System.exit(0);
         }
+        else if(e.getSource() == openCourse) {
+            Course current = courses[courseList.getSelectedIndex()];
+            manager.setCourse(current);
+            manager.setVisible(true);
+            this.setVisible(false);
+            while(!manager.getVisible()){}
+            this.setVisible(true);
+        }
+        else if(e.getSource() == addCourse) {
+            this.add();
+            try {
+                courseList.setListData((Course[])(in.readObject()));
+            }
+            catch(ClassNotFoundException c) {
+                System.err.println("Object error");
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
+        }
+        else if(e.getSource() == deleteCourse) {
+            Course current = courses[courseList.getSelectedIndex()];
+            current.setCommand("DELETE");
+            Course[] newList = null;
+            try {
+                out.writeObject(current);
+                newList = (Course[])(in.readObject());
+            }
+            catch(ClassNotFoundException c) {
+                System.err.println("Object error");
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
+            courseList.setListData(newList);
+        }
     }
-    public void valueChanged(ListSelectionEvent e){
-        Course current = courses[courseList.getSelectedIndex()];
-        manager.setCourse(current);
-        manager.setVisible(true);
-        this.setVisible(false);
-        while(!manager.getVisible()){}
-        this.setVisible(true);
+
+    private void add() {
+
+        JTextField courseName = new JTextField(7);
+        JTextField courseID = new JTextField(6);
+
+        //put all the things into the panel
+
+        JPanel addCoursePanel = new JPanel();
+        addCoursePanel.add(new JLabel("Enter the course name: "));
+        addCoursePanel.add(courseName);
+        addCoursePanel.add(new JLabel("Enter the course ID: "));
+        addCoursePanel.add(courseID);
+
+        int result = JOptionPane.showConfirmDialog(null, addCoursePanel,
+                "Please Enter Course Information", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            Course newCourse = new Course(Integer.parseInt(courseID.getText()), prof.getID(), courseName.getText(), true);
+            newCourse.setCommand("ADD");
+            try {
+                out.writeObject(newCourse);
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
+        }
+
     }
+//    public void valueChanged(ListSelectionEvent e){
+//        Course current = courses[courseList.getSelectedIndex()];
+//        manager.setCourse(current);
+//        manager.setVisible(true);
+//        this.setVisible(false);
+//        while(!manager.getVisible()){}
+//        this.setVisible(true);
+//    }
 }

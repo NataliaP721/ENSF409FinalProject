@@ -8,6 +8,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import net.miginfocom.swing.*;
+
+import SharedDataObjects.*;
 /*
  * Created by JFormDesigner on Sun Apr 01 10:57:59 MDT 2018
  */
@@ -18,7 +20,7 @@ import net.miginfocom.swing.*;
  * @author Aysha Panatch
  */
 public class ManageAssignment extends JFrame implements ActionListener,ListSelectionListener{
-    public ManageAssignment() {
+    ManageAssignment() {
         initComponents();
         assignmentList.addListSelectionListener(this);
         addAssignment.addActionListener(this);
@@ -157,16 +159,33 @@ public class ManageAssignment extends JFrame implements ActionListener,ListSelec
     private JScrollPane scrollPane1;
     private JList assignmentList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
-    public static void main(String[] args) {
-        ManageAssignment obj = new ManageAssignment();
-    }
+
+    private Course course;
+    private boolean visible;
+//    public static void main(String[] args) {
+//        ManageAssignment obj = new ManageAssignment();
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == back) {
+            this.setVisible(false);
+            visible = false;
+        }
 
     }
 
     public void valueChanged(ListSelectionEvent e){
+    }
+
+    void setCourse(Course x) {
+        this.course = x;
+        visible = true;
+
+    }
+
+    boolean getVisible() {
+        return visible;
     }
 
 }

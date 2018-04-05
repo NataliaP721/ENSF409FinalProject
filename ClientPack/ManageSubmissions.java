@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import SharedDataObjects.*;
 import net.miginfocom.swing.*;
 /*
  * Created by JFormDesigner on Sun Apr 01 13:36:12 MDT 2018
@@ -201,14 +202,26 @@ import net.miginfocom.swing.*;
     private JButton gradeSubmission;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
-    public static void main(String[] args) {
-        ManageSubmissions obj = new ManageSubmissions();
-    }
+    private Course course;
+    private boolean visible;
+//    public static void main(String[] args) {
+//        ManageSubmissions obj = new ManageSubmissions();
+//    }
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
 
     public void valueChanged(ListSelectionEvent e){
+    }
+
+    void setCourse(Course x) {
+        this.course = x;
+        visible = true;
+
+    }
+
+    boolean getVisible() {
+        return visible;
     }
 }

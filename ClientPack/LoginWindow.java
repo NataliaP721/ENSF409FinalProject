@@ -19,7 +19,7 @@ import java.io.IOException;
  * @author Aysha Panatch
  */
 public class LoginWindow extends JFrame implements ActionListener{
-    public LoginWindow(ObjectInputStream in, ObjectOutputStream out) {
+    LoginWindow(ObjectInputStream in, ObjectOutputStream out) {
         this.out = out;
         this.in = in;
         initComponents();
@@ -178,7 +178,8 @@ public class LoginWindow extends JFrame implements ActionListener{
 //    }
 
 
-    public JLabel getWarning() {
+    JLabel getWarning() {
+
         return warning;
     }
 
@@ -190,6 +191,7 @@ public class LoginWindow extends JFrame implements ActionListener{
             String pass = password.getText();
             password.setText("");
             LoginInfo info = new LoginInfo(user, pass);
+            info.se
             try {
                 out.writeObject(info);
             } catch (IOException f) {

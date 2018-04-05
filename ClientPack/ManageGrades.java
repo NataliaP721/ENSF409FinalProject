@@ -1,5 +1,6 @@
 package ClientPack;
 
+import SharedDataObjects.*;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ import java.awt.event.ActionListener;
  * @author Aysha Panatch
  */
 public class ManageGrades extends JFrame implements ActionListener, ListSelectionListener{
-    public ManageGrades() {
+    ManageGrades() {
         initComponents();
         search.addActionListener(this);
         back.addActionListener(this);
@@ -207,14 +208,26 @@ public class ManageGrades extends JFrame implements ActionListener, ListSelectio
     private JButton enterGrade;
     private JButton downloadSubmission;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
-    public static void main(String[] args) {
-        ManageGrades obj = new ManageGrades();
-    }
+
+    private Course course;
+    private boolean visible;
+//    public static void main(String[] args) {
+//        ManageGrades obj = new ManageGrades();
+//    }
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
 
     public void valueChanged(ListSelectionEvent e){
+    }
+
+    void setCourse(Course x) {
+        this.course = x;
+        visible = true;
+    }
+
+    boolean getVisible() {
+        return visible;
     }
 }

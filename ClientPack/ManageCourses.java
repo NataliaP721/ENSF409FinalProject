@@ -3,6 +3,8 @@ package ClientPack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 import SharedDataObjects.*;
@@ -12,15 +14,30 @@ import SharedDataObjects.*;
 
 class ManageCourses extends JFrame implements ActionListener{
 
-    ManageCourses() {
+    ManageCourses(ObjectInputStream in, ObjectOutputStream out) {
+
+        this.in = in;
+        this.out = out;
         initComponents();
-        //SET COURSE NAME HERE courseName.settext(whatever)
+        courseName.setText(course.getCourseName());
         manageAssignments.addActionListener(this);
         manageSubmissions.addActionListener(this);
         emailStudents.addActionListener(this);
         enrollStudents.addActionListener(this);
         back.addActionListener(this);
         manageGrades.addActionListener(this);
+
+        assignManager = new ManageAssignment();
+        assignManager.setVisible(false);
+        subManager = new ManageSubmissions();
+        subManager.setVisible(false);
+        gradeManager = new ManageGrades();
+        gradeManager.setVisible(false);
+        emailManager = new EmailStudents();
+        emailManager.setVisible(false);
+        enrollManager = new EnrollStudents();
+        enrollStudents.setVisible(false);
+
         frame1.setSize(700, 700);
         frame1.setVisible(true);
      }
@@ -271,10 +288,18 @@ class ManageCourses extends JFrame implements ActionListener{
     private JPanel panel8;
     private Course course;
 
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
     private boolean visible;
+    private ManageAssignment assignManager;
+    private ManageSubmissions subManager;
+    private ManageGrades gradeManager;
+    private EmailStudents emailManager;
+    private EnrollStudents enrollManager;
 
     void setCourse(Course x) {
         this.course = x;
+        visible = true;
     }
 
     boolean getVisible() {
@@ -292,13 +317,25 @@ class ManageCourses extends JFrame implements ActionListener{
                 visible = false;
             }
             else if(e.getSource() == manageAssignments) {
-
+                assignManager.setCourse(course);
+                assignManager.setVisible(true);
+                this.setVisible(false);
+                while(!assignManager.getVisible()){}
+                this.setVisible(true);
             }
             else if(e.getSource() == manageSubmissions) {
-
+                subManager.setCourse(course);
+                subManager.setVisible(true);
+                this.setVisible(false);
+                while(!subManager.getVisible()){}
+                this.setVisible(true);
             }
             else if(e.getSource() == manageGrades) {
-
+                gradeManager.setCourse(course);
+                gradeManager.setVisible(true);
+                this.setVisible(false);
+                while(!gradeManager.getVisible()){}
+                this.setVisible(true);
             }
             else if(e.getSource() == emailStudents) {
 

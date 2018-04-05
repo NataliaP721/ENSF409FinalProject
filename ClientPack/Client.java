@@ -38,18 +38,20 @@ public class Client {
                 user = (User) socketIn.readObject();
             }
             catch(ClassNotFoundException e) {
-                System.err.println("error");
+                System.err.println("Object error");
             }
             catch(IOException e) {
                 System.err.println("IO Error");
             }
-            if (user.getUserType == 'P') {
-                ProfessorGUI prof = new ProfessorGUI(socketIn, socketOut);
-                break;
-            } else if (user.getUserType == 'S') {
-                break;
-            } else {
+            if(user == null) {
                 login.getWarning().setText("Incorrect username or password");
+            }
+            else if (user.getUserType() == 'P') {
+                ProfessorGUI prof = new ProfessorGUI(socketIn, socketOut, user);
+                break;
+            }
+            else if (user.getUserType() == 'S') {
+                break;
             }
         }
 

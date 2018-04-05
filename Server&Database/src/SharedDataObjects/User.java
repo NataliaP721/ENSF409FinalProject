@@ -4,13 +4,15 @@ public class User {
     private String lastName;
     private String firstName;
     private String userEmail;
+    private int id;
     private char userType;
     private String command;
 
-    public User(String lastName, String firstName, String userEmail, char userType) {
+    public User(String lastName, String firstName, String userEmail, int id, char userType) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.userEmail = userEmail;
+        this.id = id;
         this.userType = userType;
         this.command = null;
     }
@@ -26,10 +28,10 @@ public class User {
     public char getUserType() {
         return this.userType;
     }
-    public String getCommand() {
-        return this.command;
-    }
     public void setCommand(String command) {
         this.command = command;
+    }
+    public int getID() {
+        return this.id;
     }
 }

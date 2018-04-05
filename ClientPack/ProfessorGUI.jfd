@@ -105,6 +105,12 @@ new FormModel {
 				name: "panel5"
 				"background": new java.awt.Color( 115, 194, 251, 255 )
 				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "openCourse"
+					"text": "Open Course"
+					"foreground": sfield java.awt.Color black
+					"background": sfield java.awt.Color black
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "addCourse"
 					"text": "Add Course"
 					"background": sfield java.awt.Color black
@@ -139,7 +145,7 @@ new FormModel {
 				"value": "Center"
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 10, 34 )
+			"location": new java.awt.Point( 10, 39 )
 			"size": new java.awt.Dimension( 700, 701 )
 		} )
 	}
