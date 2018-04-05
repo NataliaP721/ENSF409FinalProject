@@ -5,12 +5,14 @@ public class Course {
     private int professorID;
     private String courseName;
     private boolean active;
+    private String command;
 
     public Course(int courseID, int professorID, String courseName, boolean active) {
         this.courseID = courseID;
         this.professorID = professorID;
         this.courseName = courseName;
         this.active = active;
+        this.command = null;
     }
     // Helper methods
     // get
@@ -23,11 +25,26 @@ public class Course {
     public String getCourseName() {
         return this.courseName;
     }
-    public boolean getActive() {
-        return this.active;
+    public char getActive() {
+        if (this.active == false) {
+            return '0';
+        }
+        else
+            return '1';
     }
     // set
     public void setActive(boolean active) {
         this.active = active;
     }
+    @Override
+     public String toString() {
+       String answer = courseName;
+       if(active == true){
+         answer = answer + "          ACTIVE";
+       }
+       else {
+         answer = answer + "          INACTIVE";
+       }
+       return answer;
+     }
 }

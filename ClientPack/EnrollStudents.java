@@ -44,6 +44,11 @@ public class EnrollStudents extends JFrame {
         {
 
             // JFormDesigner evaluation mark
+            panel4.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), panel4.getBorder())); panel4.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel4.setLayout(new MigLayout(
                 "hidemode 3",
@@ -102,8 +107,6 @@ public class EnrollStudents extends JFrame {
         contentPane.add(panel4, "cell 0 0,grow");
         pack();
         setLocationRelativeTo(getOwner());
-        this.setSize(700,700);
-        this.setVisible(true);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 

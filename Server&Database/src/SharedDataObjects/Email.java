@@ -7,12 +7,14 @@ public class Email {
     private ArrayList<String> to;
     private String emailSubject;
     private String emailContent;
+    private String command;
 
     public Email(String from, ArrayList<String> to, String emailSubject, String emailContent) {
         this.from = from;
         this.to = to;
         this.emailSubject = emailSubject;
         this.emailContent = emailContent;
+        this.command = null;
     }
     // Helper methods
     // get
