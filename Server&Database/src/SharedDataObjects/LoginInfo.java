@@ -3,10 +3,12 @@ package SharedDataObjects;
 public class LoginInfo {
     private int username;
     private String password;
+    private String command;
 
     public LoginInfo(int username, String password) {
         this.username = username;
         this.password = password;
+        this.command = null;
     }
     // Helper methods
     // get

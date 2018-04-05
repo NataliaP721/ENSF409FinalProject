@@ -7,6 +7,7 @@ new FormModel {
 			name: "frame1"
 			"title": "My Courses"
 			"background": new java.awt.Color( 0, 153, 255, 255 )
+			"defaultCloseOperation": 3
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) {
 				"columns": 1
 				"rows": 4
@@ -99,12 +100,21 @@ new FormModel {
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
 				"vgap": 30
+				"hgap": 100
 			} ) {
 				name: "panel5"
 				"background": new java.awt.Color( 115, 194, 251, 255 )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button1"
-					"text": "Select"
+					name: "addCourse"
+					"text": "Add Course"
+					"background": sfield java.awt.Color black
+					"foreground": sfield java.awt.Color black
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "deleteCourse"
+					"text": "Delete Course"
+					"background": sfield java.awt.Color black
+					"foreground": sfield java.awt.Color black
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "South"

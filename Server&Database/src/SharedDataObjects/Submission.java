@@ -6,12 +6,13 @@ public class Submission {
     private int studentID;
     private String submissionPath;
     private int submissionGrade;
-    private int submissionComment;
+    private String submissionComment;
     private String submissionTimestamp;
     private String assignmentTitle;
+    private String command;
 
     public Submission(int submissionID, int assignmentID, int studentID, String submissionPath, int submissionGrade,
-                      int submissionComment, String submissionTimestamp, String assignmentTitle) {
+                      String submissionComment, String submissionTimestamp, String assignmentTitle) {
         this.submissionID = submissionID;
         this.assignmentID = assignmentID;
         this.studentID = studentID;
@@ -20,6 +21,7 @@ public class Submission {
         this.submissionComment = submissionComment;
         this.submissionTimestamp = submissionTimestamp;
         this.assignmentTitle = assignmentTitle;
+        this.command = null;
     }
     // Helper methods
     // get
@@ -38,7 +40,7 @@ public class Submission {
     public int getSubmissionGrade() {
         return this.submissionGrade;
     }
-    public int getSubmissionComment() {
+    public String getSubmissionComment() {
         return this.submissionComment;
     }
     public String getSubmissionTimestamp() {

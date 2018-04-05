@@ -3,11 +3,13 @@ package ClientPack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import SharedDataObjects.*;
 /*
  * Created by JFormDesigner on Fri Mar 30 13:52:20 MDT 2018
  */
@@ -21,11 +23,23 @@ public class ProfessorGUI extends JPanel implements ActionListener,ListSelection
     public ProfessorGUI(ObjectInputStream in, ObjectOutputStream out) {
         this.in = in;
         this.out = out;
+        try {
+            courses = (Course[])in.readObject();
+        }
+        catch(ClassNotFoundException e) {
+            System.err.println("error");
+        }
+        catch(IOException e) {
+            System.err.println("IO Error");
+        }
         initComponents();
-        //SET COMBO TEXT STUFF HERE
+        courseList.setListData(courses);
         logout.addActionListener(this);
         courseList.addListSelectionListener(this);
-
+        addCourse.addActionListener(this);
+        deleteCourse.addActionListener(this);
+        manager = new ManageCourses();
+        manager.setVisible(false);
         frame1.setSize(700, 700);
         frame1.setVisible(true);
     }
@@ -52,15 +66,17 @@ public class ProfessorGUI extends JPanel implements ActionListener,ListSelection
         label3 = new JLabel();
         panel4 = new JPanel();
         panel5 = new JPanel();
-        button1 = new JButton();
+        addCourse = new JButton();
+        deleteCourse = new JButton();
         panel6 = new JPanel();
         scrollPane2 = new JScrollPane();
-        courseList = new JList();
+        courseList = new JList<>();
 
         //======== frame1 ========
         {
             frame1.setTitle("My Courses");
             frame1.setBackground(new Color(0, 153, 255));
+            frame1.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             Container frame1ContentPane = frame1.getContentPane();
             frame1ContentPane.setLayout(new BorderLayout());
 
@@ -170,11 +186,19 @@ public class ProfessorGUI extends JPanel implements ActionListener,ListSelection
             //======== panel5 ========
             {
                 panel5.setBackground(new Color(115, 194, 251));
-                panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 30));
+                panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 30));
 
-                //---- button1 ----
-                button1.setText("Select");
-                panel5.add(button1);
+                //---- addCourse ----
+                addCourse.setText("Add Course");
+                addCourse.setBackground(Color.black);
+                addCourse.setForeground(Color.black);
+                panel5.add(addCourse);
+
+                //---- deleteCourse ----
+                deleteCourse.setText("Delete Course");
+                deleteCourse.setBackground(Color.black);
+                deleteCourse.setForeground(Color.black);
+                panel5.add(deleteCourse);
             }
             frame1ContentPane.add(panel5, BorderLayout.SOUTH);
 
@@ -222,15 +246,16 @@ public class ProfessorGUI extends JPanel implements ActionListener,ListSelection
     private JLabel label3;
     private JPanel panel4;
     private JPanel panel5;
-    private JButton button1;
+    private JButton addCourse;
+    private JButton deleteCourse;
     private JPanel panel6;
     private JScrollPane scrollPane2;
-    private JList courseList;
+    private JList<Course> courseList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     private ObjectInputStream in;
     private ObjectOutputStream out;
-
-
+    private Course[] courses;
+    private ManageCourses manager;
 //    public static void main(String[] args) {
 //        ProfessorGUI obj = new ProfessorGUI();
 //
@@ -238,9 +263,15 @@ public class ProfessorGUI extends JPanel implements ActionListener,ListSelection
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == logout) {
-
+            System.exit(0);
         }
     }
     public void valueChanged(ListSelectionEvent e){
+        Course current = courses[courseList.getSelectedIndex()];
+        manager.setCourse(current);
+        manager.setVisible(true);
+        this.setVisible(false);
+        while(!manager.getVisible()){}
+        this.setVisible(true);
     }
 }

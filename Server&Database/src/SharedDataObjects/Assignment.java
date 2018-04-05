@@ -7,6 +7,7 @@ public class Assignment {
     private String assignmentPath;
     private boolean active;
     private String dueDate;
+    private String command;
 
     public Assignment(int assignmentID, int courseID, String assignmentTitle,
                       String assignmentPath, boolean active, String dueDate) {
@@ -16,6 +17,7 @@ public class Assignment {
         this.assignmentPath = assignmentPath;
         this.active = active;
         this.dueDate = dueDate;
+        this.command = null;
     }
 
     // Helper methods

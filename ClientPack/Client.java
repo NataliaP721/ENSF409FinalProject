@@ -55,24 +55,6 @@ public class Client {
 
         login.getWarning().setText("");
         login.setVisible(false);
-
-        Object obj;
-        while(true) {
-            try {
-                obj = socketIn.readObject();
-                if(obj instanceof String) {
-                    if(obj.equals("QUIT")) {
-                        break;
-                    }
-                }
-            }
-            catch(ClassNotFoundException e) {
-                System.err.println("error");
-            }
-            catch(IOException e) {
-                System.err.println("IO Error");
-            }
-        }
     }
 
     public static void main(String[] args) {

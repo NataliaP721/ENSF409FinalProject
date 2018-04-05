@@ -5,11 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import net.miginfocom.swing.*;
+import SharedDataObjects.*;
 /*
  * Created by JFormDesigner on Sun Apr 01 12:59:24 MDT 2018
  */
 
-    class ManageCourses extends JFrame implements ActionListener{
+class ManageCourses extends JFrame implements ActionListener{
+
     ManageCourses() {
         initComponents();
         //SET COURSE NAME HERE courseName.settext(whatever)
@@ -21,11 +23,11 @@ import net.miginfocom.swing.*;
         manageGrades.addActionListener(this);
         frame1.setSize(700, 700);
         frame1.setVisible(true);
-    }
+     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         frame1 = new JFrame();
         panel2 = new JPanel();
         back = new JButton();
@@ -250,7 +252,7 @@ import net.miginfocom.swing.*;
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JFrame frame1;
     private JPanel panel2;
     private JButton back;
@@ -267,14 +269,42 @@ import net.miginfocom.swing.*;
     private JPanel panel5;
     private JPanel panel7;
     private JPanel panel8;
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
+    private Course course;
 
-    public static void main(String [] args){ //DONT DELETE THIS YET
-        ManageCourses obj= new ManageCourses();
+    private boolean visible;
+
+    void setCourse(Course x) {
+        this.course = x;
     }
+
+    boolean getVisible() {
+        return visible;
+    }
+
+//    public static void main(String [] args){
+//        ManageCourses obj= new ManageCourses();
+//    }
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(e.getSource() == back) {
+                this.setVisible(false);
+                visible = false;
+            }
+            else if(e.getSource() == manageAssignments) {
 
+            }
+            else if(e.getSource() == manageSubmissions) {
+
+            }
+            else if(e.getSource() == manageGrades) {
+
+            }
+            else if(e.getSource() == emailStudents) {
+
+            }
+            else if(e.getSource() == enrollStudents) {
+
+            }
         }
     }

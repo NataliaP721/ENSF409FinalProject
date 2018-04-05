@@ -5,12 +5,14 @@ public class StudentEnrollment {
     private int studentID;
     private int courseID;
     private boolean Enrolling;
+    private String command;
 
     public StudentEnrollment(int enrollmentID, int studentID, int courseID, boolean Enrolling) {
         this.enrollmentID = enrollmentID;
         this.studentID = studentID;
         this.courseID = courseID;
         this.Enrolling = Enrolling;
+        this.command = null;
     }
     // Helper methods
     // get
