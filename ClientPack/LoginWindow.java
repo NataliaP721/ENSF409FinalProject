@@ -2,8 +2,13 @@ package ClientPack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javax.swing.*;
 import net.miginfocom.swing.*;
+import SharedDataObjects.*;
+import java.io.IOException;
+
 /*
  * Created by JFormDesigner on Sun Apr 01 10:38:14 MDT 2018
  */
@@ -14,7 +19,9 @@ import net.miginfocom.swing.*;
  * @author Aysha Panatch
  */
 public class LoginWindow extends JFrame implements ActionListener{
-    public LoginWindow() {
+    public LoginWindow(ObjectInputStream in, ObjectOutputStream out) {
+        this.out = out;
+        this.in = in;
         initComponents();
         ok.addActionListener(this);
         this.setVisible(true);
@@ -22,11 +29,12 @@ public class LoginWindow extends JFrame implements ActionListener{
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel3 = new JPanel();
         loginPrompt = new JLabel();
         label1 = new JLabel();
         panel1 = new JPanel();
+        warning = new JLabel();
         usernamePrompt = new JLabel();
         username = new JTextField();
         panel2 = new JPanel();
@@ -89,18 +97,24 @@ public class LoginWindow extends JFrame implements ActionListener{
                     "[84,fill]5" +
                     "[232,fill]14",
                     // rows
+                    "[]" +
                     "[]0" +
                     "[39]0"));
+
+                //---- warning ----
+                warning.setBackground(Color.black);
+                warning.setForeground(Color.white);
+                panel1.add(warning, "cell 1 0");
 
                 //---- usernamePrompt ----
                 usernamePrompt.setText("Username:");
                 usernamePrompt.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
                 usernamePrompt.setForeground(Color.white);
-                panel1.add(usernamePrompt, "cell 0 1");
+                panel1.add(usernamePrompt, "cell 0 2");
 
                 //---- username ----
                 username.setBackground(Color.lightGray);
-                panel1.add(username, "cell 1 1 12 1");
+                panel1.add(username, "cell 1 2");
             }
             panel3.add(panel1, "cell 0 1");
 
@@ -142,11 +156,12 @@ public class LoginWindow extends JFrame implements ActionListener{
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel3;
     private JLabel loginPrompt;
     private JLabel label1;
     private JPanel panel1;
+    private JLabel warning;
     private JLabel usernamePrompt;
     private JTextField username;
     private JPanel panel2;
@@ -155,13 +170,32 @@ public class LoginWindow extends JFrame implements ActionListener{
     private JButton ok;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
 
-    public static void main(String[] args) { //DONT DELETE YET
-        LoginWindow obj = new LoginWindow();
+//    public static void main(String[] args) { //DONT DELETE YET
+//        LoginWindow obj = new LoginWindow();
+//    }
+
+
+    public JLabel getWarning() {
+        return warning;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if(e.getSource() == ok) {
+            int user = Integer.parseInt(username.getText());
+            username.setText("");
+            String pass = password.getText();
+            password.setText("");
+            LoginInfo info = new LoginInfo(user, pass);
+            try {
+                out.writeObject(info);
+            } catch (IOException f) {
+                System.err.println("oops");
+                System.exit(1);
+            }
+        }
     }
 }

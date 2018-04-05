@@ -102,6 +102,10 @@ new FormModel {
 			} ) {
 				name: "panel5"
 				"background": new java.awt.Color( 115, 194, 251, 255 )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button1"
+					"text": "Select"
+				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "South"
 			} )

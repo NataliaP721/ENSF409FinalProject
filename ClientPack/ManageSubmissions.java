@@ -32,7 +32,7 @@ import net.miginfocom.swing.*;
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel4 = new JPanel();
         back = new JButton();
         panel3 = new JPanel();
@@ -185,7 +185,7 @@ import net.miginfocom.swing.*;
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel4;
     private JButton back;
     private JPanel panel3;
