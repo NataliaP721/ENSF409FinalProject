@@ -9,10 +9,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-//import java.util.List;
 /*
  * Created by JFormDesigner on Sun Apr 01 12:19:26 MDT 2018
  */
@@ -21,16 +19,16 @@ import java.io.ObjectOutputStream;
 /**
  * @author Aysha Panatch
  */
-public class EnrollStudents extends JFrame implements ActionListener, ListSelectionListener{
-    EnrollStudents(ObjectInputStream in, ObjectOutputStream out) {
+public class ManageGrades extends JFrame implements ActionListener, ListSelectionListener{
+    ManageGrades(ObjectInputStream in, ObjectOutputStream out) {
         this.in = in;
         this.out = out;
         initComponents();
         search.addActionListener(this);
         back.addActionListener(this);
-        enrollunenrollStudent.addActionListener(this);
-        displayClassList.addActionListener(this);
-        enrollList.addListSelectionListener(this);
+        downloadSubmission.addActionListener(this);
+        enterGrade.addActionListener(this);
+        gradeList.addListSelectionListener(this);
         this.setSize(700, 700);
         this.setVisible(true);
     }
@@ -50,12 +48,12 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
         searchparameter = new JTextField();
         search = new JButton();
         scrollPane5 = new JScrollPane();
-        enrollList = new JList();
-        displayClassList = new JButton();
-        enrollunenrollStudent = new JButton();
+        gradeList = new JList();
+        enterGrade = new JButton();
+        downloadSubmission = new JButton();
 
         //======== this ========
-        setTitle("Enroll Students");
+        setTitle("Grades Students");
         setBackground(new Color(115, 194, 251));
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
@@ -75,11 +73,6 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
                     "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
                     javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
                     java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-            panel4.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), panel4.getBorder())); panel4.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel1.setLayout(new MigLayout(
                 "hidemode 3",
@@ -94,7 +87,8 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
                 panel4.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
-                    "10[700,grow,fill]10",
+                    "10[700,grow,fill]10" +
+                    "[fill]",
                     // rows
                     "0[0]0" +
                     "[]0" +
@@ -124,14 +118,14 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
                 panel4.add(panel2, "cell 0 1,alignx left,growx 0");
 
                 //---- label1 ----
-                label1.setText("Enroll Students");
                 label1.setFont(new Font(".SF NS Text", Font.BOLD, 26));
                 label1.setForeground(Color.black);
                 label1.setHorizontalAlignment(SwingConstants.RIGHT);
+                label1.setText("Manage Grades");
                 panel4.add(label1, "cell 0 1");
 
                 //---- label10 ----
-                label10.setText("  Search Students By:");
+                label10.setText("  Search Grades By:");
                 label10.setFont(new Font(".SF NS Text", Font.PLAIN, 16));
                 label10.setForeground(Color.black);
                 label10.setBackground(new Color(115, 194, 251));
@@ -171,26 +165,26 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
                 //======== scrollPane5 ========
                 {
 
-                    //---- enrollList ----
-                    enrollList.setBackground(Color.white);
-                    enrollList.setForeground(Color.black);
-                    scrollPane5.setViewportView(enrollList);
+                    //---- gradeList ----
+                    gradeList.setBackground(Color.white);
+                    gradeList.setForeground(Color.black);
+                    scrollPane5.setViewportView(gradeList);
                 }
                 panel4.add(scrollPane5, "cell 0 6,grow");
 
-                //---- displayClassList ----
-                displayClassList.setText("Display Class List");
-                displayClassList.setFont(displayClassList.getFont().deriveFont(displayClassList.getFont().getSize() + 1f));
-                displayClassList.setBackground(Color.black);
-                displayClassList.setForeground(Color.black);
-                panel4.add(displayClassList, "cell 0 7");
+                //---- enterGrade ----
+                enterGrade.setText("Enter Grade");
+                enterGrade.setFont(enterGrade.getFont().deriveFont(enterGrade.getFont().getSize() + 1f));
+                enterGrade.setBackground(Color.black);
+                enterGrade.setForeground(Color.black);
+                panel4.add(enterGrade, "cell 0 7");
 
-                //---- enrollunenrollStudent ----
-                enrollunenrollStudent.setText("Enroll/Unenroll Student");
-                enrollunenrollStudent.setFont(new Font(".SF NS Text", Font.PLAIN, 14));
-                enrollunenrollStudent.setBackground(Color.black);
-                enrollunenrollStudent.setForeground(Color.black);
-                panel4.add(enrollunenrollStudent, "cell 0 7");
+                //---- downloadSubmission ----
+                downloadSubmission.setText("Download Submission");
+                downloadSubmission.setBackground(Color.black);
+                downloadSubmission.setForeground(Color.black);
+                downloadSubmission.setFont(downloadSubmission.getFont().deriveFont(downloadSubmission.getFont().getSize() + 1f));
+                panel4.add(downloadSubmission, "cell 0 7");
             }
             panel1.add(panel4, "cell 0 0,grow");
         }
@@ -214,17 +208,17 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
     private JTextField searchparameter;
     private JButton search;
     private JScrollPane scrollPane5;
-    private JList enrollList;
-    private JButton displayClassList;
-    private JButton enrollunenrollStudent;
+    private JList gradeList;
+    private JButton enterGrade;
+    private JButton downloadSubmission;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
+
     private Course course;
     private boolean visible;
-
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
 //    public static void main(String[] args) {
-//        EnrollStudents obj = new EnrollStudents();
+//        ManageGrades obj = new ManageGrades();
 //    }
     @Override
     public void actionPerformed(ActionEvent e) {
