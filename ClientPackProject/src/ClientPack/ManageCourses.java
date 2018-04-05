@@ -19,7 +19,6 @@ class ManageCourses extends JFrame implements ActionListener{
         this.in = in;
         this.out = out;
         initComponents();
-        courseName.setText(course.getCourseName());
         manageAssignments.addActionListener(this);
         manageSubmissions.addActionListener(this);
         emailStudents.addActionListener(this);
@@ -298,6 +297,7 @@ class ManageCourses extends JFrame implements ActionListener{
     private EnrollStudents enrollManager;
 
     void setCourse(Course x) {
+        courseName.setText(course.getCourseName());
         this.course = x;
         visible = true;
     }

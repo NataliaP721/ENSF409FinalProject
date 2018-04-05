@@ -105,22 +105,30 @@ new FormModel {
 				name: "panel5"
 				"background": new java.awt.Color( 115, 194, 251, 255 )
 				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "activatedeactivate"
+					"text": "Activate/Deactivate"
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "openCourse"
 					"text": "Open Course"
 					"foreground": sfield java.awt.Color black
 					"background": sfield java.awt.Color black
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "addCourse"
 					"text": "Add Course"
 					"background": sfield java.awt.Color black
 					"foreground": sfield java.awt.Color black
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "deleteCourse"
 					"text": "Delete Course"
 					"background": sfield java.awt.Color black
 					"foreground": sfield java.awt.Color black
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "South"

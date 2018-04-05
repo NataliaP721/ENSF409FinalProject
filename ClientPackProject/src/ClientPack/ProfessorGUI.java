@@ -45,17 +45,14 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         openCourse.addActionListener(this);
         addCourse.addActionListener(this);
         deleteCourse.addActionListener(this);
-        manager = new ManageCourses(in, out);
-        manager.setVisible(false);
+//        manager = new ManageCourses(in, out);
+//        manager.setVisible(false);
         frame1.setSize(700, 700);
         frame1.setVisible(true);
     }
-
-
-
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         frame1 = new JFrame();
         panel1 = new JPanel();
         panel7 = new JPanel();
@@ -80,7 +77,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         deleteCourse = new JButton();
         panel6 = new JPanel();
         scrollPane2 = new JScrollPane();
-        courseList = new JList<>();
+        courseList = new JList();
 
         //======== frame1 ========
         {
@@ -242,7 +239,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JFrame frame1;
     private JPanel panel1;
     private JPanel panel7;
@@ -267,7 +264,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
     private JButton deleteCourse;
     private JPanel panel6;
     private JScrollPane scrollPane2;
-    private JList<Course> courseList;
+    private JList courseList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     private User prof;
     private ObjectInputStream in;
@@ -285,7 +282,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
             System.exit(0);
         }
         else if(e.getSource() == openCourse) {
-            Course current = courseList.getSelectedValue();
+            Course current = (Course) courseList.getSelectedValue();
             manager.setCourse(current);
             manager.setVisible(true);
             this.setVisible(false);
@@ -305,7 +302,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
             }
         }
         else if(e.getSource() == deleteCourse) {
-            Course current = courseList.getSelectedValue();
+            Course current = (Course) courseList.getSelectedValue();
             current.setCommand("DELETE");
             try {
                 out.writeObject(current);
@@ -336,7 +333,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         int result = JOptionPane.showConfirmDialog(null, addCoursePanel,
                 "Please Enter Course Information", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            Course newCourse = new Course(Integer.parseInt(courseID.getText()), prof.getID(), courseName.getText(), true);
+            Course newCourse = new Course(Integer.parseInt(courseID.getText()), prof.getID(), courseName.getText(), false);
             newCourse.setCommand("ADD");
             try {
                 out.writeObject(newCourse);

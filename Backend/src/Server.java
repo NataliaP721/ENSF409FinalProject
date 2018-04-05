@@ -28,6 +28,10 @@ public class Server {
      * @throws IOException
      */
     public Server() {
+        database = new DatabaseHelper();
+        emailService = new EmailHelper();
+        fileManager = new FileHelper();
+
         try {
             serverSocket = new ServerSocket(8099);
             pool = Executors.newCachedThreadPool();

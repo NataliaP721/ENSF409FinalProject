@@ -2,7 +2,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+
 import SharedDataObjects.*;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class Worker implements Runnable {
     private DatabaseHelper databaseHelper;
@@ -34,32 +37,43 @@ public class Worker implements Runnable {
         while(true) {
             try {
                 Object obj = in.readObject();
-                if(obj instanceof User) {
-                    User user = (User) obj;
-                    obj =  in.readObject();
-                    while((obj instanceof LoginInfo)==false) {
-                        obj =  in.readObject();
-                        // TODO add delay if in infinite loop???
-                    }
+                if(obj instanceof LoginInfo) {
                     LoginInfo loginInfo = (LoginInfo) obj;
-                    // TODO CHANGE NAMES LATER TO MATCH
-                    if (user.getCommand().equals("ADD")) {
-                        databaseHelper.addUser(user, loginInfo);
-                    } else if (user.getCommand().equals("DEL")) {
-                        databaseHelper.deleteUser(loginInfo.getUsername());
-                    } else if (user.getCommand().equals("SEARCHBYID")) {
-                        databaseHelper.searchUsers(loginInfo.getUsername());
-                    } else if (user.getCommand().equals("SEARCHBYLASTNAME")) {
-                        databaseHelper.searchUsers(user.getLastName());
+                    User found = databaseHelper.searchUsers(loginInfo.getUsername());
+                    out.writeObject(found);
+                }
+                else if(obj instanceof User) {
+                    User user = (User) obj;
+                    if(user.getCommand().equals("GETCOURSES")) {
+                        ArrayList<Course> courseList= databaseHelper.searchAllCourses();
+                        databaseHelper.printCourseTable();
+                        Course [] courses = (Course [])courseList.toArray(new Course[courseList.size()]);
+                        out.writeObject(courses);
                     }
+//                    if (user.getCommand().equals("ADD")) {
+//                        databaseHelper.addUser(user, loginInfo);
+//                    } else if (user.getCommand().equals("DEL")) {
+//                        databaseHelper.deleteUser(loginInfo.getUsername());
+//                    } else if (user.getCommand().equals("SEARCHBYID")) {
+//                        databaseHelper.searchUsers(loginInfo.getUsername());
+//                    } else if (user.getCommand().equals("SEARCHBYLASTNAME")) {
+//                        databaseHelper.searchUsers(user.getLastName());
+//                    }
                 }
                 else if(obj instanceof Course) {
                     Course course = (Course) obj;
                     if(course.getCommand().equals("ADD")) {
                         databaseHelper.addCourse(course);
+                        ArrayList<Course> courseList= databaseHelper.searchAllCourses();
+                        databaseHelper.printCourseTable();
+                        Course [] courses = (Course [])courseList.toArray(new Course[courseList.size()]);
+                        out.writeObject(courses);
                     }
-                    else if(course.getCommand().equals("DEL")) {
+                    else if(course.getCommand().equals("DELETE")) {
                         databaseHelper.deleteCourse(course.getCourseID());
+                        ArrayList<Course> courseList= databaseHelper.searchAllCourses();
+                        Course [] courses = (Course [])courseList.toArray(new Course[courseList.size()]);
+                        out.writeObject(courses);
                     }
                     else if(course.getCommand().equals("MOD")) {
                         databaseHelper.modifyCourse(course);

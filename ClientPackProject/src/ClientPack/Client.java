@@ -47,6 +47,7 @@ public class Client {
                 login.getWarning().setText("Incorrect username or password");
             }
             else if (user.getUserType() == 'P') {
+                System.out.println(user.getUserType());
                 ProfessorGUI prof = new ProfessorGUI(socketIn, socketOut, user);
                 break;
             }

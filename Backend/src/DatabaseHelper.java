@@ -1,5 +1,6 @@
 import java.sql.*;
 import SharedDataObjects.*;
+import java.util.ArrayList;
 
 /**
  * This class allows you to create and manage a FinalProjectDB database.
@@ -66,7 +67,33 @@ public class DatabaseHelper {
             // databaseHelper.createDB();
 
             createTables();
-//            addUser(last);
+            addUser(new User("Pavlovic", "Natalia", "natalia.nzp@gmail.com", 1, 'P' ), new LoginInfo(1, "12345"));
+            addCourse(new Course(1, 1, "ENSF409", false));
+            addCourse(new Course(2, 1, "ENSF410", false));
+            addCourse(new Course(3, 1, "ENSF411", false));
+            addCourse(new Course(4, 1, "ENSF412", false));
+            addCourse(new Course(5, 1, "ENSF413", false));
+            addCourse(new Course(6, 1, "ENSF414", false));
+            addCourse(new Course(7, 1, "ENSF415", false));
+            addCourse(new Course(8, 1, "ENSF415", false));
+            addCourse(new Course(9, 1, "ENSF416", false));
+            addCourse(new Course(10, 1, "ENSF417", false));
+            addCourse(new Course(11, 1, "ENSF418", false));
+            addCourse(new Course(12, 1, "ENSF419", false));
+            addCourse(new Course(13, 1, "ENSF420", false));
+            addCourse(new Course(14, 1, "ENSF421", false));
+            addCourse(new Course(15, 1, "ENSF422", false));
+            addCourse(new Course(16, 1, "ENSF423", false));
+            addCourse(new Course(17, 1, "ENSF424", false));
+            addCourse(new Course(18, 1, "ENSF425", false));
+            addCourse(new Course(19, 1, "ENSF426", false));
+            addCourse(new Course(20, 1, "ENSF427", false));
+            addCourse(new Course(21, 1, "ENSF428", false));
+            addCourse(new Course(22, 1, "ENSF429", false));
+            addCourse(new Course(23, 1, "ENSF430", false));
+            addCourse(new Course(24, 1, "ENSF431", false));
+
+//          removeTables();
         }
         catch(SQLException e) { e.printStackTrace(); }
         catch(Exception e) { e.printStackTrace(); }
@@ -477,6 +504,41 @@ public class DatabaseHelper {
             }
             courses.close();
             return temp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
+     * @param ID the ID of the Course to be searched
+     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     */
+    public ArrayList<Course> searchAllCourses() {
+        try {
+            String sql = "SELECT * FROM " + courseTableName;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet courses = statement.executeQuery();
+            Course temp = null;
+            ArrayList<Course> courseList = new ArrayList<>();
+            while(courses.next())
+            {
+                boolean activeBoolean = false;
+                if(courses.getString("ACTIVE").charAt(0)=='0') {
+                    activeBoolean = false;
+                }
+                else if(courses.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+                }
+                temp = new Course (courses.getInt("ID"),
+                        courses.getInt("PROFESSORID"),
+                        courses.getString("COURSENAME"),
+                        activeBoolean);
+                courseList.add(temp);
+            }
+            courses.close();
+            return courseList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
