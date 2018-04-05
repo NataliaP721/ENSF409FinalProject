@@ -53,6 +53,22 @@ new FormModel {
 				} ) {
 					name: "panel1"
 					"background": new java.awt.Color( 115, 194, 251, 255 )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label2"
+						"text": "Assignments"
+						"foreground": sfield java.awt.Color black
+						"font": new java.awt.Font( ".SF NS Text", 1, 20 )
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 1 0"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label3"
+						"text": "Submissions"
+						"font": new java.awt.Font( ".SF NS Text", 1, 20 )
+						"foreground": sfield java.awt.Color black
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 3 0"
+					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane1"
 						add( new FormComponent( "javax.swing.JList" ) {
@@ -66,7 +82,7 @@ new FormModel {
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 						"$layoutConstraints": "hidemode 3"
 						"$columnConstraints": "0[0,fill]0[202,grow,fill]0[0,fill]0"
-						"$rowConstraints": "0[0]0[395]0[18]0"
+						"$rowConstraints": "0[0]0[496]0[21]0"
 					} ) {
 						name: "panel2"
 						"background": new java.awt.Color( 115, 194, 251, 255 )

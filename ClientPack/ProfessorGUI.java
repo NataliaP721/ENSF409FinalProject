@@ -25,8 +25,13 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         this.in = in;
         this.out = out;
         this.prof = prof;
+
+        initComponents();
+
         try {
-            courses = (Course[])in.readObject();
+            prof.setCommand("GETCOURSES");
+            out.writeObject(prof);
+            courseList.setListData((Course[])(in.readObject()));
         }
         catch(ClassNotFoundException e) {
             System.err.println("error");
@@ -34,8 +39,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         catch(IOException e) {
             System.err.println("IO Error");
         }
-        initComponents();
-        courseList.setListData(courses);
+
         logout.addActionListener(this);
         //courseList.addListSelectionListener(this);
         openCourse.addActionListener(this);
@@ -268,7 +272,6 @@ public class ProfessorGUI extends JPanel implements ActionListener {
     private User prof;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private Course[] courses;
     private ManageCourses manager;
 
 //
@@ -282,7 +285,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
             System.exit(0);
         }
         else if(e.getSource() == openCourse) {
-            Course current = courses[courseList.getSelectedIndex()];
+            Course current = courseList.getSelectedValue();
             manager.setCourse(current);
             manager.setVisible(true);
             this.setVisible(false);
@@ -302,12 +305,11 @@ public class ProfessorGUI extends JPanel implements ActionListener {
             }
         }
         else if(e.getSource() == deleteCourse) {
-            Course current = courses[courseList.getSelectedIndex()];
+            Course current = courseList.getSelectedValue();
             current.setCommand("DELETE");
-            Course[] newList = null;
             try {
                 out.writeObject(current);
-                newList = (Course[])(in.readObject());
+                courseList.setListData((Course[])in.readObject());
             }
             catch(ClassNotFoundException c) {
                 System.err.println("Object error");
@@ -315,7 +317,6 @@ public class ProfessorGUI extends JPanel implements ActionListener {
             catch(IOException d) {
                 System.err.println("IO Error");
             }
-            courseList.setListData(newList);
         }
     }
 

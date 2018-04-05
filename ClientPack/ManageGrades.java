@@ -9,6 +9,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 /*
  * Created by JFormDesigner on Sun Apr 01 12:19:26 MDT 2018
  */
@@ -18,7 +20,9 @@ import java.awt.event.ActionListener;
  * @author Aysha Panatch
  */
 public class ManageGrades extends JFrame implements ActionListener, ListSelectionListener{
-    ManageGrades() {
+    ManageGrades(ObjectInputStream in, ObjectOutputStream out) {
+        this.in = in;
+        this.out = out;
         initComponents();
         search.addActionListener(this);
         back.addActionListener(this);
@@ -211,6 +215,8 @@ public class ManageGrades extends JFrame implements ActionListener, ListSelectio
 
     private Course course;
     private boolean visible;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
 //    public static void main(String[] args) {
 //        ManageGrades obj = new ManageGrades();
 //    }

@@ -3,9 +3,12 @@ package ClientPack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+//import javax.swing.event.ListSelectionEvent;
+//import javax.swing.event.ListSelectionListener;
 
 import SharedDataObjects.*;
 import net.miginfocom.swing.*;
@@ -18,15 +21,18 @@ import net.miginfocom.swing.*;
 /**
  * @author Edward Gu
  */
-    class ManageSubmissions extends JFrame implements ActionListener, ListSelectionListener{
-    ManageSubmissions() {
+    class ManageSubmissions extends JFrame implements ActionListener{
+    ManageSubmissions(ObjectInputStream in, ObjectOutputStream out) {
+        this.in = in;
+        this.out = out;
+
         initComponents();
         selectAssignment.addActionListener(this);
         openSubmission.addActionListener(this);
         gradeSubmission.addActionListener(this);
         back.addActionListener(this);
-        assignmentList.addListSelectionListener(this);
-        submissionList.addListSelectionListener(this);
+//        assignmentList.addListSelectionListener(this);
+//        submissionList.addListSelectionListener(this);
         this.setSize(700,700);
         this.setVisible(true);
     }
@@ -39,11 +45,13 @@ import net.miginfocom.swing.*;
         panel3 = new JPanel();
         label1 = new JLabel();
         panel1 = new JPanel();
+        label2 = new JLabel();
+        label3 = new JLabel();
         scrollPane1 = new JScrollPane();
-        assignmentList = new JList();
+        assignmentList = new JList<>();
         panel2 = new JPanel();
         scrollPane2 = new JScrollPane();
-        submissionList = new JList();
+        submissionList = new JList<>();
         selectAssignment = new JButton();
         openSubmission = new JButton();
         gradeSubmission = new JButton();
@@ -123,6 +131,18 @@ import net.miginfocom.swing.*;
                     "[22]0" +
                     "[]"));
 
+                //---- label2 ----
+                label2.setText("Assignments");
+                label2.setForeground(Color.black);
+                label2.setFont(new Font(".SF NS Text", Font.BOLD, 20));
+                panel1.add(label2, "cell 1 0");
+
+                //---- label3 ----
+                label3.setText("Submissions");
+                label3.setFont(new Font(".SF NS Text", Font.BOLD, 20));
+                label3.setForeground(Color.black);
+                panel1.add(label3, "cell 3 0");
+
                 //======== scrollPane1 ========
                 {
 
@@ -144,8 +164,8 @@ import net.miginfocom.swing.*;
                         "[0,fill]0",
                         // rows
                         "0[0]0" +
-                        "[395]0" +
-                        "[18]0"));
+                        "[496]0" +
+                        "[21]0"));
 
                     //======== scrollPane2 ========
                     {
@@ -192,11 +212,13 @@ import net.miginfocom.swing.*;
     private JPanel panel3;
     private JLabel label1;
     private JPanel panel1;
+    private JLabel label2;
+    private JLabel label3;
     private JScrollPane scrollPane1;
-    private JList assignmentList;
+    private JList<Assignment> assignmentList;
     private JPanel panel2;
     private JScrollPane scrollPane2;
-    private JList submissionList;
+    private JList<Submission> submissionList;
     private JButton selectAssignment;
     private JButton openSubmission;
     private JButton gradeSubmission;
@@ -204,24 +226,91 @@ import net.miginfocom.swing.*;
 
     private Course course;
     private boolean visible;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
+
 //    public static void main(String[] args) {
 //        ManageSubmissions obj = new ManageSubmissions();
 //    }
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == back) {
+            this.setVisible(false);
+            visible = false;
+        }
+        else if(e.getSource() == selectAssignment) {
+            Assignment current = assignmentList.getSelectedValue();
+            current.setCommand("GETSUBMISSION");
+            try {
+                out.writeObject(current);
+                submissionList.setListData((Submission[])(in.readObject()));
+            }
+            catch(ClassNotFoundException c) {
+                System.err.println("Object error");
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
+        }
+        else if(e.getSource() == openSubmission) {
 
+        }
+        else if(e.getSource() == gradeSubmission) {
+            Submission submit = submissionList.getSelectedValue();
+            this.grade(submit);
+        }
     }
 
-    public void valueChanged(ListSelectionEvent e){
-    }
+//    public void valueChanged(ListSelectionEvent e){
+//    }
 
     void setCourse(Course x) {
         this.course = x;
         visible = true;
-
+        try {
+            course.setCommand("GETASSIGNMENT");
+            out.writeObject(course);
+            assignmentList.setListData((Assignment[])(in.readObject()));
+        }
+        catch(ClassNotFoundException e) {
+            System.err.println("error");
+        }
+        catch(IOException e) {
+            System.err.println("IO Error");
+        }
     }
 
     boolean getVisible() {
         return visible;
+    }
+
+    private void grade(Submission submit) {
+
+        JTextField gradeMark = new JTextField(3);
+
+
+        JPanel addGradePanel = new JPanel();
+        addGradePanel.add(new JLabel("Enter the grade for this submission: "));
+        addGradePanel.add(gradeMark);
+
+
+        int result = JOptionPane.showConfirmDialog(null, addGradePanel,
+                "Please Enter Grade", JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION) {
+            Grade newGrade = new Grade((assignmentList.getSelectedValue().getAssignmentID())*2/3, assignmentList.getSelectedValue().getAssignmentID(), submit.getStudentID(), course.getCourseID(), Integer.parseInt(gradeMark.getText()));
+            newGrade.setCommand("NEWGRADE");
+            try {
+                out.writeObject(newGrade);
+                submissionList.setListData((Submission[])(in.readObject()));
+            }
+            catch(ClassNotFoundException e) {
+                System.err.println("error");
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
+        }
+
     }
 }

@@ -35,7 +35,7 @@ public class Assignment {
         return this.assignmentPath;
     }
     public int getActive() {
-        if(this.active == true) {
+        if(this.active) {
             return 1;
         }
         else
@@ -47,8 +47,21 @@ public class Assignment {
     public String getCommand() {
         return this.command;
     }
-    // set
+    public void setCommand(String com) { this.command = com;}
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        String answer = assignmentTitle;
+        if(this.active){
+            answer = answer + "          ACTIVE";
+        }
+        else {
+            answer = answer + "          INACTIVE";
+        }
+        answer  = answer + "         DUE" + dueDate;
+        return answer;
     }
 }

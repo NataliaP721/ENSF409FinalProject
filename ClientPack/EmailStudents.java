@@ -3,11 +3,15 @@ package ClientPack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+//import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+//import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import SharedDataObjects.*;
 import net.miginfocom.swing.*;
 /*
  * Created by JFormDesigner on Sun Apr 01 12:19:26 MDT 2018
@@ -19,7 +23,9 @@ import net.miginfocom.swing.*;
  * @author Aysha Panatch
  */
 public class EmailStudents extends JFrame implements ActionListener, ListSelectionListener{
-    public EmailStudents() {
+    EmailStudents(ObjectInputStream in, ObjectOutputStream out) {
+        this.in = in;
+        this.out = out;
         initComponents();
         search.addActionListener(this);
         addAll.addActionListener(this);
@@ -326,14 +332,28 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
     private JScrollPane scrollPane2;
     private JTextArea content;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
-    public static void main(String[] args) {
-        EmailStudents obj = new EmailStudents();
-    }
+
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
+    private Course course;
+    private boolean visible;
+//    public static void main(String[] args) {
+//        EmailStudents obj = new EmailStudents();
+//    }
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
 
     public void valueChanged(ListSelectionEvent e){
+    }
+
+    void setCourse(Course x) {
+        this.course = x;
+        visible = true;
+    }
+
+    boolean getVisible() {
+        return visible;
     }
 }

@@ -36,7 +36,7 @@ public class Grade {
     public String getCommand() {
         return this.command;
     }
-    // set
+    public void setCommand(String com) { this.command = com;}
     public void setAssignmentGrade(int assignmentGrade) {
         this.assignmentGrade = assignmentGrade;
     }

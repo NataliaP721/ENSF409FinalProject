@@ -3,9 +3,12 @@ package ClientPack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+//import javax.swing.event.ListSelectionEvent;
+//import javax.swing.event.ListSelectionListener;
 
 import net.miginfocom.swing.*;
 
@@ -19,10 +22,12 @@ import SharedDataObjects.*;
 /**
  * @author Aysha Panatch
  */
-public class ManageAssignment extends JFrame implements ActionListener,ListSelectionListener{
-    ManageAssignment() {
+public class ManageAssignment extends JFrame implements ActionListener{
+    ManageAssignment(ObjectInputStream in, ObjectOutputStream out) {
+        this.in = in;
+        this.out = out;
         initComponents();
-        assignmentList.addListSelectionListener(this);
+//        assignmentList.addListSelectionListener(this);
         addAssignment.addActionListener(this);
         deleteAssignment.addActionListener(this);
         modifyAssignment.addActionListener(this);
@@ -43,7 +48,7 @@ public class ManageAssignment extends JFrame implements ActionListener,ListSelec
         modifyAssignment = new JButton();
         label2 = new JLabel();
         scrollPane1 = new JScrollPane();
-        assignmentList = new JList();
+        assignmentList = new JList<>();
 
         //======== this ========
         setTitle("Manage Assignments");
@@ -84,7 +89,7 @@ public class ManageAssignment extends JFrame implements ActionListener,ListSelec
             panel2.add(back, "cell 0 0,alignx left,growx 0");
 
             //---- courseName ----
-            courseName.setText("Course Name");
+            courseName.setText(course.getCourseName());
             courseName.setFont(new Font(".SF NS Text", Font.BOLD, 22));
             courseName.setForeground(Color.black);
             courseName.setBackground(new Color(115, 194, 251));
@@ -157,11 +162,14 @@ public class ManageAssignment extends JFrame implements ActionListener,ListSelec
     private JButton modifyAssignment;
     private JLabel label2;
     private JScrollPane scrollPane1;
-    private JList assignmentList;
+    private JList<Assignment> assignmentList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     private Course course;
     private boolean visible;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
+
 //    public static void main(String[] args) {
 //        ManageAssignment obj = new ManageAssignment();
 //    }
@@ -172,15 +180,55 @@ public class ManageAssignment extends JFrame implements ActionListener,ListSelec
             this.setVisible(false);
             visible = false;
         }
+        else if(e.getSource() == addAssignment) {
+            this.addAssign();
+            try {
+                assignmentList.setListData((Assignment[])(in.readObject()));
+            }
+            catch(ClassNotFoundException c) {
+                System.err.println("Object error");
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
+        }
+        else if(e.getSource() == deleteAssignment) {
+            Assignment current = assignmentList.getSelectedValue();
+            current.setCommand("DELETE");
+            try {
+                out.writeObject(current);
+                assignmentList.setListData((Assignment[])(in.readObject()));
+            }
+            catch(ClassNotFoundException c) {
+                System.err.println("Object error");
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
+        }
+        else if(e.getSource() == modifyAssignment) {
+
+        }
 
     }
 
-    public void valueChanged(ListSelectionEvent e){
-    }
+//    public void valueChanged(ListSelectionEvent e){
+//    }
 
     void setCourse(Course x) {
         this.course = x;
         visible = true;
+        try {
+            course.setCommand("GETASSIGNMENT");
+            out.writeObject(course);
+            assignmentList.setListData((Assignment[])(in.readObject()));
+        }
+        catch(ClassNotFoundException e) {
+            System.err.println("Object error");
+        }
+        catch(IOException e) {
+            System.err.println("IO Error");
+        }
 
     }
 
@@ -188,5 +236,38 @@ public class ManageAssignment extends JFrame implements ActionListener,ListSelec
         return visible;
     }
 
+    private void addAssign() {
+
+        JTextField assignTitle = new JTextField(20);
+        JTextField assignID = new JTextField(6);
+        JTextField assignPath = new JTextField(10);
+        JTextField assignDueDate = new JTextField(8);
+
+        //put all the things into the panel
+
+        JPanel addAssignPanel = new JPanel();
+        addAssignPanel.add(new JLabel("Enter the assignment title: "));
+        addAssignPanel.add(assignTitle);
+        addAssignPanel.add(new JLabel("Enter the assignment ID: "));
+        addAssignPanel.add(assignID);
+        addAssignPanel.add(new JLabel("Enter the assignment path: "));
+        addAssignPanel.add(assignPath);
+        addAssignPanel.add(new JLabel("Enter the assignment due date (DDMMYYYY): "));
+        addAssignPanel.add(assignDueDate);
+
+        int result = JOptionPane.showConfirmDialog(null, addAssignPanel,
+                "Please Enter Assignment Information", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            Assignment newAssign = new Assignment(Integer.parseInt(assignID.getText()), course.getCourseID(), assignTitle.getText(), assignPath.getText(), true, assignDueDate.getText());
+            newAssign.setCommand("ADD");
+            try {
+                out.writeObject(newAssign);
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
+        }
+
+    }
 }
 

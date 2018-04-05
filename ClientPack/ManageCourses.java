@@ -27,15 +27,15 @@ class ManageCourses extends JFrame implements ActionListener{
         back.addActionListener(this);
         manageGrades.addActionListener(this);
 
-        assignManager = new ManageAssignment();
+        assignManager = new ManageAssignment(in, out);
         assignManager.setVisible(false);
-        subManager = new ManageSubmissions();
+        subManager = new ManageSubmissions(in, out);
         subManager.setVisible(false);
-        gradeManager = new ManageGrades();
+        gradeManager = new ManageGrades(in, out);
         gradeManager.setVisible(false);
-        emailManager = new EmailStudents();
+        emailManager = new EmailStudents(in, out);
         emailManager.setVisible(false);
-        enrollManager = new EnrollStudents();
+        enrollManager = new EnrollStudents(in, out);
         enrollStudents.setVisible(false);
 
         frame1.setSize(700, 700);
@@ -338,10 +338,18 @@ class ManageCourses extends JFrame implements ActionListener{
                 this.setVisible(true);
             }
             else if(e.getSource() == emailStudents) {
-
+                emailManager.setCourse(course);
+                emailManager.setVisible(true);
+                this.setVisible(false);
+                while(!emailManager.getVisible()){}
+                this.setVisible(true);
             }
             else if(e.getSource() == enrollStudents) {
-
+                enrollManager.setCourse(course);
+                enrollManager.setVisible(true);
+                this.setVisible(false);
+                while(!enrollManager.getVisible()){}
+                this.setVisible(true);
             }
         }
     }
