@@ -72,6 +72,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         label3 = new JLabel();
         panel4 = new JPanel();
         panel5 = new JPanel();
+        activatedeactivate = new JButton();
         openCourse = new JButton();
         addCourse = new JButton();
         deleteCourse = new JButton();
@@ -195,22 +196,28 @@ public class ProfessorGUI extends JPanel implements ActionListener {
                 panel5.setBackground(new Color(115, 194, 251));
                 panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 30));
 
+                //---- activatedeactivate ----
+                activatedeactivate.setText("Activate/Deactivate");
+                activatedeactivate.setFont(activatedeactivate.getFont().deriveFont(activatedeactivate.getFont().getSize() - 1f));
+                panel5.add(activatedeactivate);
+
                 //---- openCourse ----
                 openCourse.setText("Open Course");
-                openCourse.setForeground(Color.black);
-                openCourse.setBackground(Color.black);
+                openCourse.setFont(openCourse.getFont().deriveFont(openCourse.getFont().getSize() - 1f));
                 panel5.add(openCourse);
 
                 //---- addCourse ----
                 addCourse.setText("Add Course");
                 addCourse.setBackground(Color.black);
                 addCourse.setForeground(Color.black);
+                addCourse.setFont(addCourse.getFont().deriveFont(addCourse.getFont().getSize() - 1f));
                 panel5.add(addCourse);
 
                 //---- deleteCourse ----
                 deleteCourse.setText("Delete Course");
                 deleteCourse.setBackground(Color.black);
                 deleteCourse.setForeground(Color.black);
+                deleteCourse.setFont(deleteCourse.getFont().deriveFont(deleteCourse.getFont().getSize() - 1f));
                 panel5.add(deleteCourse);
             }
             frame1ContentPane.add(panel5, BorderLayout.SOUTH);
@@ -259,6 +266,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
     private JLabel label3;
     private JPanel panel4;
     private JPanel panel5;
+    private JButton activatedeactivate;
     private JButton openCourse;
     private JButton addCourse;
     private JButton deleteCourse;

@@ -150,6 +150,7 @@ public class Worker implements Runnable {
 
     public void closeConnection() {
         try {
+            databaseHelper.removeTables();
             socket.close();
         }
         catch(IOException e) {

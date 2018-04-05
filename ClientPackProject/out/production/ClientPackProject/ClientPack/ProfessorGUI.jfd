@@ -112,8 +112,6 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "openCourse"
 					"text": "Open Course"
-					"foreground": sfield java.awt.Color black
-					"background": sfield java.awt.Color black
 					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {

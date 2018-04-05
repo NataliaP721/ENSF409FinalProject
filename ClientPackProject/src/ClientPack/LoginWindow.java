@@ -144,9 +144,6 @@ public class LoginWindow extends JFrame implements ActionListener{
 
             //---- ok ----
             ok.setText("OK");
-            ok.setBackground(Color.black);
-            ok.setFont(new Font(".SF NS Text", Font.PLAIN, 14));
-            ok.setForeground(Color.black);
             panel3.add(ok, "cell 0 3,align center center,grow 0 0");
         }
         contentPane.add(panel3, "cell 0 0 2 6,grow");

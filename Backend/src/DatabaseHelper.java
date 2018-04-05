@@ -66,7 +66,7 @@ public class DatabaseHelper {
             // You should comment this line out once the first database is created (either here or in MySQL workbench)
             // databaseHelper.createDB();
 
-            createTables();
+           createTables();
             addUser(new User("Pavlovic", "Natalia", "natalia.nzp@gmail.com", 1, 'P' ), new LoginInfo(1, "12345"));
             addCourse(new Course(1, 1, "ENSF409", false));
             addCourse(new Course(2, 1, "ENSF410", false));
@@ -92,8 +92,6 @@ public class DatabaseHelper {
             addCourse(new Course(22, 1, "ENSF429", false));
             addCourse(new Course(23, 1, "ENSF430", false));
             addCourse(new Course(24, 1, "ENSF431", false));
-
-//          removeTables();
         }
         catch(SQLException e) { e.printStackTrace(); }
         catch(Exception e) { e.printStackTrace(); }
@@ -192,7 +190,9 @@ public class DatabaseHelper {
         }
         catch(SQLException e)
         {
-            e.printStackTrace();
+           // e.printStackTrace();
+            removeTables();
+
         }
     }
 
@@ -478,6 +478,34 @@ public class DatabaseHelper {
     }
     /**
      * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
+     * @param userType the ID of the Course to be searched
+     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     */
+    public ArrayList<User> searchAllUsers(String userType) {
+        try {
+            String sql = "SELECT * FROM " + userTableName + "  WHERE TYPE =" + userType;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet users = statement.executeQuery();
+            User temp = null;
+            ArrayList<User> courseList = new ArrayList<>();
+            while(users.next())
+            {
+                temp = new User (users.getString("LASTNAME"),
+                        users.getString("FIRSTNAME"),
+                        users.getString("EMAIL"),
+                        users.getInt("ID"),
+                        users.getString("TYPE").charAt(0));
+                courseList.add(temp);
+            }
+            users.close();
+            return courseList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
      * @param ID the ID of the Course to be searched
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
@@ -512,7 +540,6 @@ public class DatabaseHelper {
 
     /**
      * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
-     * @param ID the ID of the Course to be searched
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
     public ArrayList<Course> searchAllCourses() {
@@ -557,14 +584,54 @@ public class DatabaseHelper {
                 return null;
             }
             StudentEnrollment temp = null;
+            boolean activeBoolean = false;
+            if(enrollments.getString("ACTIVE").charAt(0)=='0') {
+                activeBoolean = false;
+            }
+            else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
+                activeBoolean = true;
+            }
             while(enrollments.next())
             {
                 temp = new StudentEnrollment (enrollments.getInt("ID"),
                         enrollments.getInt("STUDENTID"),
-                        enrollments.getInt("COURSEID"), true);
+                        enrollments.getInt("COURSEID"), activeBoolean);
             }
             enrollments.close();
             return temp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
+     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     */
+    public ArrayList<StudentEnrollment> searchAllStudentEnrollments() {
+        try {
+            String sql = "SELECT * FROM " + studentEnrollmentTableName;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet enrollments = statement.executeQuery();
+            StudentEnrollment temp = null;
+            ArrayList<StudentEnrollment> courseList = new ArrayList<>();
+            while(enrollments.next())
+            {
+                boolean activeBoolean = false;
+                if(enrollments.getString("ACTIVE").charAt(0)=='0') {
+                    activeBoolean = false;
+                }
+                else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+                }
+                temp = new StudentEnrollment (enrollments.getInt("ID"),
+                        enrollments.getInt("STUDENTID"),
+                        enrollments.getInt("COURSEID"), activeBoolean);
+
+                courseList.add(temp);
+            }
+            enrollments.close();
+            return courseList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -606,6 +673,42 @@ public class DatabaseHelper {
         return null;
     }
     /**
+     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
+     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     */
+    public ArrayList<Assignment> searchAllAssignments() {
+        try {
+            String sql = "SELECT * FROM " + assignmentTableName;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet assignments = statement.executeQuery();
+            Assignment temp = null;
+            ArrayList<Assignment> courseList = new ArrayList<>();
+            while(assignments.next())
+            {
+                boolean activeBoolean = false;
+                if(assignments.getString("ACTIVE").charAt(0)=='0') {
+                    activeBoolean = false;
+                }
+                else if(assignments.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+                }
+                temp = new Assignment (assignments.getInt("ID"),
+                        assignments.getInt("COURSEID"),
+                        assignments.getString("ASSIGNMENTTITLE"),
+                        assignments.getString("ASSIGNMENTPATH"),
+                        activeBoolean,
+                        assignments.getString("DUEDATE"));
+
+                courseList.add(temp);
+            }
+            assignments.close();
+            return courseList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
      * This method searches the Submissions database table for a Submission matching the ID parameter and return that Submission.
      * @param ID the ID of the Submission to be searched
      * @return the Submission matching the ID. It should return null if no Submissions matching that ID are found.
@@ -630,6 +733,38 @@ public class DatabaseHelper {
             }
             submissions.close();
             return temp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
+     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     */
+
+    public ArrayList<Submission> searchAllSubmissions() {
+        try {
+            String sql = "SELECT * FROM " + submissionTableName;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet submissions = statement.executeQuery();
+            Submission temp = null;
+            ArrayList<Submission> courseList = new ArrayList<>();
+            while(submissions.next())
+            {
+                temp = new Submission (submissions.getInt("ID"),
+                        submissions.getInt("ASSIGNMENTID"),
+                        submissions.getInt("STUDENTID"),
+                        submissions.getString("PATH"),
+                        submissions.getInt("SUBMISSIONGRADE"),
+                        submissions.getString("TITLE"),
+                        submissions.getString("COMMENTS"),
+                        submissions.getString("TIMESTAMP"));
+
+                courseList.add(temp);
+            }
+            submissions.close();
+            return courseList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -662,7 +797,35 @@ public class DatabaseHelper {
         }
         return null;
     }
+    /**
+     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
+     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     */
 
+    public ArrayList<Grade> searchAllGrades() {
+        try {
+            String sql = "SELECT * FROM " + gradeTableName;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet grades = statement.executeQuery();
+            Grade temp = null;
+            ArrayList<Grade> courseList = new ArrayList<>();
+            while(grades.next())
+            {
+                temp = new Grade (grades.getInt("ID"),
+                        grades.getInt("ASSIGNMENTID"),
+                        grades.getInt("STUDENTID"),
+                        grades.getInt("COURSEID"),
+                        grades.getInt("ASSIGNMENTGRADE"));
+
+                courseList.add(temp);
+            }
+            grades.close();
+            return courseList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     /**
      * Prints all the items in the User database to console
      */
