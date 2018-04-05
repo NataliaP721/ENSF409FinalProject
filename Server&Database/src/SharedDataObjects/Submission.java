@@ -49,6 +49,9 @@ public class Submission {
     public String getAssignmentTitle() {
         return this.assignmentTitle;
     }
+    public String getCommand() {
+        return this.command;
+    }
     // set
     public void setSubmissionGrade(int submissionGrade) {
         this.submissionGrade = submissionGrade;

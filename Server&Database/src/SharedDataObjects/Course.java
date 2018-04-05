@@ -32,6 +32,9 @@ public class Course {
         else
             return '1';
     }
+    public String getCommand() {
+        return this.command;
+    }
     // set
     public void setActive(boolean active) {
         this.active = active;

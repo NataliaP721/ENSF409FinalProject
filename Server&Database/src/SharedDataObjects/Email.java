@@ -30,4 +30,7 @@ public class Email {
     public String getEmailContent() {
         return this.emailContent;
     }
+    public String getCommand() {
+        return this.command;
+    }
 }

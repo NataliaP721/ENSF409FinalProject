@@ -26,6 +26,9 @@ public class User {
     public char getUserType() {
         return this.userType;
     }
+    public String getCommand() {
+        return this.command;
+    }
     public void setCommand(String command) {
         this.command = command;
     }

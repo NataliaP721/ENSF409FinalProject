@@ -28,6 +28,9 @@ public class StudentEnrollment {
     public boolean getEnrolling() {
         return this.Enrolling;
     }
+    public String getCommand() {
+        return this.command;
+    }
     // set
     public void setEnrolling(boolean Enrolling) {
         this.Enrolling = Enrolling;

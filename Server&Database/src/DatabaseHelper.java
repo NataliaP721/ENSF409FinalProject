@@ -773,7 +773,7 @@ public class DatabaseHelper {
      * Deletes a StudentEnrollment from the database with a matching id.
      * @param enrollmentID the enrollmentID of the StudentEnrollment to be deleted.
      */
-    public void deleteEnrollment(int enrollmentID) {
+    public void deleteStudentEnrollment(int enrollmentID) {
         try {
             String sql = "DELETE FROM " + studentEnrollmentTableName + " WHERE ID = "+enrollmentID;
             statement = jdbc_connection.prepareStatement(sql);
@@ -862,6 +862,25 @@ public class DatabaseHelper {
                 " ASSIGNMENTPATH ='"+assignment.getAssignmentPath() + "', " +
                 " ACTIVE ="+assignment.getActive() + ", " +
                 " DUEDATE ='" +assignment.getDueDate()+ "'"+ " WHERE ID = "+assignment.getAssignmentID() +";";
+        try {
+            statement = jdbc_connection.prepareStatement(sql);
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+    // ID must be kept the same for all modifies
+    /**
+     * Modifies an Assignment from the database with a matching id.
+     * @param studentEnrollment the updated Assignment to be modified in the database.
+     */
+    public void modifyStudentEnrollment(StudentEnrollment studentEnrollment) {
+        String sql = "UPDATE " + assignmentTableName + " SET  " +
+                " ID = '"+ studentEnrollment.getEnrollmentID() + "', " +
+                " STUDENTID = '"+studentEnrollment.getStudentID() + "', " +
+                " COURSEID ='" +studentEnrollment.getCourseID()+ "'"+ " WHERE ID = "+studentEnrollment.getEnrollmentID() +";";
         try {
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();

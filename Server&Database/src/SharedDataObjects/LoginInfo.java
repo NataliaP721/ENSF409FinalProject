@@ -18,6 +18,9 @@ public class LoginInfo {
     public String getPassword() {
         return this.password;
     }
+    public String getCommand() {
+        return this.command;
+    }
     // set
     public void setPassword(String password) {
         this.password = password;

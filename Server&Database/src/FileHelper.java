@@ -1,5 +1,5 @@
 public class FileHelper {
-    // TODO now
+    // TODO Thursday
 //    File newFile = new File(STORAGE_PATH + FILE_NAME + FILE_EXTENSION);
 //    try{
 //        if(! newFile.exists())

@@ -44,6 +44,9 @@ public class Assignment {
     public String getDueDate() {
         return this.dueDate;
     }
+    public String getCommand() {
+        return this.command;
+    }
     // set
     public void setActive(boolean active) {
         this.active = active;

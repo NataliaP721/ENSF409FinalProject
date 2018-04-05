@@ -8,4 +8,5 @@ public class Professor extends User{
     public void setCommand(String command) {
         super.setCommand(command);
     }
+
 }
