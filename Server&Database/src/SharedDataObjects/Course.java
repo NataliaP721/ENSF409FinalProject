@@ -31,6 +31,12 @@ public class Course {
         }
         else
             return '1';
+<<<<<<< HEAD
+    }
+    public String getCommand() {
+        return this.command;
+=======
+>>>>>>> 165b0913296f8cc7268ac43cb2b1dc2f2b3d78bc
     }
     public String getCommand() {
         return this.command;

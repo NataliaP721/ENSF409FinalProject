@@ -346,6 +346,7 @@ public class DatabaseHelper {
                 grade.getStudentID() + ", " +
                 grade.getCourseID() + ", " +
                 grade.getAssignmentGrade()+ ");";
+<<<<<<< HEAD
 
         try{
             statement = jdbc_connection.prepareStatement(sql);
@@ -593,6 +594,255 @@ public class DatabaseHelper {
         return null;
     }
 
+=======
+
+        try{
+            statement = jdbc_connection.prepareStatement(sql);
+            statement.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * This method searches the database table for an Object matching the lastName parameter and return that ResultSet.
+     * @param tableName the name of the database table being searched.
+     * @param lastName the lastName of the Object to be searched
+     * @return the Object matching the ID. It should return null if no Objects matching that lastName are found in the dataTable.
+     */
+    public ResultSet searchByLastName(String tableName, String lastName) {
+        String sql = "SELECT * FROM " + tableName + "  WHERE LASTNAME =" + lastName;
+        ResultSet user;
+        try {
+            statement = jdbc_connection.prepareStatement(sql);
+            user = statement.executeQuery();
+            return user;
+        } catch (SQLException e) { e.printStackTrace(); }
+        return null;
+    }
+    /**
+     * This method searches the database table for an Object matching the ID parameter and return that ResultSet.
+     * @param tableName the name of the database table being searched.
+     * @param ID the ID of the Object to be searched
+     * @return the Object matching the ID. It should return null if no Objects matching that ID are found in the dataTable.
+     */
+    public ResultSet searchByID(String tableName, int ID)
+    {
+        String sql = "SELECT * FROM " + tableName + "  WHERE ID =" + ID;
+        ResultSet user;
+        try {
+            statement = jdbc_connection.prepareStatement(sql);
+            user = statement.executeQuery();
+            return user;
+        } catch (SQLException e) { e.printStackTrace(); }
+        return null;
+    }
+    /**
+     * This method searches the Users database table for a User matching the ID parameter and return that User.
+     * @param ID the ID of the User to be searched
+     * @return the User matching the ID. It should return null if no Users matching that ID are found.
+     */
+    public User searchUsers(int ID) {
+        try {
+            ResultSet users = searchByID(userTableName, ID);
+            if(users == null) {
+                return null;
+            }
+            User temp = null;
+            while(users.next())
+            {
+                temp = new User (users.getString("EMAIL"),
+                        users.getString("LASTNAME"),
+                        users.getString("FIRSTNAME"),
+                        users.getString("TYPE").charAt(0));
+            }
+            users.close();
+            return temp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * This method searches the Users database table for a User matching the lastName parameter and return that User.
+     * @param lastName the lastName of the User to be searched
+     * @return the User matching the lastName. It should return null if no Users matching that ID are found.
+     */
+    public User searchUsers(String lastName) {
+        try {
+            ResultSet users = searchByLastName(userTableName, lastName);
+            if(users == null) {
+                return null;
+            }
+            User temp = null;
+            while(users.next())
+            {
+                temp = new User (users.getString("EMAIL"),
+                        users.getString("LASTNAME"),
+                        users.getString("FIRSTNAME"),
+                        users.getString("TYPE").charAt(0));
+            }
+            users.close();
+            return temp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
+     * @param ID the ID of the Course to be searched
+     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     */
+    public Course searchCourses(int ID) {
+        try {
+            ResultSet courses = searchByID(courseTableName, ID);
+            if(courses == null) {
+                return null;
+            }
+            Course temp = null;
+            while(courses.next())
+            {
+                boolean activeBoolean = false;
+                if(courses.getString("ACTIVE").charAt(0)=='0') {
+                    activeBoolean = false;
+                }
+                else if(courses.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+                }
+                temp = new Course (courses.getInt("ID"),
+                        courses.getInt("PROFESSORID"),
+                        courses.getString("COURSENAME"),
+                        activeBoolean);
+            }
+            courses.close();
+            return temp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * This method searches the StudentEnrollment database table for a StudentEnrollment matching the ID parameter
+     * and return that StudentEnrollment.
+     * @param ID the ID of the StudentEnrollment to be searched
+     * @return the StudentEnrollment matching the ID. It should return null if no StudentEnrollments matching that ID are found.
+     */
+    public StudentEnrollment searchStudentEnrollment(int ID) {
+        try {
+            ResultSet enrollments = searchByID(studentEnrollmentTableName, ID);
+            if(enrollments == null) {
+                return null;
+            }
+            StudentEnrollment temp = null;
+            while(enrollments.next())
+            {
+                temp = new StudentEnrollment (enrollments.getInt("ID"),
+                        enrollments.getInt("STUDENTID"),
+                        enrollments.getInt("COURSEID"), true);
+            }
+            enrollments.close();
+            return temp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * This method searches the Assignment database table for a Assignment matching the ID parameter and return that Assignment.
+     * @param ID the ID of the Assignment to be searched
+     * @return the Assignment matching the ID. It should return null if no Grades matching that ID are found.
+     */
+    public Assignment searchAssignments(int ID) {
+        try {
+            ResultSet assignments = searchByID(assignmentTableName, ID);
+            if(assignments == null) {
+                return null;
+            }
+            Assignment temp = null;
+            while(assignments.next())
+            {
+                boolean activeBoolean = false;
+                if(assignments.getString("ACTIVE").charAt(0)=='0') {
+                    activeBoolean = false;
+                }
+                else if(assignments.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+                }
+                temp = new Assignment(assignments.getInt("ID"),
+                        assignments.getInt("COURSEID"),
+                        assignments.getString("ASSIGNMENTTITLE"),
+                        assignments.getString("ASSIGNMENTPATH"),
+                        activeBoolean,
+                        assignments.getString("DUEDATE"));
+            }
+            assignments.close();
+            return temp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * This method searches the Submissions database table for a Submission matching the ID parameter and return that Submission.
+     * @param ID the ID of the Submission to be searched
+     * @return the Submission matching the ID. It should return null if no Submissions matching that ID are found.
+     */
+    public Submission searchSubmissions(int ID) {
+        try {
+            ResultSet submissions = searchByID(submissionTableName, ID);
+            if(submissions == null) {
+                return null;
+            }
+            Submission temp = null;
+            while(submissions.next())
+            {
+                temp = new Submission (submissions.getInt("ID"),
+                        submissions.getInt("ASSIGNMENTID"),
+                        submissions.getInt("STUDENTID"),
+                        submissions.getString("PATH"),
+                        submissions.getInt("SUBMISSIONGRADE"),
+                        submissions.getString("COMMENTS"),
+                        submissions.getString("TIMESTAMP"),
+                        submissions.getString("TITLE"));
+            }
+            submissions.close();
+            return temp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * This method searches the Grade database table for a Grade matching the ID parameter and return that Grade.
+     * @param ID the ID of the Grade to be searched
+     * @return the Grade matching the ID. It should return null if no Grades matching that ID are found.
+     */
+    public Grade searchGrades(int ID) {
+        try {
+            ResultSet submissions = searchByID(gradeTableName, ID);
+            if(submissions == null) {
+                return null;
+            }
+            Grade temp = null;
+            while(submissions.next())
+            {
+                temp = new Grade (submissions.getInt("ID"),
+                        submissions.getInt("ASSIGNMENTID"),
+                        submissions.getInt("STUDENTID"),
+                        submissions.getInt("COURSEID"),
+                        submissions.getInt("ASSIGNMENTGRADE"));
+            }
+            submissions.close();
+            return temp;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+>>>>>>> 165b0913296f8cc7268ac43cb2b1dc2f2b3d78bc
     /**
      * Prints all the items in the User database to console
      */
@@ -773,7 +1023,15 @@ public class DatabaseHelper {
      * Deletes a StudentEnrollment from the database with a matching id.
      * @param enrollmentID the enrollmentID of the StudentEnrollment to be deleted.
      */
+<<<<<<< HEAD
+<<<<<<< HEAD
     public void deleteStudentEnrollment(int enrollmentID) {
+=======
+    public void deleteEnrollment(int enrollmentID) {
+>>>>>>> 165b0913296f8cc7268ac43cb2b1dc2f2b3d78bc
+=======
+    public void deleteStudentEnrollment(int enrollmentID) {
+>>>>>>> master
         try {
             String sql = "DELETE FROM " + studentEnrollmentTableName + " WHERE ID = "+enrollmentID;
             statement = jdbc_connection.prepareStatement(sql);
@@ -871,6 +1129,10 @@ public class DatabaseHelper {
         }
 
     }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> master
     // ID must be kept the same for all modifies
     /**
      * Modifies an Assignment from the database with a matching id.
@@ -890,6 +1152,11 @@ public class DatabaseHelper {
         }
 
     }
+<<<<<<< HEAD
+=======
+>>>>>>> 165b0913296f8cc7268ac43cb2b1dc2f2b3d78bc
+=======
+>>>>>>> master
     /**
      * @param args a string array for input parameters passed to main
      */

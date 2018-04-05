@@ -191,7 +191,6 @@ public class LoginWindow extends JFrame implements ActionListener{
             String pass = password.getText();
             password.setText("");
             LoginInfo info = new LoginInfo(user, pass);
-            info.se
             try {
                 out.writeObject(info);
             } catch (IOException f) {
