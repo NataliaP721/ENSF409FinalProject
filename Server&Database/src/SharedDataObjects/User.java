@@ -31,6 +31,9 @@ public class User {
     public void setCommand(String command) {
         this.command = command;
     }
+    public String getCommand() {
+        return this.command;
+    }
     public int getID() {
         return this.id;
     }

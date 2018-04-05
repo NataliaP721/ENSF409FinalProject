@@ -26,17 +26,11 @@ public class Course {
         return this.courseName;
     }
     public char getActive() {
-        if (this.active == false) {
+        if (!this.active) {
             return '0';
         }
         else
             return '1';
-<<<<<<< HEAD
-    }
-    public String getCommand() {
-        return this.command;
-=======
->>>>>>> 165b0913296f8cc7268ac43cb2b1dc2f2b3d78bc
     }
     public String getCommand() {
         return this.command;
@@ -48,7 +42,7 @@ public class Course {
     @Override
      public String toString() {
        String answer = courseName;
-       if(active == true){
+       if(this.active){
          answer = answer + "          ACTIVE";
        }
        else {
