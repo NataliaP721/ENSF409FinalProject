@@ -54,7 +54,7 @@ public class Submission implements Serializable{
     public String getCommand() {
         return this.command;
     }
-    // set
+    public void setCommand(String com) { this.command = com;}
     public void setSubmissionGrade(int submissionGrade) {
         this.submissionGrade = submissionGrade;
     }

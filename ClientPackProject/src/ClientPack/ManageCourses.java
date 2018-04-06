@@ -14,10 +14,11 @@ import SharedDataObjects.*;
 
 class ManageCourses extends JFrame implements ActionListener{
 
-    ManageCourses(ObjectInputStream in, ObjectOutputStream out) {
+    ManageCourses(ObjectInputStream in, ObjectOutputStream out, Course course) {
 
         this.in = in;
         this.out = out;
+        this.course = course;
         initComponents();
         manageAssignments.addActionListener(this);
         manageSubmissions.addActionListener(this);
@@ -54,7 +55,7 @@ class ManageCourses extends JFrame implements ActionListener{
             frame1.setTitle("Manage Course");
             frame1.setBackground(UIManager.getColor("TextPane.selectionBackground"));
             frame1.setForeground(UIManager.getColor("TextPane.selectionBackground"));
-            frame1.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            frame1.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame1.setFont(new Font("Geneva", Font.PLAIN, 13));
             Container frame1ContentPane = frame1.getContentPane();
             frame1ContentPane.setLayout(new MigLayout(
@@ -277,58 +278,32 @@ class ManageCourses extends JFrame implements ActionListener{
 
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private boolean visible;
     private ManageAssignment assignManager;
     private ManageSubmissions subManager;
     private ManageGrades gradeManager;
     private EmailStudents emailManager;
     private EnrollStudents enrollManager;
 
-    void setCourse(Course x) {
-        courseName.setText(x.getCourseName());
-        this.course = x;
-        visible = true;
-    }
 
-    boolean getVisible() {
-        return visible;
-    }
-
-//    public static void main(String [] args){
-//        ManageCourses obj= new ManageCourses();
-//    }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(e.getSource() == back) {
-                this.setVisible(false);
-                visible = false;
-            }
-            else if(e.getSource() == manageAssignments) {
-                assignManager = new ManageAssignment(in, out, course);
-                assignManager.setVisible(true);
-                this.setVisible(false);
-            }
-            else if(e.getSource() == manageSubmissions) {
-                subManager = new ManageSubmissions(in, out, course);
-                subManager.setVisible(true);
-                this.setVisible(false);
-            }
-            else if(e.getSource() == manageGrades) {
-                gradeManager = new ManageGrades(in, out, course);
-                gradeManager.setVisible(true);
-                this.setVisible(false);
-            }
-            else if(e.getSource() == emailStudents) {
-                emailManager = new EmailStudents(in, out, course);
-                emailManager.setCourse(course);
-                emailManager.setVisible(true);
-                this.setVisible(false);
-            }
-            else if(e.getSource() == enrollStudents) {
-                enrollManager = new EnrollStudents(in, out, course);
-                enrollManager.setVisible(true);
-                this.setVisible(false);
-            }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == back) {
+            this.dispose();
+        }
+        else if(e.getSource() == manageAssignments) {
+            assignManager = new ManageAssignment(in, out, course);
+        }
+        else if(e.getSource() == manageSubmissions) {
+            subManager = new ManageSubmissions(in, out, course);
+        }
+        else if(e.getSource() == manageGrades) {
+            gradeManager = new ManageGrades(in, out, course);
+        }
+        else if(e.getSource() == emailStudents) {
+            emailManager = new EmailStudents(in, out, course);
+        }
+        else if(e.getSource() == enrollStudents) {
+            enrollManager = new EnrollStudents(in, out, course);
         }
     }
+}

@@ -10,6 +10,9 @@ public class User implements Serializable{
     private char userType;
     private String command;
 
+    public User() {
+
+    }
     public User(String lastName, String firstName, String userEmail, int id, char userType) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -39,4 +42,6 @@ public class User implements Serializable{
     public int getID() {
         return this.id;
     }
+
+    public void setLastName(String last) { this.lastName = last;}
 }

@@ -3,12 +3,9 @@ package ClientPack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import javax.swing.*;
-//import javax.swing.event.ListSelectionEvent;
-//import javax.swing.event.ListSelectionListener;
+
 
 import net.miginfocom.swing.*;
 
@@ -24,11 +21,10 @@ import SharedDataObjects.*;
  */
 public class ManageAssignment extends JFrame implements ActionListener{
     ManageAssignment(ObjectInputStream in, ObjectOutputStream out, Course course) {
-        this.out = out;
         this.in = in;
+        this.out = out;
         this.course = course;
         initComponents();
-//        assignmentList.addListSelectionListener(this);
         addAssignment.addActionListener(this);
         deleteAssignment.addActionListener(this);
         activatedeactivate.addActionListener(this);
@@ -53,7 +49,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel2 = new JPanel();
         back = new JButton();
         courseName = new JLabel();
@@ -95,7 +91,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
                 "[]" +
                 "[]" +
                 "[]" +
-                "[522]0"));
+                "[450]0"));
 
             //---- back ----
             back.setText("Back");
@@ -124,7 +120,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
                     "[]"));
 
                 //---- addAssignment ----
-                addAssignment.setText("Add New Assigment");
+                addAssignment.setText("Add New Assignment");
                 addAssignment.setBackground(Color.black);
                 addAssignment.setForeground(Color.black);
                 panel1.add(addAssignment, "cell 0 1");
@@ -136,9 +132,9 @@ public class ManageAssignment extends JFrame implements ActionListener{
                 panel1.add(deleteAssignment, "cell 1 1");
 
                 //---- activatedeactivate ----
+                activatedeactivate.setText("Activate/Deactivate");
                 activatedeactivate.setBackground(Color.black);
                 activatedeactivate.setForeground(Color.black);
-                activatedeactivate.setText("Activate/Deactivate");
                 panel1.add(activatedeactivate, "cell 2 1");
             }
             panel2.add(panel1, "cell 0 1 1 2,alignx center,growx 0");
@@ -167,7 +163,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel2;
     private JButton back;
     private JLabel courseName;
@@ -181,22 +177,19 @@ public class ManageAssignment extends JFrame implements ActionListener{
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     private Course course;
-    private boolean visible;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-
-//    public static void main(String[] args) {
-//        ManageAssignment obj = new ManageAssignment();
-//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == back) {
-            this.setVisible(false);
-            visible = false;
+            this.dispose();
         }
         else if(e.getSource() == addAssignment) {
-            this.addAssign();
+
+            Upload upload = addFile();
+            this.addAssign(upload);
+
             try {
                 assignmentList.setListData((Assignment[])(in.readObject()));
             }
@@ -208,11 +201,11 @@ public class ManageAssignment extends JFrame implements ActionListener{
             }
         }
         else if(e.getSource() == deleteAssignment) {
-            Assignment current = (Assignment) assignmentList.getSelectedValue();
+            Assignment current = assignmentList.getSelectedValue();
             current.setCommand("DELETE");
             try {
                 out.writeObject(current);
-                out.flush();
+                out.reset();
                 assignmentList.setListData((Assignment[])(in.readObject()));
             }
             catch(ClassNotFoundException c) {
@@ -223,17 +216,18 @@ public class ManageAssignment extends JFrame implements ActionListener{
             }
         }
         else if(e.getSource() == activatedeactivate) {
-            Assignment current = (Assignment) assignmentList.getSelectedValue();
-            current.setCommand("MOD");
-            if(current.getActive()=='0') {
-                current.setActive(true);
-            }
-            else{
+            Assignment current = assignmentList.getSelectedValue();
+            if(current.getActive() == '1') {
                 current.setActive(false);
             }
+            else if(current.getActive() == '0') {
+                current.setActive(true);
+            }
+            current.setCommand("MOD");
             try {
                 out.writeObject(current);
-                assignmentList.setListData((Assignment[])in.readObject());
+                out.reset();
+                assignmentList.setListData((Assignment[])(in.readObject()));
             }
             catch(ClassNotFoundException c) {
                 System.err.println("Object error");
@@ -242,26 +236,52 @@ public class ManageAssignment extends JFrame implements ActionListener{
                 System.err.println("IO Error");
             }
         }
-
     }
 
-//    public void valueChanged(ListSelectionEvent e){
-//    }
 
-    void setCourse(Course x) {
-        this.course = x;
-        visible = true;
+    private Upload addFile() {
+        JFileChooser fileBrowser = new JFileChooser();
+        File selectedFile = null;
+        if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileBrowser.getSelectedFile();
+        }
+        assert selectedFile != null;
+        long length = selectedFile.length();
+
+        byte[] content = new byte[(int) length];
+        try {
+            BufferedInputStream reader = new BufferedInputStream(new FileInputStream(selectedFile));
+            reader.read(content, 0, (int)length);
+        }
+        catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch(IOException f) {
+            System.err.println("Error");
+        }
+
+        return new Upload(content, selectedFile.getName());
     }
 
-    boolean getVisible() {
-        return visible;
-    }
+    private void addAssign(Upload upload) {
 
-    private void addAssign() {
+        upload.setCommand("ADD");
+        String path = null;
+        try {
+            out.writeObject(upload);
+            out.flush();
+            path = (String)in.readObject();
+        }
+        catch(ClassNotFoundException e) {
+            System.err.println("Object Error");
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+
 
         JTextField assignTitle = new JTextField(20);
         JTextField assignID = new JTextField(6);
-        JTextField assignPath = new JTextField(10);
         JTextField assignDueDate = new JTextField(8);
 
         //put all the things into the panel
@@ -271,31 +291,17 @@ public class ManageAssignment extends JFrame implements ActionListener{
         addAssignPanel.add(assignTitle);
         addAssignPanel.add(new JLabel("Enter the assignment ID: "));
         addAssignPanel.add(assignID);
-        addAssignPanel.add(new JLabel("Enter the assignment path: "));
-        addAssignPanel.add(assignPath);
         addAssignPanel.add(new JLabel("Enter the assignment due date (DDMMYYYY): "));
         addAssignPanel.add(assignDueDate);
 
         int result = JOptionPane.showConfirmDialog(null, addAssignPanel,
                 "Please Enter Assignment Information", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            Assignment newAssign = new Assignment(Integer.parseInt(assignID.getText()), course.getCourseID(), assignTitle.getText(), assignPath.getText(), false, assignDueDate.getText());
+            Assignment newAssign = new Assignment(Integer.parseInt(assignID.getText()), course.getCourseID(), assignTitle.getText(), path, true, assignDueDate.getText());
             newAssign.setCommand("ADD");
             try {
                 out.writeObject(newAssign);
-                out.flush();
-                try {
-                    course.setCommand("GETASSIGNMENTS");
-                    out.writeObject(course);
-                    System.out.println(course.getCourseName());
-                    assignmentList.setListData((Assignment[])(in.readObject()));
-                }
-                catch(ClassNotFoundException e) {
-                    System.err.println("Object error");
-                }
-                catch(IOException e) {
-                    System.err.println("IO Error");
-                }
+                out.reset();
             }
             catch(IOException d) {
                 System.err.println("IO Error");

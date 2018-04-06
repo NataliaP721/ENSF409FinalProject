@@ -1,6 +1,5 @@
 package SharedDataObjects;
 
-import java.awt.*;
 import java.io.Serializable;
 
 public class Assignment implements Serializable{

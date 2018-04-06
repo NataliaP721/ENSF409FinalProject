@@ -42,11 +42,11 @@ new FormModel {
 				"background": new java.awt.Color( 115, 194, 251, 255 )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "courseName"
+					"text": "ENCM 511"
 					"horizontalAlignment": 0
 					"font": new java.awt.Font( ".SF NS Text", 1, 30 )
 					"background": new java.awt.Color( 51, 153, 255, 255 )
 					"foreground": sfield java.awt.Color black
-					"text": "ENCM 511"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 0,alignx center,grow 0 100"
 				} )

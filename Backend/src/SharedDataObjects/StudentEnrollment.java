@@ -6,14 +6,18 @@ public class StudentEnrollment implements Serializable{
     private int enrollmentID;
     private int studentID;
     private int courseID;
-    private boolean Enrolling;
+    private boolean enrolling;
     private String command;
+
+    public StudentEnrollment() {
+
+    }
 
     public StudentEnrollment(int enrollmentID, int studentID, int courseID, boolean Enrolling) {
         this.enrollmentID = enrollmentID;
         this.studentID = studentID;
         this.courseID = courseID;
-        this.Enrolling = Enrolling;
+        this.enrolling = Enrolling;
         this.command = null;
     }
     // Helper methods
@@ -27,26 +31,20 @@ public class StudentEnrollment implements Serializable{
     public int getCourseID() {
         return this.courseID;
     }
-    public boolean getEnrolling() {
-        return this.Enrolling;
+    public void setEnrolling(boolean enroll) {
+        this.enrolling = enroll;
     }
     public String getCommand() {
         return this.command;
     }
-    // set
-    public void setEnrolling(boolean Enrolling) {
-        this.Enrolling = Enrolling;
-    }
-
-    @Override
-    public String toString() {
-        String answer = Integer.toString(studentID);
-        if(this.Enrolling){
-            answer = answer + "          ENROLLED";
+    public void setCommand(String com) { this.command = com;}
+    public void setStudentID(int id) { this.studentID = id;}
+    public char getEnrolling() {
+        if (!this.enrolling) {
+            return '0';
         }
         else {
-            answer = answer + "          UNENROLLED";
+            return '1';
         }
-        return answer;
     }
 }

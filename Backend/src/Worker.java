@@ -16,7 +16,7 @@ public class Worker implements Runnable {
     private ObjectInputStream in;
     private Socket socket;
 
-    public Worker (DatabaseHelper database, EmailHelper emailService, FileHelper fileManager, Socket socket) {
+    Worker (DatabaseHelper database, EmailHelper emailService, FileHelper fileManager, Socket socket) {
         this.databaseHelper = database;
         this.emailHelper = emailService;
         this.fileHelper = fileManager;
@@ -42,7 +42,6 @@ public class Worker implements Runnable {
                     LoginInfo loginInfo = (LoginInfo) obj;
                     User found = databaseHelper.searchUsers(loginInfo.getUsername());
                     out.writeObject(found);
-//                    out.flush();
                     out.reset();
                 }
                 else if(obj instanceof User) {
@@ -50,7 +49,7 @@ public class Worker implements Runnable {
                     if(user.getCommand().equals("GETCOURSES")) {
                         ArrayList<Course> courseList= databaseHelper.searchAllCourses();
                         databaseHelper.printCourseTable();
-                        Course [] courses = (Course [])courseList.toArray(new Course[courseList.size()]);
+                        Course [] courses = courseList.toArray(new Course[courseList.size()]);
                         out.writeObject(courses);
                         out.reset();
                     }
@@ -70,21 +69,21 @@ public class Worker implements Runnable {
                         databaseHelper.addCourse(course);
                         ArrayList<Course> courseList= databaseHelper.searchAllCourses();
                         databaseHelper.printCourseTable();
-                        Course [] courses = (Course [])courseList.toArray(new Course[courseList.size()]);
+                        Course [] courses = courseList.toArray(new Course[courseList.size()]);
                         out.writeObject(courses);
                         out.reset();
                     }
                     else if(course.getCommand().equals("DELETE")) {
                         databaseHelper.deleteCourse(course.getCourseID());
                         ArrayList<Course> courseList= databaseHelper.searchAllCourses();
-                        Course [] courses = (Course [])courseList.toArray(new Course[courseList.size()]);
+                        Course [] courses = courseList.toArray(new Course[courseList.size()]);
                         out.writeObject(courses);
                         out.reset();
                     }
                     else if(course.getCommand().equals("MOD")) {
                         databaseHelper.modifyCourse(course);
                         ArrayList<Course> courseList= databaseHelper.searchAllCourses();
-                        Course [] courses = (Course [])courseList.toArray(new Course[courseList.size()]);
+                        Course [] courses = courseList.toArray(new Course[courseList.size()]);
                         out.writeObject(courses);
                         out.reset();
                     }
@@ -94,7 +93,7 @@ public class Worker implements Runnable {
                     else if(course.getCommand().equals("GETASSIGNMENTS")) {
                         ArrayList<Assignment> assignmentList= databaseHelper.searchAllAssignments();
                         databaseHelper.printAssignmentTable();
-                        Assignment [] assignments = (Assignment [])assignmentList.toArray(new Assignment [assignmentList.size()]);
+                        Assignment [] assignments = assignmentList.toArray(new Assignment [assignmentList.size()]);
                         out.writeObject(assignments);
                         out.reset();
                     }
@@ -102,7 +101,7 @@ public class Worker implements Runnable {
                         ArrayList<StudentEnrollment> enrollmentslist= databaseHelper.searchAllStudentEnrollments();
                         databaseHelper.printStudentEnrollmentTable();
                         System.out.println("Here");
-                        StudentEnrollment [] enrollments = (StudentEnrollment [])enrollmentslist.toArray(new StudentEnrollment [enrollmentslist.size()]);
+                        StudentEnrollment [] enrollments = enrollmentslist.toArray(new StudentEnrollment [enrollmentslist.size()]);
                         out.writeObject(enrollments);
                         out.reset();
                     }
@@ -110,13 +109,13 @@ public class Worker implements Runnable {
                         ArrayList<StudentEnrollment> enrollmentslist= databaseHelper.searchAllStudentEnrollments();
                         StudentEnrollment enrollment = enrollmentslist.get(0);
                         for (Iterator<StudentEnrollment> iter = enrollmentslist.iterator(); iter.hasNext(); ) {
-                                if(enrollment.getEnrolling()==false) {
-                                    enrollmentslist.remove(iter);
-                                }
-                                enrollment = iter.next();
+                            if(enrollment.getEnrolling() == '0') {
+                                enrollmentslist.remove(iter);
+                            }
+                            enrollment = iter.next();
                         }
                         databaseHelper.printAssignmentTable();
-                        StudentEnrollment [] enrollments = (StudentEnrollment [])enrollmentslist.toArray(new StudentEnrollment [enrollmentslist.size()]);
+                        StudentEnrollment [] enrollments = enrollmentslist.toArray(new StudentEnrollment [enrollmentslist.size()]);
                         out.writeObject(enrollments);
                         out.reset();
                     }
@@ -135,7 +134,6 @@ public class Worker implements Runnable {
                     else if(studentEnrollment.getCommand().equals("SEARCH")) {
                         StudentEnrollment enrollment = databaseHelper.searchStudentEnrollment(studentEnrollment.getEnrollmentID());
                         out.writeObject(enrollment);
-                        out.flush();
                         out.reset();
 
                     }
@@ -146,18 +144,16 @@ public class Worker implements Runnable {
                         databaseHelper.addAssignment(assignment);
                         ArrayList<Assignment> assignmentList= databaseHelper.searchAllAssignments();
                         databaseHelper.printAssignmentTable();
-                        Assignment [] assignments = (Assignment [])assignmentList.toArray(new Assignment[assignmentList.size()]);
+                        Assignment [] assignments = assignmentList.toArray(new Assignment[assignmentList.size()]);
                         out.writeObject(assignments);
-                        out.flush();
                         out.reset();
                     }
                     else if(assignment.getCommand().equals("DELETE")) {
                         databaseHelper.deleteAssignment(assignment.getCourseID());
                         ArrayList<Assignment> assignmentList= databaseHelper.searchAllAssignments();
                         databaseHelper.printAssignmentTable();
-                        Assignment [] assignments = (Assignment [])assignmentList.toArray(new Assignment[assignmentList.size()]);
+                        Assignment [] assignments = assignmentList.toArray(new Assignment[assignmentList.size()]);
                         out.writeObject(assignments);
-                        out.flush();
                         out.reset();
                     }
                     else if(assignment.getCommand().equals("MOD")) {
@@ -165,7 +161,7 @@ public class Worker implements Runnable {
                         ArrayList<Assignment> assignmentList= databaseHelper.searchAllAssignments();
                         databaseHelper.printAssignmentTable();
                         System.out.println("MOD");
-                        Assignment [] assignments = (Assignment [])assignmentList.toArray(new Assignment[assignmentList.size()]);
+                        Assignment [] assignments = assignmentList.toArray(new Assignment[assignmentList.size()]);
                         out.writeObject(assignments);
                         out.reset();
                     }
@@ -206,7 +202,7 @@ public class Worker implements Runnable {
 
     }
 
-    public void closeConnection() {
+    void closeConnection() {
         try {
             databaseHelper.removeTables();
             socket.close();

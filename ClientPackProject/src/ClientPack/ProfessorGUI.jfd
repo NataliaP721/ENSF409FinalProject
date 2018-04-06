@@ -56,8 +56,8 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "logout"
 						"text": "Logout"
-						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
+						"background": sfield java.awt.Color black
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
@@ -104,36 +104,22 @@ new FormModel {
 			} ) {
 				name: "panel5"
 				"background": new java.awt.Color( 115, 194, 251, 255 )
-				"preferredSize": new java.awt.Dimension( 700, 91 )
-				"minimumSize": new java.awt.Dimension( 700, 91 )
-				"maximumSize": new java.awt.Dimension( 700, 91 )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "activatedeactivate"
 					"text": "Activate/Deactivate"
 					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
-					"background": sfield java.awt.Color white
-					"foreground": sfield java.awt.Color black
-					"iconTextGap": 2
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "openCourse"
 					"text": "Open Course"
 					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
-					"background": sfield java.awt.Color white
-					"foreground": sfield java.awt.Color black
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "addCourse"
 					"text": "Add Course"
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
+					"background": sfield java.awt.Color black
 					"foreground": sfield java.awt.Color black
-				} )
-				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "deleteCourse"
-					"text": "Delete Course"
 					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
-					"background": sfield java.awt.Color white
-					"foreground": sfield java.awt.Color black
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "South"
@@ -153,6 +139,9 @@ new FormModel {
 					"font": new java.awt.Font( ".SF NS Text", 0, 20 )
 					"background": sfield java.awt.Color white
 					"foreground": sfield java.awt.Color black
+					auxiliary() {
+						"JavaCodeGenerator.typeParameters": "Course"
+					}
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Center"
