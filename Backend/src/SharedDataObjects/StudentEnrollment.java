@@ -37,4 +37,16 @@ public class StudentEnrollment implements Serializable{
     public void setEnrolling(boolean Enrolling) {
         this.Enrolling = Enrolling;
     }
+
+    @Override
+    public String toString() {
+        String answer = Integer.toString(studentID);
+        if(this.Enrolling){
+            answer = answer + "          ENROLLED";
+        }
+        else {
+            answer = answer + "          UNENROLLED";
+        }
+        return answer;
+    }
 }

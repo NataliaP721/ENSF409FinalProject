@@ -10,9 +10,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 //import java.io.IOException;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 //import java.util.List;
+
 /*
  * Created by JFormDesigner on Sun Apr 01 12:19:26 MDT 2018
  */
@@ -22,9 +24,10 @@ import java.io.ObjectOutputStream;
  * @author Aysha Panatch
  */
 public class EnrollStudents extends JFrame implements ActionListener, ListSelectionListener{
-    EnrollStudents(ObjectInputStream in, ObjectOutputStream out) {
+    EnrollStudents(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
+        this.course = course;
         initComponents();
         search.addActionListener(this);
         back.addActionListener(this);
@@ -33,6 +36,19 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
         enrollList.addListSelectionListener(this);
         this.setSize(700, 700);
         this.setVisible(true);
+        try {
+            course.setCommand("GETSTUDENTS");
+            out.writeObject(course);
+            out.reset();
+            System.out.println(course.getCourseName());
+            enrollList.setListData((StudentEnrollment[]) (in.readObject()));
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initComponents() {
@@ -75,11 +91,6 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
                     "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
                     javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
                     java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-            panel4.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), panel4.getBorder())); panel4.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel1.setLayout(new MigLayout(
                 "hidemode 3",
@@ -197,6 +208,7 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
         contentPane.add(panel1, "cell 0 0,grow");
         pack();
         setLocationRelativeTo(getOwner());
+
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
@@ -223,21 +235,21 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
     private Course course;
     private boolean visible;
 
-//    public static void main(String[] args) {
+
+    //    public static void main(String[] args) {
 //        EnrollStudents obj = new EnrollStudents();
 //    }
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
     public void valueChanged(ListSelectionEvent e){
     }
 
-    void setCourse(Course x) {
-        this.course = x;
-        visible = true;
-    }
+//    void setCourse(Course x) {
+//        this.course = x;
+//        visible = true;
+//    }
 
     boolean getVisible() {
         return visible;

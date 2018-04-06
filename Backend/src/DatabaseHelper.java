@@ -92,6 +92,9 @@ public class DatabaseHelper {
             addCourse(new Course(22, 1, "ENSF429", false));
             addCourse(new Course(23, 1, "ENSF430", false));
             addCourse(new Course(24, 1, "ENSF431", false));
+            addAssignment(new Assignment(1, 1, "abc", "test", false, "tomorrow"));
+            addStudentEnrollment(new StudentEnrollment(1, 2, 3, true));
+
         }
         catch(SQLException e) { e.printStackTrace(); }
         catch(Exception e) { e.printStackTrace(); }
@@ -617,16 +620,9 @@ public class DatabaseHelper {
             ArrayList<StudentEnrollment> courseList = new ArrayList<>();
             while(enrollments.next())
             {
-                boolean activeBoolean = false;
-                if(enrollments.getString("ACTIVE").charAt(0)=='0') {
-                    activeBoolean = false;
-                }
-                else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
-                    activeBoolean = true;
-                }
                 temp = new StudentEnrollment (enrollments.getInt("ID"),
                         enrollments.getInt("STUDENTID"),
-                        enrollments.getInt("COURSEID"), activeBoolean);
+                        enrollments.getInt("COURSEID"), true);
 
                 courseList.add(temp);
             }

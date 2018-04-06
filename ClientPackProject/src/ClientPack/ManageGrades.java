@@ -20,9 +20,10 @@ import java.io.ObjectOutputStream;
  * @author Aysha Panatch
  */
 public class ManageGrades extends JFrame implements ActionListener, ListSelectionListener{
-    ManageGrades(ObjectInputStream in, ObjectOutputStream out) {
+    ManageGrades(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
+        this.course = course;
         initComponents();
         search.addActionListener(this);
         back.addActionListener(this);

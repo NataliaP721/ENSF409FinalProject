@@ -22,10 +22,10 @@ import net.miginfocom.swing.*;
  * @author Edward Gu
  */
     class ManageSubmissions extends JFrame implements ActionListener{
-    ManageSubmissions(ObjectInputStream in, ObjectOutputStream out) {
+    ManageSubmissions(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
-
+        this.course = course;
         initComponents();
         selectAssignment.addActionListener(this);
         openSubmission.addActionListener(this);

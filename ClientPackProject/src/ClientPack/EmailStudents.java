@@ -23,9 +23,10 @@ import net.miginfocom.swing.*;
  * @author Aysha Panatch
  */
 public class EmailStudents extends JFrame implements ActionListener, ListSelectionListener{
-    EmailStudents(ObjectInputStream in, ObjectOutputStream out) {
+    EmailStudents(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
+        this.course = course;
         initComponents();
         search.addActionListener(this);
         addAll.addActionListener(this);

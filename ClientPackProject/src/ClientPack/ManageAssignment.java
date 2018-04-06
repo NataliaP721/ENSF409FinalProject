@@ -23,17 +23,32 @@ import SharedDataObjects.*;
  * @author Aysha Panatch
  */
 public class ManageAssignment extends JFrame implements ActionListener{
-    ManageAssignment(ObjectInputStream in, ObjectOutputStream out) {
-        this.in = in;
+    ManageAssignment(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.out = out;
+        this.in = in;
+        this.course = course;
         initComponents();
 //        assignmentList.addListSelectionListener(this);
         addAssignment.addActionListener(this);
         deleteAssignment.addActionListener(this);
-        modifyAssignment.addActionListener(this);
+        activatedeactivate.addActionListener(this);
         back.addActionListener(this);
         this.setSize(700,700);
         this.setVisible(true);
+
+        try {
+            course.setCommand("GETASSIGNMENTS");
+            out.writeObject(course);
+            out.reset();
+            System.out.println(course.getCourseName());
+            assignmentList.setListData((Assignment[]) (in.readObject()));
+        }
+        catch (ClassNotFoundException e) {
+            System.err.println("Class not found");
+        }
+        catch(IOException e) {
+            System.err.println("IO Error");
+        }
     }
 
     private void initComponents() {
@@ -45,7 +60,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
         panel1 = new JPanel();
         addAssignment = new JButton();
         deleteAssignment = new JButton();
-        modifyAssignment = new JButton();
+        activatedeactivate = new JButton();
         label2 = new JLabel();
         scrollPane1 = new JScrollPane();
         assignmentList = new JList<>();
@@ -80,7 +95,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
                 "[]" +
                 "[]" +
                 "[]" +
-                "[450]0"));
+                "[522]0"));
 
             //---- back ----
             back.setText("Back");
@@ -89,7 +104,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
             panel2.add(back, "cell 0 0,alignx left,growx 0");
 
             //---- courseName ----
-            courseName.setText(course.getCourseName());
+            courseName.setText("Course Name");
             courseName.setFont(new Font(".SF NS Text", Font.BOLD, 22));
             courseName.setForeground(Color.black);
             courseName.setBackground(new Color(115, 194, 251));
@@ -120,11 +135,11 @@ public class ManageAssignment extends JFrame implements ActionListener{
                 deleteAssignment.setForeground(Color.black);
                 panel1.add(deleteAssignment, "cell 1 1");
 
-                //---- modifyAssignment ----
-                modifyAssignment.setText("Modify Assignment");
-                modifyAssignment.setBackground(Color.black);
-                modifyAssignment.setForeground(Color.black);
-                panel1.add(modifyAssignment, "cell 2 1");
+                //---- activatedeactivate ----
+                activatedeactivate.setBackground(Color.black);
+                activatedeactivate.setForeground(Color.black);
+                activatedeactivate.setText("Activate/Deactivate");
+                panel1.add(activatedeactivate, "cell 2 1");
             }
             panel2.add(panel1, "cell 0 1 1 2,alignx center,growx 0");
 
@@ -159,7 +174,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
     private JPanel panel1;
     private JButton addAssignment;
     private JButton deleteAssignment;
-    private JButton modifyAssignment;
+    private JButton activatedeactivate;
     private JLabel label2;
     private JScrollPane scrollPane1;
     private JList<Assignment> assignmentList;
@@ -193,10 +208,11 @@ public class ManageAssignment extends JFrame implements ActionListener{
             }
         }
         else if(e.getSource() == deleteAssignment) {
-            Assignment current = assignmentList.getSelectedValue();
+            Assignment current = (Assignment) assignmentList.getSelectedValue();
             current.setCommand("DELETE");
             try {
                 out.writeObject(current);
+                out.flush();
                 assignmentList.setListData((Assignment[])(in.readObject()));
             }
             catch(ClassNotFoundException c) {
@@ -206,8 +222,25 @@ public class ManageAssignment extends JFrame implements ActionListener{
                 System.err.println("IO Error");
             }
         }
-        else if(e.getSource() == modifyAssignment) {
-
+        else if(e.getSource() == activatedeactivate) {
+            Assignment current = (Assignment) assignmentList.getSelectedValue();
+            current.setCommand("MOD");
+            if(current.getActive()=='0') {
+                current.setActive(true);
+            }
+            else{
+                current.setActive(false);
+            }
+            try {
+                out.writeObject(current);
+                assignmentList.setListData((Assignment[])in.readObject());
+            }
+            catch(ClassNotFoundException c) {
+                System.err.println("Object error");
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
         }
 
     }
@@ -218,18 +251,6 @@ public class ManageAssignment extends JFrame implements ActionListener{
     void setCourse(Course x) {
         this.course = x;
         visible = true;
-        try {
-            course.setCommand("GETASSIGNMENT");
-            out.writeObject(course);
-            assignmentList.setListData((Assignment[])(in.readObject()));
-        }
-        catch(ClassNotFoundException e) {
-            System.err.println("Object error");
-        }
-        catch(IOException e) {
-            System.err.println("IO Error");
-        }
-
     }
 
     boolean getVisible() {
@@ -258,10 +279,23 @@ public class ManageAssignment extends JFrame implements ActionListener{
         int result = JOptionPane.showConfirmDialog(null, addAssignPanel,
                 "Please Enter Assignment Information", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            Assignment newAssign = new Assignment(Integer.parseInt(assignID.getText()), course.getCourseID(), assignTitle.getText(), assignPath.getText(), true, assignDueDate.getText());
+            Assignment newAssign = new Assignment(Integer.parseInt(assignID.getText()), course.getCourseID(), assignTitle.getText(), assignPath.getText(), false, assignDueDate.getText());
             newAssign.setCommand("ADD");
             try {
                 out.writeObject(newAssign);
+                out.flush();
+                try {
+                    course.setCommand("GETASSIGNMENTS");
+                    out.writeObject(course);
+                    System.out.println(course.getCourseName());
+                    assignmentList.setListData((Assignment[])(in.readObject()));
+                }
+                catch(ClassNotFoundException e) {
+                    System.err.println("Object error");
+                }
+                catch(IOException e) {
+                    System.err.println("IO Error");
+                }
             }
             catch(IOException d) {
                 System.err.println("IO Error");

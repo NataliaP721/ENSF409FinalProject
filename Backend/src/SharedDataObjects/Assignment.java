@@ -37,12 +37,12 @@ public class Assignment implements Serializable{
     public String getAssignmentPath() {
         return this.assignmentPath;
     }
-    public int getActive() {
-        if(this.active) {
-            return 1;
+    public char getActive() {
+        if (!this.active) {
+            return '0';
         }
         else
-            return 0;
+            return '1';
     }
     public String getDueDate() {
         return this.dueDate;

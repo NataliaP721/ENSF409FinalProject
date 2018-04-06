@@ -45,6 +45,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         openCourse.addActionListener(this);
         addCourse.addActionListener(this);
         deleteCourse.addActionListener(this);
+        activatedeactivate.addActionListener(this);
 //        manager = new ManageCourses(in, out);
 //        manager.setVisible(false);
         frame1.setSize(700, 700);
@@ -142,8 +143,8 @@ public class ProfessorGUI extends JPanel implements ActionListener {
 
                     //---- logout ----
                     logout.setText("Logout");
+                    logout.setBackground(Color.white);
                     logout.setForeground(Color.black);
-                    logout.setBackground(Color.black);
                     panel7.add(logout);
                 }
                 panel1.add(panel7);
@@ -194,30 +195,37 @@ public class ProfessorGUI extends JPanel implements ActionListener {
             //======== panel5 ========
             {
                 panel5.setBackground(new Color(115, 194, 251));
+                panel5.setPreferredSize(new Dimension(700, 91));
+                panel5.setMinimumSize(new Dimension(700, 91));
+                panel5.setMaximumSize(new Dimension(700, 91));
                 panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 30));
 
                 //---- activatedeactivate ----
                 activatedeactivate.setText("Activate/Deactivate");
                 activatedeactivate.setFont(activatedeactivate.getFont().deriveFont(activatedeactivate.getFont().getSize() - 1f));
+                activatedeactivate.setBackground(Color.white);
+                activatedeactivate.setForeground(Color.black);
+                activatedeactivate.setIconTextGap(2);
                 panel5.add(activatedeactivate);
 
                 //---- openCourse ----
                 openCourse.setText("Open Course");
                 openCourse.setFont(openCourse.getFont().deriveFont(openCourse.getFont().getSize() - 1f));
+                openCourse.setBackground(Color.white);
+                openCourse.setForeground(Color.black);
                 panel5.add(openCourse);
 
                 //---- addCourse ----
                 addCourse.setText("Add Course");
-                addCourse.setBackground(Color.black);
-                addCourse.setForeground(Color.black);
                 addCourse.setFont(addCourse.getFont().deriveFont(addCourse.getFont().getSize() - 1f));
+                addCourse.setForeground(Color.black);
                 panel5.add(addCourse);
 
                 //---- deleteCourse ----
                 deleteCourse.setText("Delete Course");
-                deleteCourse.setBackground(Color.black);
-                deleteCourse.setForeground(Color.black);
                 deleteCourse.setFont(deleteCourse.getFont().deriveFont(deleteCourse.getFont().getSize() - 1f));
+                deleteCourse.setBackground(Color.white);
+                deleteCourse.setForeground(Color.black);
                 panel5.add(deleteCourse);
             }
             frame1ContentPane.add(panel5, BorderLayout.SOUTH);
@@ -290,7 +298,9 @@ public class ProfessorGUI extends JPanel implements ActionListener {
             System.exit(0);
         }
         else if(e.getSource() == openCourse) {
+            manager = new ManageCourses(in, out);
             Course current = (Course) courseList.getSelectedValue();
+            System.out.println(current.getCourseName());
             manager.setCourse(current);
             manager.setVisible(true);
             this.setVisible(false);
@@ -312,6 +322,26 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         else if(e.getSource() == deleteCourse) {
             Course current = (Course) courseList.getSelectedValue();
             current.setCommand("DELETE");
+            try {
+                out.writeObject(current);
+                courseList.setListData((Course[])in.readObject());
+            }
+            catch(ClassNotFoundException c) {
+                System.err.println("Object error");
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
+        }
+        else if(e.getSource() == activatedeactivate) {
+            Course current = (Course) courseList.getSelectedValue();
+            if(current.getActive()=='0') {
+                current.setActive(true);
+            }
+            else{
+                current.setActive(false);
+            }
+            current.setCommand("MOD");
             try {
                 out.writeObject(current);
                 courseList.setListData((Course[])in.readObject());

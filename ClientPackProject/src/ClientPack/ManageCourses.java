@@ -25,18 +25,6 @@ class ManageCourses extends JFrame implements ActionListener{
         enrollStudents.addActionListener(this);
         back.addActionListener(this);
         manageGrades.addActionListener(this);
-
-        assignManager = new ManageAssignment(in, out);
-        assignManager.setVisible(false);
-        subManager = new ManageSubmissions(in, out);
-        subManager.setVisible(false);
-        gradeManager = new ManageGrades(in, out);
-        gradeManager.setVisible(false);
-        emailManager = new EmailStudents(in, out);
-        emailManager.setVisible(false);
-        enrollManager = new EnrollStudents(in, out);
-        enrollStudents.setVisible(false);
-
         frame1.setSize(700, 700);
         frame1.setVisible(true);
      }
@@ -66,7 +54,7 @@ class ManageCourses extends JFrame implements ActionListener{
             frame1.setTitle("Manage Course");
             frame1.setBackground(UIManager.getColor("TextPane.selectionBackground"));
             frame1.setForeground(UIManager.getColor("TextPane.selectionBackground"));
-            frame1.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            frame1.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             frame1.setFont(new Font("Geneva", Font.PLAIN, 13));
             Container frame1ContentPane = frame1.getContentPane();
             frame1ContentPane.setLayout(new MigLayout(
@@ -297,7 +285,7 @@ class ManageCourses extends JFrame implements ActionListener{
     private EnrollStudents enrollManager;
 
     void setCourse(Course x) {
-        courseName.setText(course.getCourseName());
+        courseName.setText(x.getCourseName());
         this.course = x;
         visible = true;
     }
@@ -317,39 +305,30 @@ class ManageCourses extends JFrame implements ActionListener{
                 visible = false;
             }
             else if(e.getSource() == manageAssignments) {
-                assignManager.setCourse(course);
+                assignManager = new ManageAssignment(in, out, course);
                 assignManager.setVisible(true);
                 this.setVisible(false);
-                while(!assignManager.getVisible()){}
-                this.setVisible(true);
             }
             else if(e.getSource() == manageSubmissions) {
-                subManager.setCourse(course);
+                subManager = new ManageSubmissions(in, out, course);
                 subManager.setVisible(true);
                 this.setVisible(false);
-                while(!subManager.getVisible()){}
-                this.setVisible(true);
             }
             else if(e.getSource() == manageGrades) {
-                gradeManager.setCourse(course);
+                gradeManager = new ManageGrades(in, out, course);
                 gradeManager.setVisible(true);
                 this.setVisible(false);
-                while(!gradeManager.getVisible()){}
-                this.setVisible(true);
             }
             else if(e.getSource() == emailStudents) {
+                emailManager = new EmailStudents(in, out, course);
                 emailManager.setCourse(course);
                 emailManager.setVisible(true);
                 this.setVisible(false);
-                while(!emailManager.getVisible()){}
-                this.setVisible(true);
             }
             else if(e.getSource() == enrollStudents) {
-                enrollManager.setCourse(course);
+                enrollManager = new EnrollStudents(in, out, course);
                 enrollManager.setVisible(true);
                 this.setVisible(false);
-                while(!enrollManager.getVisible()){}
-                this.setVisible(true);
             }
         }
     }
