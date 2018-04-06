@@ -66,11 +66,6 @@ public class ManageGrades extends JFrame implements ActionListener{
             panel1.setBackground(new Color(115, 194, 251));
 
             // JFormDesigner evaluation mark
-            panel1.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel1.setLayout(new MigLayout(
                 "hidemode 3",
@@ -109,7 +104,7 @@ public class ManageGrades extends JFrame implements ActionListener{
 
                     //---- back ----
                     back.setText("Back");
-                    back.setBackground(Color.black);
+                    back.setBackground(Color.white);
                     back.setForeground(Color.darkGray);
                     panel2.add(back, "cell 0 0");
                 }
@@ -156,7 +151,7 @@ public class ManageGrades extends JFrame implements ActionListener{
                 //---- search ----
                 search.setText("Search");
                 search.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
-                search.setBackground(Color.black);
+                search.setBackground(Color.white);
                 search.setForeground(Color.black);
                 panel4.add(search, "cell 0 5,alignx right,growx 0");
 
@@ -173,13 +168,13 @@ public class ManageGrades extends JFrame implements ActionListener{
                 //---- enterGrade ----
                 enterGrade.setText("Enter Grade");
                 enterGrade.setFont(enterGrade.getFont().deriveFont(enterGrade.getFont().getSize() + 1f));
-                enterGrade.setBackground(Color.black);
+                enterGrade.setBackground(Color.white);
                 enterGrade.setForeground(Color.black);
                 panel4.add(enterGrade, "cell 0 7");
 
                 //---- downloadSubmission ----
                 downloadSubmission.setText("Download Submission");
-                downloadSubmission.setBackground(Color.black);
+                downloadSubmission.setBackground(Color.white);
                 downloadSubmission.setForeground(Color.black);
                 downloadSubmission.setFont(downloadSubmission.getFont().deriveFont(downloadSubmission.getFont().getSize() + 1f));
                 panel4.add(downloadSubmission, "cell 0 7");

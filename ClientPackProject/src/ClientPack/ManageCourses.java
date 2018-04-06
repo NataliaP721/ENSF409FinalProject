@@ -24,7 +24,7 @@ class ManageCourses extends JFrame implements ActionListener{
         manageSubmissions.addActionListener(this);
         emailStudents.addActionListener(this);
         enrollStudents.addActionListener(this);
-        back.addActionListener(this);
+        backk.addActionListener(this);
         manageGrades.addActionListener(this);
         frame1.setSize(700, 700);
         frame1.setVisible(true);
@@ -35,7 +35,7 @@ class ManageCourses extends JFrame implements ActionListener{
         // Generated using JFormDesigner Evaluation license - Edward Gu
         frame1 = new JFrame();
         panel2 = new JPanel();
-        back = new JButton();
+        backk = new JButton();
         panel3 = new JPanel();
         courseName = new JLabel();
         panel6 = new JPanel();
@@ -74,11 +74,6 @@ class ManageCourses extends JFrame implements ActionListener{
                 panel2.setBackground(new Color(115, 194, 251));
 
                 // JFormDesigner evaluation mark
-                panel2.setBorder(new javax.swing.border.CompoundBorder(
-                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                        "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
                 panel2.setLayout(new MigLayout(
                     "hidemode 3",
@@ -89,11 +84,11 @@ class ManageCourses extends JFrame implements ActionListener{
                     "[]"));
 
                 //---- back ----
-                back.setText("Back");
-                back.setForeground(Color.darkGray);
-                back.setBackground(Color.black);
-                back.setFont(back.getFont().deriveFont(back.getFont().getSize() + 2f));
-                panel2.add(back, "cell 0 0,align leading top,grow 0 0");
+                backk.setText("Back");
+                backk.setForeground(Color.darkGray);
+                backk.setBackground(Color.white);
+                backk.setFont(backk.getFont().deriveFont(backk.getFont().getSize() + 2f));
+                panel2.add(backk, "cell 0 0,align leading top,grow 0 0");
             }
             frame1ContentPane.add(panel2, "cell 0 0,grow");
 
@@ -166,28 +161,28 @@ class ManageCourses extends JFrame implements ActionListener{
                 manageAssignments.setText("Manage Assignments");
                 manageAssignments.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
                 manageAssignments.setForeground(Color.darkGray);
-                manageAssignments.setBackground(Color.black);
+                manageAssignments.setBackground(Color.white);
                 panel1.add(manageAssignments, "cell 2 0");
 
                 //---- manageSubmissions ----
                 manageSubmissions.setText("Manage Submissions");
                 manageSubmissions.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
                 manageSubmissions.setForeground(Color.darkGray);
-                manageSubmissions.setBackground(Color.black);
+                manageSubmissions.setBackground(Color.white);
                 panel1.add(manageSubmissions, "cell 2 1");
 
                 //---- manageGrades ----
                 manageGrades.setText("Manage Grades");
                 manageGrades.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
                 manageGrades.setForeground(Color.darkGray);
-                manageGrades.setBackground(Color.black);
+                manageGrades.setBackground(Color.white);
                 panel1.add(manageGrades, "cell 2 2");
 
                 //---- emailStudents ----
                 emailStudents.setText("Email Students");
                 emailStudents.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
                 emailStudents.setForeground(Color.darkGray);
-                emailStudents.setBackground(Color.black);
+                emailStudents.setBackground(Color.white);
                 panel1.add(emailStudents, "cell 2 3");
 
                 //---- enrollStudents ----
@@ -196,7 +191,7 @@ class ManageCourses extends JFrame implements ActionListener{
                 enrollStudents.setIcon(null);
                 enrollStudents.setPreferredSize(new Dimension(120, 100));
                 enrollStudents.setForeground(Color.darkGray);
-                enrollStudents.setBackground(Color.black);
+                enrollStudents.setBackground(Color.white);
                 panel1.add(enrollStudents, "cell 2 4,aligny center,growy 0");
             }
             frame1ContentPane.add(panel1, "cell 1 1 1 2");
@@ -261,7 +256,7 @@ class ManageCourses extends JFrame implements ActionListener{
     // Generated using JFormDesigner Evaluation license - Edward Gu
     private JFrame frame1;
     private JPanel panel2;
-    private JButton back;
+    private JButton backk;
     private JPanel panel3;
     private JLabel courseName;
     private JPanel panel6;
@@ -288,8 +283,9 @@ class ManageCourses extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == back) {
-            this.dispose();
+        if(e.getSource() == backk) {
+            System.out.println("here");
+            frame1.dispose();
         }
         else if(e.getSource() == manageAssignments) {
             assignManager = new ManageAssignment(in, out, course);

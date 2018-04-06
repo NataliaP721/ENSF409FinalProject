@@ -35,7 +35,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "back"
 							"text": "Back"
-							"background": new java.awt.Color( 0, 0, 0, 255 )
+							"background": sfield java.awt.Color white
 							"foreground": sfield java.awt.Color darkGray
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 0 0"
@@ -97,7 +97,7 @@ new FormModel {
 						name: "search"
 						"text": "Search"
 						"font": new java.awt.Font( ".SF NS Text", 0, 15 )
-						"background": new java.awt.Color( 0, 0, 0, 255 )
+						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 5,alignx right,growx 0"
@@ -116,7 +116,7 @@ new FormModel {
 						name: "enterGrade"
 						"text": "Enter Grade"
 						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 1, false )
-						"background": sfield java.awt.Color black
+						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 7"
@@ -124,7 +124,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "downloadSubmission"
 						"text": "Download Submission"
-						"background": sfield java.awt.Color black
+						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 1, false )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {

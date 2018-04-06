@@ -20,11 +20,12 @@
       <file leaf-file-name="ManageSubmissions.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageSubmissions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="34" column="45" lean-forward="false" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
+            <state relative-caret-position="780">
+              <caret line="48" column="8" lean-forward="false" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
               <folding>
-                <marker date="1523006288495" expanded="false" signature="1332:8074" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-                <marker date="1523006288495" expanded="false" signature="8086:8798" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+                <element signature="imports" expanded="true" />
+                <marker date="1523044271303" expanded="true" signature="1332:7434" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+                <marker date="1523044271303" expanded="false" signature="7446:8138" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
               </folding>
             </state>
           </provider>
@@ -33,80 +34,111 @@
       <file leaf-file-name="ManageAssignment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageAssignment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1860">
-              <caret line="102" column="53" lean-forward="false" selection-start-line="102" selection-start-column="53" selection-end-line="102" selection-end-column="53" />
+            <state relative-caret-position="1380">
+              <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
               <folding>
-                <marker date="1523006542301" expanded="true" signature="1331:6035" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-                <marker date="1523006542301" expanded="false" signature="6047:6601" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+                <element signature="imports" expanded="true" />
+                <marker date="1523044199190" expanded="true" signature="1331:5390" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+                <marker date="1523044199190" expanded="false" signature="5402:5960" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EnrollStudents.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EnrollStudents.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ClientPack/EnrollStudents.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4060">
-              <caret line="265" column="36" lean-forward="false" selection-start-line="265" selection-start-column="0" selection-end-line="266" selection-end-column="0" />
+            <state relative-caret-position="1520">
+              <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding>
-                <marker date="1523030318581" expanded="true" signature="1524:8392" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-                <marker date="1523030318581" expanded="false" signature="8404:9135" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+                <marker date="1523044159486" expanded="true" signature="1524:7859" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+                <marker date="1523044159486" expanded="false" signature="7871:8606" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProfessorGUI.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LoginWindow.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ClientPack/LoginWindow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1200">
+              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+              <folding>
+                <marker date="1523044185726" expanded="true" signature="716:4827" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+                <marker date="1523044185726" expanded="false" signature="4870:5426" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EmailStudents.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ClientPack/EmailStudents.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1480">
+              <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+              <folding>
+                <marker date="1523044138978" expanded="true" signature="1066:11098" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+                <marker date="1523044138978" expanded="false" signature="11110:12127" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EmailStudents.jfd" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ClientPack/EmailStudents.jfd">
+          <provider selected="true" editor-type-id="JFormDesigner">
+            <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Upload.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/SharedDataObjects/Upload.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+              <folding>
+                <element signature="e#708#709#0" expanded="true" />
+                <element signature="e#749#750#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProfessorGUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ClientPack/ProfessorGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1680">
-              <caret line="303" column="46" lean-forward="false" selection-start-line="303" selection-start-column="46" selection-end-line="303" selection-end-column="46" />
+            <state relative-caret-position="273">
+              <caret line="73" column="30" lean-forward="false" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
               <folding>
-                <marker date="1523006111526" expanded="false" signature="1480:9297" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-                <marker date="1523006111526" expanded="false" signature="9309:10265" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+                <marker date="1523044275123" expanded="true" signature="1526:8537" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+                <marker date="1523044275123" expanded="true" signature="8549:9514" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ManageAssignment.jfd" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageAssignment.jfd">
-          <provider selected="true" editor-type-id="JFormDesigner">
-            <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ManageCourses.jfd" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageCourses.jfd">
-          <provider selected="true" editor-type-id="JFormDesigner">
-            <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StudentEnrollment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/SharedDataObjects/StudentEnrollment.java">
+      <file leaf-file-name="ManageCourses.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageCourses.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="1380">
+              <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <folding>
+                <marker date="1523044216503" expanded="true" signature="979:9452" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Assignment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/SharedDataObjects/Assignment.java">
+      <file leaf-file-name="ManageGrades.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageGrades.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="66" column="41" lean-forward="false" selection-start-line="66" selection-start-column="41" selection-end-line="66" selection-end-column="41" />
-              <folding />
+            <state relative-caret-position="1200">
+              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+              <folding>
+                <marker date="1523044236687" expanded="true" signature="912:7123" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+                <marker date="1523044236687" expanded="false" signature="7135:7841" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+              </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginWindow.jfd" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ClientPack/LoginWindow.jfd">
-          <provider selected="true" editor-type-id="JFormDesigner">
-            <state paletteWidth="252" propertiesWidth="312" structureHeight="312" />
           </provider>
         </entry>
       </file>
@@ -129,6 +161,10 @@
       <find>listener</find>
       <find>511</find>
       <find>courseName</find>
+      <find>addFile</find>
+      <find>out</find>
+      <find>readObj</find>
+      <find>red</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -157,31 +193,35 @@
         <option value="$PROJECT_DIR$/src/SharedDataObjects/User.java" />
         <option value="$PROJECT_DIR$/src/ClientPack/Client.java" />
         <option value="$PROJECT_DIR$/src/ClientPack/LoginWindow.jfd" />
-        <option value="$PROJECT_DIR$/src/ClientPack/LoginWindow.java" />
-        <option value="$PROJECT_DIR$/src/ClientPack/ManageAssignment.jfd" />
-        <option value="$PROJECT_DIR$/src/ClientPack/ProfessorGUI.jfd" />
-        <option value="$PROJECT_DIR$/src/ClientPack/ManageGrades.java" />
-        <option value="$PROJECT_DIR$/src/ClientPack/EmailStudents.java" />
-        <option value="$PROJECT_DIR$/src/ClientPack/EnrollStudents.jfd" />
         <option value="$PROJECT_DIR$/src/ClientPack/FileChoose.java" />
         <option value="$PROJECT_DIR$/src/ClientPack/FileChooser.jfd" />
         <option value="$PROJECT_DIR$/src/ClientPack/FileChooser.java" />
-        <option value="$PROJECT_DIR$/src/ClientPack/ProfessorGUI.java" />
-        <option value="$PROJECT_DIR$/src/ClientPack/ManageSubmissions.java" />
         <option value="$PROJECT_DIR$/src/SharedDataObjects/Assignment.java" />
-        <option value="$PROJECT_DIR$/src/ClientPack/ManageCourses.jfd" />
-        <option value="$PROJECT_DIR$/src/ClientPack/ManageCourses.java" />
-        <option value="$PROJECT_DIR$/src/ClientPack/ManageAssignment.java" />
         <option value="$PROJECT_DIR$/src/SharedDataObjects/StudentEnrollment.java" />
+        <option value="$PROJECT_DIR$/src/ClientPack/ManageSubmissions.jfd" />
+        <option value="$PROJECT_DIR$/src/ClientPack/ManageAssignment.jfd" />
+        <option value="$PROJECT_DIR$/src/ClientPack/ManageGrades.jfd" />
+        <option value="$PROJECT_DIR$/src/ClientPack/EnrollStudents.jfd" />
+        <option value="$PROJECT_DIR$/src/ClientPack/EmailStudents.jfd" />
+        <option value="$PROJECT_DIR$/src/ClientPack/ManageCourses.jfd" />
+        <option value="$PROJECT_DIR$/src/ClientPack/ProfessorGUI.jfd" />
+        <option value="$PROJECT_DIR$/src/SharedDataObjects/Upload.java" />
+        <option value="$PROJECT_DIR$/src/ClientPack/EmailStudents.java" />
         <option value="$PROJECT_DIR$/src/ClientPack/EnrollStudents.java" />
+        <option value="$PROJECT_DIR$/src/ClientPack/LoginWindow.java" />
+        <option value="$PROJECT_DIR$/src/ClientPack/ManageAssignment.java" />
+        <option value="$PROJECT_DIR$/src/ClientPack/ManageCourses.java" />
+        <option value="$PROJECT_DIR$/src/ClientPack/ManageGrades.java" />
+        <option value="$PROJECT_DIR$/src/ClientPack/ManageSubmissions.java" />
+        <option value="$PROJECT_DIR$/src/ClientPack/ProfessorGUI.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="75" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="130" />
     <option name="y" value="27" />
     <option name="width" value="1845" />
-    <option name="height" value="1017" />
+    <option name="height" value="985" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -198,9 +238,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -230,13 +268,15 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Backend" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
   </component>
   <component name="RecentsManager">
@@ -403,23 +443,33 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="73" y="-5" width="1847" height="1085" extended-state="6" />
+    <frame x="130" y="27" width="1845" height="985" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32673267" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893288" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3263288" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25412542" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42274413" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907802" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893288" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28235295" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29613012" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -434,35 +484,6 @@
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32673267" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25412542" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32966396" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907802" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.259944" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -472,22 +493,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/ProfessorGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3440">
-          <caret line="181" column="1" lean-forward="false" selection-start-line="181" selection-start-column="1" selection-end-line="181" selection-end-column="1" />
-          <folding>
-            <marker date="1523006111526" expanded="false" signature="1480:9297" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523006111526" expanded="false" signature="9309:10265" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/SharedDataObjects/Course.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="29" column="29" lean-forward="true" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -495,7 +504,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -511,8 +519,8 @@
         <state relative-caret-position="380">
           <caret line="27" column="30" lean-forward="true" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
           <folding>
-            <marker date="1523004123291" expanded="false" signature="716:5467" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523004123291" expanded="false" signature="5510:6066" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+            <marker date="1523044185726" expanded="true" signature="716:4827" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044185726" expanded="false" signature="4870:5426" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
@@ -522,7 +530,7 @@
         <state relative-caret-position="2020">
           <caret line="325" column="51" lean-forward="false" selection-start-line="325" selection-start-column="51" selection-end-line="325" selection-end-column="51" />
           <folding>
-            <marker date="1523006473752" expanded="true" signature="978:10103" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044216503" expanded="true" signature="979:9452" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
@@ -544,8 +552,9 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1523006288495" expanded="false" signature="1332:8074" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523006288495" expanded="false" signature="8086:8798" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+            <element signature="imports" expanded="true" />
+            <marker date="1523044271303" expanded="true" signature="1332:7434" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044271303" expanded="false" signature="7446:8138" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
@@ -555,8 +564,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1523006111526" expanded="false" signature="1480:9297" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523006111526" expanded="false" signature="9309:10265" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+            <marker date="1523044275123" expanded="true" signature="1526:8537" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044275123" expanded="true" signature="8549:9514" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
@@ -566,8 +575,8 @@
         <state relative-caret-position="40">
           <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
           <folding>
-            <marker date="1523004123291" expanded="false" signature="1120:11791" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523004123291" expanded="false" signature="11803:12820" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+            <marker date="1523044138978" expanded="true" signature="1066:11098" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044138978" expanded="false" signature="11110:12127" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
@@ -582,8 +591,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1523030318581" expanded="true" signature="1524:8392" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523030318581" expanded="false" signature="8404:9135" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+            <marker date="1523044159486" expanded="true" signature="1524:7859" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044159486" expanded="false" signature="7871:8606" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
@@ -593,8 +602,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1523004123291" expanded="false" signature="716:5467" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523004123291" expanded="false" signature="5510:6066" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+            <marker date="1523044185726" expanded="true" signature="716:4827" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044185726" expanded="false" signature="4870:5426" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
@@ -604,8 +613,9 @@
         <state relative-caret-position="1060">
           <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
-            <marker date="1523006542301" expanded="true" signature="1331:6035" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523006542301" expanded="false" signature="6047:6601" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+            <element signature="imports" expanded="true" />
+            <marker date="1523044199190" expanded="true" signature="1331:5390" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044199190" expanded="false" signature="5402:5960" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
@@ -615,7 +625,7 @@
         <state relative-caret-position="160">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
-            <marker date="1523006473752" expanded="true" signature="978:10103" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044216503" expanded="true" signature="979:9452" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
@@ -625,8 +635,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1523004123291" expanded="false" signature="1078:7929" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523004123291" expanded="false" signature="7941:8647" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+            <marker date="1523044236687" expanded="true" signature="912:7123" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044236687" expanded="false" signature="7135:7841" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
@@ -652,66 +662,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageSubmissions.jfd">
-      <provider selected="true" editor-type-id="JFormDesigner">
-        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/ProfessorGUI.jfd">
-      <provider selected="true" editor-type-id="JFormDesigner">
-        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageGrades.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-124">
-          <caret line="25" column="29" lean-forward="false" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
-          <folding>
-            <marker date="1523004123291" expanded="false" signature="1078:7929" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523004123291" expanded="false" signature="7941:8647" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/SharedDataObjects/Grade.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
           <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
-          <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/EmailStudents.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-258">
-          <caret line="29" column="25" lean-forward="true" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
-          <folding>
-            <marker date="1523004123291" expanded="false" signature="1120:11791" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523004123291" expanded="false" signature="11803:12820" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/EmailStudents.jfd">
-      <provider selected="true" editor-type-id="JFormDesigner">
-        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageGrades.jfd">
-      <provider selected="true" editor-type-id="JFormDesigner">
-        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/EnrollStudents.jfd">
-      <provider selected="true" editor-type-id="JFormDesigner">
-        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SharedDataObjects/Submission.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="4" column="47" lean-forward="false" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -753,23 +714,45 @@
     <entry file="file://$PROJECT_DIR$/src/ClientPack/FileChoose.jfd" />
     <entry file="file://$PROJECT_DIR$/src/ClientPack/FileChoose.java" />
     <entry file="file://$PROJECT_DIR$/src/ClientPack/FileChooser.jfd" />
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/LoginWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="183" column="13" lean-forward="false" selection-start-line="183" selection-start-column="13" selection-end-line="183" selection-end-column="13" />
-          <folding>
-            <marker date="1523004123291" expanded="false" signature="716:5467" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523004123291" expanded="false" signature="5510:6066" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientPack/FileChooser.java" />
     <entry file="file://$PROJECT_DIR$/src/SharedDataObjects/Course.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="35" selection-end-column="5" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/javax/swing/JList.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="366" column="0" lean-forward="false" selection-start-line="366" selection-start-column="0" selection-end-line="366" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageSubmissions.jfd">
+      <provider selected="true" editor-type-id="JFormDesigner">
+        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageGrades.jfd">
+      <provider selected="true" editor-type-id="JFormDesigner">
+        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageAssignment.jfd">
+      <provider selected="true" editor-type-id="JFormDesigner">
+        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/EnrollStudents.jfd">
+      <provider selected="true" editor-type-id="JFormDesigner">
+        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SharedDataObjects/StudentEnrollment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -782,7 +765,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
           <caret line="66" column="41" lean-forward="false" selection-start-line="66" selection-start-column="41" selection-end-line="66" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -791,76 +773,112 @@
         <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/ProfessorGUI.jfd">
+      <provider selected="true" editor-type-id="JFormDesigner">
+        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SharedDataObjects/Upload.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="24" column="23" lean-forward="false" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+          <folding>
+            <element signature="e#708#709#0" expanded="true" />
+            <element signature="e#749#750#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/EmailStudents.jfd">
+      <provider selected="true" editor-type-id="JFormDesigner">
+        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/EmailStudents.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1480">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding>
+            <marker date="1523044138978" expanded="true" signature="1066:11098" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044138978" expanded="false" signature="11110:12127" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/EnrollStudents.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1520">
+          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+          <folding>
+            <marker date="1523044159486" expanded="true" signature="1524:7859" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044159486" expanded="false" signature="7871:8606" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/LoginWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding>
+            <marker date="1523044185726" expanded="true" signature="716:4827" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044185726" expanded="false" signature="4870:5426" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageAssignment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1380">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1523044199190" expanded="true" signature="1331:5390" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044199190" expanded="false" signature="5402:5960" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageCourses.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="112" column="59" lean-forward="false" selection-start-line="112" selection-start-column="59" selection-end-line="112" selection-end-column="59" />
+        <state relative-caret-position="1380">
+          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding>
-            <marker date="1523006473752" expanded="true" signature="978:10103" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044216503" expanded="true" signature="979:9452" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageGrades.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding>
+            <marker date="1523044236687" expanded="true" signature="912:7123" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044236687" expanded="false" signature="7135:7841" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageSubmissions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="48" column="8" lean-forward="false" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1523044271303" expanded="true" signature="1332:7434" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044271303" expanded="false" signature="7446:8138" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientPack/ProfessorGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="303" column="46" lean-forward="false" selection-start-line="303" selection-start-column="46" selection-end-line="303" selection-end-column="46" />
+        <state relative-caret-position="273">
+          <caret line="73" column="30" lean-forward="false" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
           <folding>
-            <marker date="1523006111526" expanded="false" signature="1480:9297" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523006111526" expanded="false" signature="9309:10265" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageAssignment.jfd">
-      <provider selected="true" editor-type-id="JFormDesigner">
-        <state paletteWidth="150" propertiesWidth="312" structureHeight="312" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageAssignment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1860">
-          <caret line="102" column="53" lean-forward="false" selection-start-line="102" selection-start-column="53" selection-end-line="102" selection-end-column="53" />
-          <folding>
-            <marker date="1523006542301" expanded="true" signature="1331:6035" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523006542301" expanded="false" signature="6047:6601" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/javax/swing/JList.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="366" column="0" lean-forward="false" selection-start-line="366" selection-start-column="0" selection-end-line="366" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/ManageSubmissions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="34" column="45" lean-forward="false" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
-          <folding>
-            <marker date="1523006288495" expanded="false" signature="1332:8074" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523006288495" expanded="false" signature="8086:8798" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SharedDataObjects/StudentEnrollment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientPack/EnrollStudents.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4060">
-          <caret line="265" column="36" lean-forward="false" selection-start-line="265" selection-start-column="0" selection-end-line="266" selection-end-column="0" />
-          <folding>
-            <marker date="1523030318581" expanded="true" signature="1524:8392" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
-            <marker date="1523030318581" expanded="false" signature="8404:9135" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
+            <marker date="1523044275123" expanded="true" signature="1526:8537" ph="// JFormDesigner - Component initialization - DO NOT MODIFY" />
+            <marker date="1523044275123" expanded="true" signature="8549:9514" ph="// JFormDesigner - Variables declaration - DO NOT MODIFY" />
           </folding>
         </state>
       </provider>

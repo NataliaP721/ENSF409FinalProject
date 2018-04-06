@@ -4,6 +4,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.*;
+import java.io.*;
+
+
 
 import SharedDataObjects.*;
 
@@ -96,7 +99,7 @@ public class Worker implements Runnable {
                         databaseHelper.searchCourses(course.getCourseID());
                     }
                     else if(course.getCommand().equals("GETASSIGNMENTS")) {
-                        ArrayList<Assignment> assignmentList= databaseHelper.searchAllAssignments();
+                        ArrayList<Assignment> assignmentList= databaseHelper.searchAllAssignments(course.getCourseID());
                         databaseHelper.printAssignmentTable();
                         Assignment [] assignments = assignmentList.toArray(new Assignment [assignmentList.size()]);
                         out.writeObject(assignments);
@@ -187,11 +190,44 @@ public class Worker implements Runnable {
                         databaseHelper.searchGrades(grade.getGradeID());
                     }
                 }
+                else if (obj instanceof Upload) {
+                    System.out.println("here1");
+                    String STORAGE_PATH = "/home/natalia/Server/";
+                    Upload upload = (Upload) obj;
+                    if(upload.getCommand().equals("ADDASSIGNMENT")) {
+                        String FILE_EXTENSION = upload.getFileExtension();
+                        String FILE_NAME = upload.getFileName();
+                        byte[] content = upload.getContent();
+                        System.out.println(STORAGE_PATH);
+                        System.out.println(FILE_NAME);
+                        System.out.println(FILE_EXTENSION);
+                        File newFile = new File(STORAGE_PATH + FILE_NAME + FILE_EXTENSION);
+                        boolean exist = false;
+                        try{
+                            System.out.println(newFile.exists());
+                            if(!newFile.exists())
+                                exist = newFile.createNewFile();
+                            if(exist == false)
+                                System.out.println("no");
+                            FileOutputStream writer = new FileOutputStream(newFile);
+                            BufferedOutputStream bos = new BufferedOutputStream(writer);
+                            bos.write(content);
+                            bos.close();
+                            System.out.println("Wrote to file");
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                    out.writeObject(STORAGE_PATH);
+                    out.reset();
+                    System.out.println("here2");
+                }
             }
             // ADD NECESSARY catch CLAUSES HERE
             catch (IOException e)
             {
-                System.err.println( "Error reading object from socket." );
+                e.printStackTrace();
+                //System.err.println( "Error reading object from socket." );
                 closeConnection();
                 break;
             } // end catch

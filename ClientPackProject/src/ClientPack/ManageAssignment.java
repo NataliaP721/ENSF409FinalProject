@@ -49,7 +49,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         panel2 = new JPanel();
         back = new JButton();
         courseName = new JLabel();
@@ -76,11 +76,6 @@ public class ManageAssignment extends JFrame implements ActionListener{
             panel2.setBackground(new Color(115, 194, 251));
 
             // JFormDesigner evaluation mark
-            panel2.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel2.setLayout(new MigLayout(
                 "hidemode 3",
@@ -95,12 +90,12 @@ public class ManageAssignment extends JFrame implements ActionListener{
 
             //---- back ----
             back.setText("Back");
-            back.setBackground(Color.black);
+            back.setBackground(Color.white);
             back.setForeground(Color.black);
             panel2.add(back, "cell 0 0,alignx left,growx 0");
 
             //---- courseName ----
-            courseName.setText(course.getCourseName());
+            courseName.setText("Course Name");
             courseName.setFont(new Font(".SF NS Text", Font.BOLD, 22));
             courseName.setForeground(Color.black);
             courseName.setBackground(new Color(115, 194, 251));
@@ -121,19 +116,19 @@ public class ManageAssignment extends JFrame implements ActionListener{
 
                 //---- addAssignment ----
                 addAssignment.setText("Add New Assignment");
-                addAssignment.setBackground(Color.black);
+                addAssignment.setBackground(Color.white);
                 addAssignment.setForeground(Color.black);
                 panel1.add(addAssignment, "cell 0 1");
 
                 //---- deleteAssignment ----
                 deleteAssignment.setText("Delete Assignment");
-                deleteAssignment.setBackground(Color.black);
+                deleteAssignment.setBackground(Color.white);
                 deleteAssignment.setForeground(Color.black);
                 panel1.add(deleteAssignment, "cell 1 1");
 
                 //---- activatedeactivate ----
                 activatedeactivate.setText("Activate/Deactivate");
-                activatedeactivate.setBackground(Color.black);
+                activatedeactivate.setBackground(Color.white);
                 activatedeactivate.setForeground(Color.black);
                 panel1.add(activatedeactivate, "cell 2 1");
             }
@@ -163,7 +158,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JPanel panel2;
     private JButton back;
     private JLabel courseName;
@@ -187,8 +182,8 @@ public class ManageAssignment extends JFrame implements ActionListener{
         }
         else if(e.getSource() == addAssignment) {
 
-            Upload upload = addFile();
-            this.addAssign(upload);
+            String filePath = addFile();
+            this.addAssign(filePath);
 
             try {
                 assignmentList.setListData((Assignment[])(in.readObject()));
@@ -239,45 +234,68 @@ public class ManageAssignment extends JFrame implements ActionListener{
     }
 
 
-    private Upload addFile() {
+    private String addFile() {
         JFileChooser fileBrowser = new JFileChooser();
         File selectedFile = null;
+        String fileExtension = null;
+        String fileName = null;
+        String filePath = null;
         if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             selectedFile = fileBrowser.getSelectedFile();
+            // Gets extension or type of file
+            fileName = fileBrowser.getSelectedFile().getName();
+           // System.out.println(fileName);
+            String[] splitString = fileName.split("\\.");
+            fileExtension = splitString[1];
+            System.out.println(fileExtension);
+            fileName = splitString[0];
+
         }
         assert selectedFile != null;
         long length = selectedFile.length();
 
         byte[] content = new byte[(int) length];
         try {
-            BufferedInputStream reader = new BufferedInputStream(new FileInputStream(selectedFile));
-            reader.read(content, 0, (int)length);
+            FileInputStream fis = new FileInputStream(selectedFile);
+            BufferedInputStream bos = new BufferedInputStream(fis);
+            bos.read(content, 0, (int)length);
         }
         catch(FileNotFoundException e) {
             e.printStackTrace();
         }
         catch(IOException f) {
-            System.err.println("Error");
+            f.printStackTrace();
         }
 
-        return new Upload(content, selectedFile.getName());
-    }
-
-    private void addAssign(Upload upload) {
-
-        upload.setCommand("ADD");
-        String path = null;
-        try {
+        Upload upload = new Upload(content, fileName, fileExtension);
+        upload.setCommand("ADDASSIGNMENT");
+        try{
             out.writeObject(upload);
-            out.flush();
-            path = (String)in.readObject();
-        }
-        catch(ClassNotFoundException e) {
-            System.err.println("Object Error");
-        }
-        catch(IOException e) {
+            out.reset();
+            filePath = (String) in.readObject();
+            System.out.println(filePath);
+        } catch(ClassNotFoundException e) {
             e.printStackTrace();
         }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+        return filePath;
+    }
+
+    private void addAssign(String filePath) {
+//        try {
+//            out.writeObject(filePath);
+//            out.flush();
+//            path = (String)in.readObject();
+//        }
+//        catch(ClassNotFoundException e) {
+//            System.err.println("Object Error");
+//        }
+//        catch(IOException e) {
+//            e.printStackTrace();
+//        }
 
 
         JTextField assignTitle = new JTextField(20);
@@ -297,14 +315,14 @@ public class ManageAssignment extends JFrame implements ActionListener{
         int result = JOptionPane.showConfirmDialog(null, addAssignPanel,
                 "Please Enter Assignment Information", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            Assignment newAssign = new Assignment(Integer.parseInt(assignID.getText()), course.getCourseID(), assignTitle.getText(), path, true, assignDueDate.getText());
+            Assignment newAssign = new Assignment(Integer.parseInt(assignID.getText()), course.getCourseID(), assignTitle.getText(), filePath, true, assignDueDate.getText());
             newAssign.setCommand("ADD");
             try {
                 out.writeObject(newAssign);
                 out.reset();
             }
             catch(IOException d) {
-                System.err.println("IO Error");
+                d.printStackTrace();
             }
         }
 

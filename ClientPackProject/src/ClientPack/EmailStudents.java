@@ -71,47 +71,42 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
         setBackground(new Color(115, 194, 251));
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
-                "hidemode 3",
-                // columns
-                "0[700,grow,fill]0",
-                // rows
-                "0[700,grow,fill]0"));
+            "hidemode 3",
+            // columns
+            "0[700,grow,fill]0",
+            // rows
+            "0[700,grow,fill]0"));
 
         //======== panel2 ========
         {
             panel2.setBackground(new Color(115, 194, 251));
 
             // JFormDesigner evaluation mark
-            panel2.setBorder(new javax.swing.border.CompoundBorder(
-                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                            "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                            javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                            java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel2.setLayout(new MigLayout(
-                    "hidemode 3",
-                    // columns
-                    "[fill]" +
-                            "[grow,fill]" +
-                            "[381,grow,fill]",
-                    // rows
-                    "[]" +
-                            "[]" +
-                            "[]"));
+                "hidemode 3",
+                // columns
+                "[fill]" +
+                "[grow,fill]" +
+                "[381,grow,fill]",
+                // rows
+                "[]" +
+                "[]" +
+                "[]"));
 
             //======== panel3 ========
             {
                 panel3.setBackground(new Color(115, 194, 251));
                 panel3.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "0[]0",
-                        // rows
-                        "0[]0"));
+                    "hidemode 3",
+                    // columns
+                    "0[]0",
+                    // rows
+                    "0[]0"));
 
                 //---- back ----
                 back.setText("Back");
-                back.setBackground(Color.black);
+                back.setBackground(Color.white);
                 back.setForeground(Color.black);
                 panel3.add(back, "cell 0 0,align left top,grow 0 0");
             }
@@ -121,24 +116,24 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
             {
                 panel5.setBackground(new Color(115, 194, 251));
                 panel5.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "[]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]0" +
-                                "[fill]0",
-                        // rows
-                        "0[fill]0"));
+                    "hidemode 3",
+                    // columns
+                    "[]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]0" +
+                    "[fill]0",
+                    // rows
+                    "0[fill]0"));
 
                 //---- label5 ----
                 label5.setText("Email Students");
@@ -154,16 +149,16 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
             {
                 panel4.setBackground(new Color(115, 194, 251));
                 panel4.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "0[307,fill]0",
-                        // rows
-                        "0[35]" +
-                                "[27]" +
-                                "[]" +
-                                "[]" +
-                                "[445]" +
-                                "[]0"));
+                    "hidemode 3",
+                    // columns
+                    "0[307,fill]0",
+                    // rows
+                    "0[35]" +
+                    "[27]" +
+                    "[]" +
+                    "[]" +
+                    "[445]" +
+                    "[]0"));
 
                 //---- label10 ----
                 label10.setText("Search By:");
@@ -199,7 +194,7 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
                 //---- search ----
                 search.setText("Search");
                 search.setFont(new Font(".SF NS Text", Font.PLAIN, 14));
-                search.setBackground(Color.black);
+                search.setBackground(Color.white);
                 search.setForeground(Color.black);
                 panel4.add(search, "cell 0 3 12 1,alignx right,growx 0");
 
@@ -216,14 +211,14 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
                 //---- addAll ----
                 addAll.setText("Add All");
                 addAll.setFont(new Font(".SF NS Text", Font.PLAIN, 14));
-                addAll.setBackground(Color.black);
+                addAll.setBackground(Color.white);
                 addAll.setForeground(Color.black);
                 panel4.add(addAll, "cell 0 5");
 
                 //---- addRecipient ----
                 addRecipient.setText("Add Recipient");
                 addRecipient.setFont(new Font(".SF NS Text", Font.PLAIN, 14));
-                addRecipient.setBackground(Color.black);
+                addRecipient.setBackground(Color.white);
                 addRecipient.setForeground(Color.black);
                 panel4.add(addRecipient, "cell 0 5");
             }
@@ -233,17 +228,17 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
             {
                 panel1.setBackground(new Color(115, 194, 251));
                 panel1.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "5[370,fill]0",
-                        // rows
-                        "0[22]" +
-                                "[0]" +
-                                "[]" +
-                                "[]" +
-                                "[0]" +
-                                "[]" +
-                                "[479]0"));
+                    "hidemode 3",
+                    // columns
+                    "5[370,fill]0",
+                    // rows
+                    "0[22]" +
+                    "[0]" +
+                    "[]" +
+                    "[]" +
+                    "[0]" +
+                    "[]" +
+                    "[479]0"));
 
                 //---- label1 ----
                 label1.setText("To:");
@@ -269,7 +264,7 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
 
                 //---- label2 ----
                 label2.setText("Subject:");
-                label2.setFont(new Font("Geneva", Font.BOLD, 13));
+                label2.setFont(new Font("Geneva", Font.PLAIN, 13));
                 label2.setBackground(new Color(115, 194, 251));
                 label2.setForeground(Color.black);
                 panel1.add(label2, "cell 0 3,alignx left,growx 0");

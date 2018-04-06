@@ -25,6 +25,7 @@ new FormModel {
 				} ) {
 					name: "panel4"
 					"background": new java.awt.Color( 115, 194, 251, 255 )
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 1, false )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 						"$layoutConstraints": "hidemode 3"
 						"$columnConstraints": "0[51,fill]"
@@ -35,7 +36,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "back"
 							"text": "Back"
-							"background": new java.awt.Color( 0, 0, 0, 255 )
+							"background": sfield java.awt.Color white
 							"foreground": sfield java.awt.Color darkGray
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 0 0"
@@ -97,7 +98,7 @@ new FormModel {
 						name: "search"
 						"text": "Search"
 						"font": new java.awt.Font( ".SF NS Text", 0, 15 )
-						"background": new java.awt.Color( 0, 0, 0, 255 )
+						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 5,alignx right,growx 0"
@@ -118,17 +119,17 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "displayClassList"
 						"text": "Display Class List"
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 1, false )
-						"background": sfield java.awt.Color black
+						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
+						"font": new com.jformdesigner.model.SwingDerivedFont( null, 65536, 0, false )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 7"
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "enrollunenrollStudent"
 						"text": "Enroll/Unenroll Student"
-						"font": new java.awt.Font( ".SF NS Text", 0, 14 )
-						"background": sfield java.awt.Color black
+						"font": new java.awt.Font( ".SF NS Text", 0, 17 )
+						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 7"

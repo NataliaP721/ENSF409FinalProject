@@ -68,35 +68,16 @@ public class DatabaseHelper {
 
             createTables();
             addUser(new User("Pavlovic", "Natalia", "natalia.nzp@gmail.com", 1, 'P' ), new LoginInfo(1, "12345"));
-            addUser(new User("Flintstone", "Fred", "fred@gmail.com", 2, 'P' ), new LoginInfo(2, "12345"));
+            addUser(new User("Flintstone", "Fred", "fred@gmail.com", 2, 'S' ), new LoginInfo(2, "12345"));
+            addUser(new User("Simpson", "Bart", "fred@gmail.com", 3, 'S' ), new LoginInfo(3, "12345"));
 
             addCourse(new Course(1, 1, "ENSF409", false));
             addCourse(new Course(2, 1, "ENSF410", false));
             addCourse(new Course(3, 1, "ENSF411", false));
             addCourse(new Course(4, 1, "ENSF412", false));
-            addCourse(new Course(5, 1, "ENSF413", false));
-            addCourse(new Course(6, 1, "ENSF414", false));
-            addCourse(new Course(7, 1, "ENSF415", false));
-            addCourse(new Course(8, 1, "ENSF415", false));
-            addCourse(new Course(9, 1, "ENSF416", false));
-            addCourse(new Course(10, 1, "ENSF417", false));
-            addCourse(new Course(11, 1, "ENSF418", false));
-            addCourse(new Course(12, 1, "ENSF419", false));
-            addCourse(new Course(13, 1, "ENSF420", false));
-            addCourse(new Course(14, 1, "ENSF421", false));
-            addCourse(new Course(15, 1, "ENSF422", false));
-            addCourse(new Course(16, 1, "ENSF423", false));
-            addCourse(new Course(17, 1, "ENSF424", false));
-            addCourse(new Course(18, 1, "ENSF425", false));
-            addCourse(new Course(19, 1, "ENSF426", false));
-            addCourse(new Course(20, 1, "ENSF427", false));
-            addCourse(new Course(21, 1, "ENSF428", false));
-            addCourse(new Course(22, 1, "ENSF429", false));
-            addCourse(new Course(23, 1, "ENSF430", false));
-            addCourse(new Course(24, 1, "ENSF431", false));
             addAssignment(new Assignment(1, 1, "abc", "test", false, "tomorrow"));
-            addStudentEnrollment(new StudentEnrollment(1, 2, 3, true));
-            addStudentEnrollment(new StudentEnrollment(2, 1, 5, true));
+            addStudentEnrollment(new StudentEnrollment(1, 2, 1, true));
+            addStudentEnrollment(new StudentEnrollment(2, 3, 2, true));
 
         }
         catch( SQLException e)
@@ -727,6 +708,41 @@ public class DatabaseHelper {
      * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
+    ArrayList<Assignment> searchAllAssignments(int courseID) {
+        try {
+            String sql = "SELECT * FROM " + assignmentTableName;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet assignments = statement.executeQuery();
+            Assignment temp;
+            ArrayList<Assignment> courseList = new ArrayList<>();
+            while(assignments.next())
+            {
+                boolean activeBoolean = false;
+                if(assignments.getString("ACTIVE").charAt(0)=='0') {
+                    activeBoolean = false;
+                }
+                else if(assignments.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+                }
+                temp = new Assignment (assignments.getInt("ID"),
+                        assignments.getInt("COURSEID"),
+                        assignments.getString("ASSIGNMENTTITLE"),
+                        assignments.getString("ASSIGNMENTPATH"),
+                        activeBoolean,
+                        assignments.getString("DUEDATE"));
+
+                if(temp.getCourseID()==courseID){
+                    courseList.add(temp);
+                }
+            }
+            assignments.close();
+            return courseList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     ArrayList<Assignment> searchAllAssignments() {
         try {
             String sql = "SELECT * FROM " + assignmentTableName;
@@ -750,7 +766,7 @@ public class DatabaseHelper {
                         activeBoolean,
                         assignments.getString("DUEDATE"));
 
-                courseList.add(temp);
+                    courseList.add(temp);
             }
             assignments.close();
             return courseList;

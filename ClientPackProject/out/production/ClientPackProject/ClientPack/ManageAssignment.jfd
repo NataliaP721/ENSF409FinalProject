@@ -20,7 +20,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "back"
 					"text": "Back"
-					"background": sfield java.awt.Color black
+					"background": sfield java.awt.Color white
 					"foreground": sfield java.awt.Color black
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 0,alignx left,growx 0"
@@ -44,7 +44,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "addAssignment"
 						"text": "Add New Assignment"
-						"background": sfield java.awt.Color black
+						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 1"
@@ -52,7 +52,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "deleteAssignment"
 						"text": "Delete Assignment"
-						"background": sfield java.awt.Color black
+						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 1"
@@ -60,7 +60,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "activatedeactivate"
 						"text": "Activate/Deactivate"
-						"background": sfield java.awt.Color black
+						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 1"

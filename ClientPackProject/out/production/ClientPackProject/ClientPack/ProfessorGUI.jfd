@@ -49,15 +49,12 @@ new FormModel {
 						name: "hSpacer2"
 						"background": new java.awt.Color( 115, 194, 251, 255 )
 					} )
-					add( new FormComponent( "com.jformdesigner.designer.wrapper.HSpacer" ) {
-						name: "hSpacer1"
-						"background": new java.awt.Color( 115, 194, 251, 255 )
-					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "logout"
 						"text": "Logout"
 						"foreground": sfield java.awt.Color black
-						"background": sfield java.awt.Color black
+						"background": sfield java.awt.Color white
+						"minimumSize": new java.awt.Dimension( 100, 32 )
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
@@ -100,26 +97,29 @@ new FormModel {
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
 				"vgap": 30
-				"hgap": 100
+				"hgap": 20
 			} ) {
 				name: "panel5"
 				"background": new java.awt.Color( 115, 194, 251, 255 )
+				"maximumSize": new java.awt.Dimension( 500, 30 )
+				"minimumSize": new java.awt.Dimension( 500, 30 )
+				"preferredSize": new java.awt.Dimension( 700, 70 )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "activatedeactivate"
 					"text": "Activate/Deactivate"
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "openCourse"
 					"text": "Open Course"
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "addCourse"
 					"text": "Add Course"
-					"background": sfield java.awt.Color black
-					"foreground": sfield java.awt.Color black
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, -1, false )
+					"background": sfield java.awt.Color white
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "deleteCourse"
+					"text": "Delete Course"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "South"

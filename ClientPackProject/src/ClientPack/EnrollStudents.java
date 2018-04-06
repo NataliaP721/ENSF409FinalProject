@@ -50,7 +50,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         panel1 = new JPanel();
         panel4 = new JPanel();
         panel2 = new JPanel();
@@ -83,11 +83,6 @@ public class EnrollStudents extends JFrame implements ActionListener{
             panel1.setBackground(new Color(115, 194, 251));
 
             // JFormDesigner evaluation mark
-            panel1.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel1.setLayout(new MigLayout(
                 "hidemode 3",
@@ -99,6 +94,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
             //======== panel4 ========
             {
                 panel4.setBackground(new Color(115, 194, 251));
+                panel4.setFont(panel4.getFont().deriveFont(panel4.getFont().getSize() + 1f));
                 panel4.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
@@ -125,7 +121,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
 
                     //---- back ----
                     back.setText("Back");
-                    back.setBackground(Color.black);
+                    back.setBackground(Color.white);
                     back.setForeground(Color.darkGray);
                     panel2.add(back, "cell 0 0");
                 }
@@ -172,7 +168,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
                 //---- search ----
                 search.setText("Search");
                 search.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
-                search.setBackground(Color.black);
+                search.setBackground(Color.white);
                 search.setForeground(Color.black);
                 panel4.add(search, "cell 0 5,alignx right,growx 0");
 
@@ -188,15 +184,15 @@ public class EnrollStudents extends JFrame implements ActionListener{
 
                 //---- displayClassList ----
                 displayClassList.setText("Display Class List");
-                displayClassList.setFont(displayClassList.getFont().deriveFont(displayClassList.getFont().getSize() + 1f));
-                displayClassList.setBackground(Color.black);
+                displayClassList.setBackground(Color.white);
                 displayClassList.setForeground(Color.black);
+                displayClassList.setFont(displayClassList.getFont().deriveFont(displayClassList.getFont().getStyle() & ~Font.BOLD));
                 panel4.add(displayClassList, "cell 0 7");
 
                 //---- enrollunenrollStudent ----
                 enrollunenrollStudent.setText("Enroll/Unenroll Student");
-                enrollunenrollStudent.setFont(new Font(".SF NS Text", Font.PLAIN, 14));
-                enrollunenrollStudent.setBackground(Color.black);
+                enrollunenrollStudent.setFont(new Font(".SF NS Text", Font.PLAIN, 17));
+                enrollunenrollStudent.setBackground(Color.white);
                 enrollunenrollStudent.setForeground(Color.black);
                 panel4.add(enrollunenrollStudent, "cell 0 7");
             }
@@ -209,7 +205,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JPanel panel1;
     private JPanel panel4;
     private JPanel panel2;

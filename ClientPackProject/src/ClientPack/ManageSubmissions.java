@@ -47,7 +47,7 @@ import net.miginfocom.swing.*;
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         panel4 = new JPanel();
         back = new JButton();
         panel3 = new JPanel();
@@ -56,10 +56,10 @@ import net.miginfocom.swing.*;
         label2 = new JLabel();
         label3 = new JLabel();
         scrollPane1 = new JScrollPane();
-        assignmentList = new JList<>();
+        assignmentList = new JList();
         panel2 = new JPanel();
         scrollPane2 = new JScrollPane();
-        submissionList = new JList<>();
+        submissionList = new JList();
         selectAssignment = new JButton();
         openSubmission = new JButton();
         gradeSubmission = new JButton();
@@ -82,11 +82,6 @@ import net.miginfocom.swing.*;
             panel4.setBackground(new Color(115, 194, 251));
 
             // JFormDesigner evaluation mark
-            panel4.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), panel4.getBorder())); panel4.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel4.setLayout(new MigLayout(
                 "hidemode 3",
@@ -98,7 +93,7 @@ import net.miginfocom.swing.*;
 
             //---- back ----
             back.setText("Back");
-            back.setBackground(Color.black);
+            back.setBackground(Color.white);
             back.setForeground(Color.black);
             panel4.add(back, "cell 0 0,alignx left,growx 0");
 
@@ -189,20 +184,20 @@ import net.miginfocom.swing.*;
 
                 //---- selectAssignment ----
                 selectAssignment.setText("Select Assignment");
-                selectAssignment.setBackground(Color.black);
+                selectAssignment.setBackground(Color.white);
                 selectAssignment.setForeground(Color.black);
                 panel1.add(selectAssignment, "cell 1 2");
 
                 //---- openSubmission ----
                 openSubmission.setText("Open Submission");
-                openSubmission.setBackground(Color.black);
+                openSubmission.setBackground(Color.white);
                 openSubmission.setForeground(Color.black);
                 panel1.add(openSubmission, "cell 3 2");
 
                 //---- gradeSubmission ----
                 gradeSubmission.setText("Grade Submission");
                 gradeSubmission.setForeground(Color.black);
-                gradeSubmission.setBackground(Color.black);
+                gradeSubmission.setBackground(Color.white);
                 panel1.add(gradeSubmission, "cell 3 3,aligny center,growy 0");
             }
             panel4.add(panel1, "cell 0 1,alignx left,growx 0");
@@ -214,7 +209,7 @@ import net.miginfocom.swing.*;
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JPanel panel4;
     private JButton back;
     private JPanel panel3;
@@ -223,10 +218,10 @@ import net.miginfocom.swing.*;
     private JLabel label2;
     private JLabel label3;
     private JScrollPane scrollPane1;
-    private JList<Assignment> assignmentList;
+    private JList assignmentList;
     private JPanel panel2;
     private JScrollPane scrollPane2;
-    private JList<Submission> submissionList;
+    private JList submissionList;
     private JButton selectAssignment;
     private JButton openSubmission;
     private JButton gradeSubmission;
@@ -243,7 +238,7 @@ import net.miginfocom.swing.*;
             this.dispose();
         }
         else if(e.getSource() == selectAssignment) {
-            Assignment current = assignmentList.getSelectedValue();
+            Assignment current = (Assignment)assignmentList.getSelectedValue();
             current.setCommand("GETSUBMISSION");
             try {
                 out.writeObject(current);
@@ -258,7 +253,7 @@ import net.miginfocom.swing.*;
             }
         }
         else if(e.getSource() == openSubmission) {
-            Submission current = submissionList.getSelectedValue();
+            Submission current = (Submission) submissionList.getSelectedValue();
             current.setCommand("GETFILE");
             try {
                 out.writeObject(current);
@@ -275,7 +270,7 @@ import net.miginfocom.swing.*;
 
         }
         else if(e.getSource() == gradeSubmission) {
-            Submission submit = submissionList.getSelectedValue();
+            Submission submit = (Submission) submissionList.getSelectedValue();
             this.grade(submit);
         }
     }
@@ -295,10 +290,10 @@ import net.miginfocom.swing.*;
                 "Please Enter Grade", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
-            Grade newGrade = new Grade((assignmentList.getSelectedValue().getAssignmentID())*2/3, assignmentList.getSelectedValue().getAssignmentID(), submit.getStudentID(), course.getCourseID(), Integer.parseInt(gradeMark.getText()));
-            newGrade.setCommand("NEWGRADE");
+            //Grade newGrade = new Grade((assignmentList.getSelectedValue().getAssignmentID())*2/3, assignmentList.getSelectedValue().getAssignmentID(), submit.getStudentID(), course.getCourseID(), Integer.parseInt(gradeMark.getText()));
+            //newGrade.setCommand("NEWGRADE");
             try {
-                out.writeObject(newGrade);
+                //out.writeObject(newGrade);
                 out.reset();
                 submissionList.setListData((Submission[])(in.readObject()));
             }
