@@ -4,8 +4,6 @@ import SharedDataObjects.*;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +17,7 @@ import java.io.ObjectOutputStream;
 /**
  * @author Aysha Panatch
  */
-public class ManageGrades extends JFrame implements ActionListener, ListSelectionListener{
+public class ManageGrades extends JFrame implements ActionListener{
     ManageGrades(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
@@ -29,7 +27,6 @@ public class ManageGrades extends JFrame implements ActionListener, ListSelectio
         back.addActionListener(this);
         downloadSubmission.addActionListener(this);
         enterGrade.addActionListener(this);
-        gradeList.addListSelectionListener(this);
         this.setSize(700, 700);
         this.setVisible(true);
     }
@@ -215,26 +212,13 @@ public class ManageGrades extends JFrame implements ActionListener, ListSelectio
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     private Course course;
-    private boolean visible;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-//    public static void main(String[] args) {
-//        ManageGrades obj = new ManageGrades();
-//    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
 
-    public void valueChanged(ListSelectionEvent e){
-    }
 
-    void setCourse(Course x) {
-        this.course = x;
-        visible = true;
-    }
-
-    boolean getVisible() {
-        return visible;
-    }
 }

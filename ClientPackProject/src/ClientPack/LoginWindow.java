@@ -192,6 +192,7 @@ public class LoginWindow extends JFrame implements ActionListener{
             info.setCommand("LOGIN");
             try {
                 out.writeObject(info);
+                out.flush();
             } catch (IOException f) {
                 System.err.println("oops");
                 System.exit(1);

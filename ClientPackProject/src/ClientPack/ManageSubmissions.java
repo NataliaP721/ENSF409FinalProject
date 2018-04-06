@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.*;
-//import javax.swing.event.ListSelectionEvent;
-//import javax.swing.event.ListSelectionListener;
 
 import SharedDataObjects.*;
 import net.miginfocom.swing.*;
@@ -31,10 +29,20 @@ import net.miginfocom.swing.*;
         openSubmission.addActionListener(this);
         gradeSubmission.addActionListener(this);
         back.addActionListener(this);
-//        assignmentList.addListSelectionListener(this);
-//        submissionList.addListSelectionListener(this);
         this.setSize(700,700);
         this.setVisible(true);
+        try {
+            course.setCommand("GETASSIGNMENTS");
+            out.writeObject(course);
+            out.reset();
+            assignmentList.setListData((Assignment[])(in.readObject()));
+        }
+        catch(ClassNotFoundException e) {
+            System.err.println("error");
+        }
+        catch(IOException e) {
+            System.err.println("IO Error");
+        }
     }
 
     private void initComponents() {
@@ -225,24 +233,21 @@ import net.miginfocom.swing.*;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     private Course course;
-    private boolean visible;
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
-//    public static void main(String[] args) {
-//        ManageSubmissions obj = new ManageSubmissions();
-//    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == back) {
-            this.setVisible(false);
-            visible = false;
+            this.dispose();
         }
         else if(e.getSource() == selectAssignment) {
             Assignment current = assignmentList.getSelectedValue();
             current.setCommand("GETSUBMISSION");
             try {
                 out.writeObject(current);
+                out.reset();
                 submissionList.setListData((Submission[])(in.readObject()));
             }
             catch(ClassNotFoundException c) {
@@ -253,6 +258,20 @@ import net.miginfocom.swing.*;
             }
         }
         else if(e.getSource() == openSubmission) {
+            Submission current = submissionList.getSelectedValue();
+            current.setCommand("GETFILE");
+            try {
+                out.writeObject(current);
+                out.reset();
+                byte[] content = (byte[])in.readObject();
+                //TODO
+            }
+            catch(ClassNotFoundException c) {
+                System.err.println("Object error");
+            }
+            catch(IOException d) {
+                System.err.println("IO Error");
+            }
 
         }
         else if(e.getSource() == gradeSubmission) {
@@ -261,28 +280,6 @@ import net.miginfocom.swing.*;
         }
     }
 
-//    public void valueChanged(ListSelectionEvent e){
-//    }
-
-    void setCourse(Course x) {
-        this.course = x;
-        visible = true;
-        try {
-            course.setCommand("GETASSIGNMENT");
-            out.writeObject(course);
-            assignmentList.setListData((Assignment[])(in.readObject()));
-        }
-        catch(ClassNotFoundException e) {
-            System.err.println("error");
-        }
-        catch(IOException e) {
-            System.err.println("IO Error");
-        }
-    }
-
-    boolean getVisible() {
-        return visible;
-    }
 
     private void grade(Submission submit) {
 
@@ -302,6 +299,7 @@ import net.miginfocom.swing.*;
             newGrade.setCommand("NEWGRADE");
             try {
                 out.writeObject(newGrade);
+                out.reset();
                 submissionList.setListData((Submission[])(in.readObject()));
             }
             catch(ClassNotFoundException e) {

@@ -1,5 +1,6 @@
 package SharedDataObjects;
 
+import java.awt.*;
 import java.io.Serializable;
 
 public class Assignment implements Serializable{
@@ -63,7 +64,7 @@ public class Assignment implements Serializable{
         else {
             answer = answer + "          INACTIVE";
         }
-        answer  = answer + "         DUE" + dueDate;
+        answer  = answer + "         DUE " + dueDate;
         return answer;
     }
 }

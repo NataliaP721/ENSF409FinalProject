@@ -13,7 +13,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "0[700,grow,fill]0"
-				"$rowConstraints": "0[25]0[][][][522]0"
+				"$rowConstraints": "0[25]0[][][][450]0"
 			} ) {
 				name: "panel2"
 				"background": new java.awt.Color( 115, 194, 251, 255 )
@@ -43,7 +43,7 @@ new FormModel {
 					"background": new java.awt.Color( 115, 194, 251, 255 )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "addAssignment"
-						"text": "Add New Assigment"
+						"text": "Add New Assignment"
 						"background": sfield java.awt.Color black
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
@@ -59,9 +59,9 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "activatedeactivate"
+						"text": "Activate/Deactivate"
 						"background": sfield java.awt.Color black
 						"foreground": sfield java.awt.Color black
-						"text": "Activate/Deactivate"
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 2 1"
 					} )
@@ -83,6 +83,9 @@ new FormModel {
 						name: "assignmentList"
 						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
+						auxiliary() {
+							"JavaCodeGenerator.typeParameters": "Assignment"
+						}
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 4,grow"

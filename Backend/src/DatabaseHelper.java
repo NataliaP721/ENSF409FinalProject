@@ -53,7 +53,7 @@ public class DatabaseHelper {
      * Constructs a DatabaseHelper object from default values. Uses MySQL connector JAR
      * to connect to the server.
      */
-    public DatabaseHelper()
+    DatabaseHelper()
     {
         try{
             // If this throws an error, make sure you have added the mySQL connector JAR to the project
@@ -66,7 +66,7 @@ public class DatabaseHelper {
             // You should comment this line out once the first database is created (either here or in MySQL workbench)
             // databaseHelper.createDB();
 
-           createTables();
+            createTables();
             addUser(new User("Pavlovic", "Natalia", "natalia.nzp@gmail.com", 1, 'P' ), new LoginInfo(1, "12345"));
             addCourse(new Course(1, 1, "ENSF409", false));
             addCourse(new Course(2, 1, "ENSF410", false));
@@ -96,15 +96,20 @@ public class DatabaseHelper {
             addStudentEnrollment(new StudentEnrollment(1, 2, 3, true));
 
         }
-        catch(SQLException e) { e.printStackTrace(); }
-        catch(Exception e) { e.printStackTrace(); }
+        catch( SQLException e)
+        {
+            System.err.println("SQL Error");
+        }
+        catch (Exception e) {
+            System.err.println("General Error");
+        }
     }
 
     /**
      * Use the jdbc connection to create a new database in MySQL.
      * (e.g. if you are connected to "jdbc:mysql://localhost:3306", the database will be created at "jdbc:mysql://localhost:3306/FinalProjectDB")
      */
-    public void createDB()
+    void createDB()
     {
         try {
             statement = jdbc_connection.prepareStatement("CREATE DATABASE " + databaseName);
@@ -113,17 +118,17 @@ public class DatabaseHelper {
         }
         catch( SQLException e)
         {
-            e.printStackTrace();
+            System.err.println("SQL Error");
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("General Error");
         }
     }
 
     /**
      * Create a data tables inside of the database
      */
-    public void createTables()
+    void createTables()
     {
         String userSql = "CREATE TABLE " + this.userTableName + "(" +
                 "ID INT(8) NOT NULL, " +
@@ -193,7 +198,7 @@ public class DatabaseHelper {
         }
         catch(SQLException e)
         {
-           // e.printStackTrace();
+            // e.printStackTrace();
             removeTables();
 
         }
@@ -202,7 +207,7 @@ public class DatabaseHelper {
     /**
      * Removes the data tables from the database (and all the data held within it!)
      */
-    public void removeTables()
+    void removeTables()
     {
         String userSql = "DROP TABLE " + userTableName;
         String courseSql = "DROP TABLE " + courseTableName;
@@ -258,7 +263,7 @@ public class DatabaseHelper {
      * @param user the User to be added to the User database Table
      * @param loginInfo the LoginInfo to be added to the User database table
      */
-    public void addUser(User user, LoginInfo loginInfo)
+    void addUser(User user, LoginInfo loginInfo)
     {
         String sql = "INSERT INTO " + userTableName +
                 " VALUES ( " +
@@ -282,7 +287,7 @@ public class DatabaseHelper {
      * Add a Course to the Course database table
      * @param course the Course to be added to the Course database table
      */
-    public void addCourse(Course course)
+    void addCourse(Course course)
     {
         String sql = "INSERT INTO " + courseTableName +
                 " VALUES ( " +
@@ -304,7 +309,7 @@ public class DatabaseHelper {
      * Add a StudentEnrollment to the studentEnrollent database table
      * @param studentEnrollment the studentEnrollment to be added to the studentEnrollment database table
      */
-    public void addStudentEnrollment(StudentEnrollment studentEnrollment)
+    void addStudentEnrollment(StudentEnrollment studentEnrollment)
     {
         String sql = "INSERT INTO " + studentEnrollmentTableName +
                 " VALUES ( " +
@@ -324,7 +329,7 @@ public class DatabaseHelper {
      * Add and Assignment to the Assignment database table
      * @param assignment the Assignment to be added to the Assignment database table
      */
-    public void addAssignment(Assignment assignment)
+    void addAssignment(Assignment assignment)
     {
         String sql = "INSERT INTO " + assignmentTableName +
                 " VALUES ( " +
@@ -348,7 +353,7 @@ public class DatabaseHelper {
      * Add a Submission to the Submission database table
      * @param submission the Submission to be added to the Submission database table
      */
-    public void addSubmission(Submission submission)
+    void addSubmission(Submission submission)
     {
         String sql = "INSERT INTO " + submissionTableName +
                 " VALUES ( " +
@@ -373,7 +378,7 @@ public class DatabaseHelper {
      * Add a Grade to the Grade database table
      * @param grade the Grade to be added to the Grade database table
      */
-    public void addGrade(Grade grade)
+    void addGrade(Grade grade)
     {
         String sql = "INSERT INTO " + gradeTableName +
                 " VALUES ( " +
@@ -398,7 +403,7 @@ public class DatabaseHelper {
      * @param lastName the lastName of the Object to be searched
      * @return the Object matching the ID. It should return null if no Objects matching that lastName are found in the dataTable.
      */
-    public ResultSet searchByLastName(String tableName, String lastName) {
+    ResultSet searchByLastName(String tableName, String lastName) {
         String sql = "SELECT * FROM " + tableName + "  WHERE LASTNAME =" + lastName;
         ResultSet user;
         try {
@@ -414,7 +419,7 @@ public class DatabaseHelper {
      * @param ID the ID of the Object to be searched
      * @return the Object matching the ID. It should return null if no Objects matching that ID are found in the dataTable.
      */
-    public ResultSet searchByID(String tableName, int ID)
+    ResultSet searchByID(String tableName, int ID)
     {
         String sql = "SELECT * FROM " + tableName + "  WHERE ID =" + ID;
         ResultSet user;
@@ -430,7 +435,7 @@ public class DatabaseHelper {
      * @param ID the ID of the User to be searched
      * @return the User matching the ID. It should return null if no Users matching that ID are found.
      */
-    public User searchUsers(int ID) {
+    User searchUsers(int ID) {
         try {
             ResultSet users = searchByID(userTableName, ID);
             if(users == null) {
@@ -457,7 +462,7 @@ public class DatabaseHelper {
      * @param lastName the lastName of the User to be searched
      * @return the User matching the lastName. It should return null if no Users matching that ID are found.
      */
-    public User searchUsers(String lastName) {
+    User searchUsers(String lastName) {
         try {
             ResultSet users = searchByLastName(userTableName, lastName);
             if(users == null) {
@@ -484,12 +489,12 @@ public class DatabaseHelper {
      * @param userType the ID of the Course to be searched
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
-    public ArrayList<User> searchAllUsers(String userType) {
+    ArrayList<User> searchAllUsers(String userType) {
         try {
             String sql = "SELECT * FROM " + userTableName + "  WHERE TYPE =" + userType;
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet users = statement.executeQuery();
-            User temp = null;
+            User temp;
             ArrayList<User> courseList = new ArrayList<>();
             while(users.next())
             {
@@ -512,7 +517,7 @@ public class DatabaseHelper {
      * @param ID the ID of the Course to be searched
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
-    public Course searchCourses(int ID) {
+    Course searchCourses(int ID) {
         try {
             ResultSet courses = searchByID(courseTableName, ID);
             if(courses == null) {
@@ -545,12 +550,12 @@ public class DatabaseHelper {
      * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
-    public ArrayList<Course> searchAllCourses() {
+    ArrayList<Course> searchAllCourses() {
         try {
             String sql = "SELECT * FROM " + courseTableName;
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet courses = statement.executeQuery();
-            Course temp = null;
+            Course temp;
             ArrayList<Course> courseList = new ArrayList<>();
             while(courses.next())
             {
@@ -580,7 +585,7 @@ public class DatabaseHelper {
      * @param ID the ID of the StudentEnrollment to be searched
      * @return the StudentEnrollment matching the ID. It should return null if no StudentEnrollments matching that ID are found.
      */
-    public StudentEnrollment searchStudentEnrollment(int ID) {
+    StudentEnrollment searchStudentEnrollment(int ID) {
         try {
             ResultSet enrollments = searchByID(studentEnrollmentTableName, ID);
             if(enrollments == null) {
@@ -611,12 +616,12 @@ public class DatabaseHelper {
      * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
-    public ArrayList<StudentEnrollment> searchAllStudentEnrollments() {
+    ArrayList<StudentEnrollment> searchAllStudentEnrollments() {
         try {
             String sql = "SELECT * FROM " + studentEnrollmentTableName;
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet enrollments = statement.executeQuery();
-            StudentEnrollment temp = null;
+            StudentEnrollment temp;
             ArrayList<StudentEnrollment> courseList = new ArrayList<>();
             while(enrollments.next())
             {
@@ -638,7 +643,7 @@ public class DatabaseHelper {
      * @param ID the ID of the Assignment to be searched
      * @return the Assignment matching the ID. It should return null if no Grades matching that ID are found.
      */
-    public Assignment searchAssignments(int ID) {
+    Assignment searchAssignments(int ID) {
         try {
             ResultSet assignments = searchByID(assignmentTableName, ID);
             if(assignments == null) {
@@ -672,12 +677,12 @@ public class DatabaseHelper {
      * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
-    public ArrayList<Assignment> searchAllAssignments() {
+    ArrayList<Assignment> searchAllAssignments() {
         try {
             String sql = "SELECT * FROM " + assignmentTableName;
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet assignments = statement.executeQuery();
-            Assignment temp = null;
+            Assignment temp;
             ArrayList<Assignment> courseList = new ArrayList<>();
             while(assignments.next())
             {
@@ -709,7 +714,7 @@ public class DatabaseHelper {
      * @param ID the ID of the Submission to be searched
      * @return the Submission matching the ID. It should return null if no Submissions matching that ID are found.
      */
-    public Submission searchSubmissions(int ID) {
+    Submission searchSubmissions(int ID) {
         try {
             ResultSet submissions = searchByID(submissionTableName, ID);
             if(submissions == null) {
@@ -739,12 +744,12 @@ public class DatabaseHelper {
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
 
-    public ArrayList<Submission> searchAllSubmissions() {
+    ArrayList<Submission> searchAllSubmissions() {
         try {
             String sql = "SELECT * FROM " + submissionTableName;
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet submissions = statement.executeQuery();
-            Submission temp = null;
+            Submission temp;
             ArrayList<Submission> courseList = new ArrayList<>();
             while(submissions.next())
             {
@@ -771,7 +776,7 @@ public class DatabaseHelper {
      * @param ID the ID of the Grade to be searched
      * @return the Grade matching the ID. It should return null if no Grades matching that ID are found.
      */
-    public Grade searchGrades(int ID) {
+    Grade searchGrades(int ID) {
         try {
             ResultSet submissions = searchByID(gradeTableName, ID);
             if(submissions == null) {
@@ -798,12 +803,12 @@ public class DatabaseHelper {
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
 
-    public ArrayList<Grade> searchAllGrades() {
+    ArrayList<Grade> searchAllGrades() {
         try {
             String sql = "SELECT * FROM " + gradeTableName;
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet grades = statement.executeQuery();
-            Grade temp = null;
+            Grade temp;
             ArrayList<Grade> courseList = new ArrayList<>();
             while(grades.next())
             {
@@ -825,7 +830,7 @@ public class DatabaseHelper {
     /**
      * Prints all the items in the User database to console
      */
-    public void printUserTable()
+    void printUserTable()
     {
         try {
             String sql = "SELECT * FROM " + userTableName;
@@ -841,7 +846,7 @@ public class DatabaseHelper {
                         users.getString("LASTNAME") + " " +
                         users.getString("TYPE")+ " ");
             }
-            System.out.println("");
+            System.out.println();
             users.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -850,7 +855,7 @@ public class DatabaseHelper {
     /**
      * Prints all the items in the Course database to console
      */
-    public void printCourseTable()
+    void printCourseTable()
     {
         try {
             String sql = "SELECT * FROM " + courseTableName;
@@ -864,7 +869,7 @@ public class DatabaseHelper {
                         courses.getString("COURSENAME")+ " "+
                         courses.getString("ACTIVE"));
             }
-            System.out.println("");
+            System.out.println();
             courses.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -873,7 +878,7 @@ public class DatabaseHelper {
     /**
      * Prints all the items in the StudentEnrollment database to console
      */
-    public void printStudentEnrollmentTable()
+    void printStudentEnrollmentTable()
     {
         try {
             String sql = "SELECT * FROM " + studentEnrollmentTableName;
@@ -886,7 +891,7 @@ public class DatabaseHelper {
                         enrollments.getString("STUDENTID") + " " +
                         enrollments.getString("COURSEID")+ " ");
             }
-            System.out.println("");
+            System.out.println();
             enrollments.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -895,7 +900,7 @@ public class DatabaseHelper {
     /**
      * Prints all the items in the Assignment database to console
      */
-    public void printAssignmentTable()
+    void printAssignmentTable()
     {
         try {
             String sql = "SELECT * FROM " + assignmentTableName;
@@ -911,7 +916,7 @@ public class DatabaseHelper {
                         assignments.getString("ACTIVE") + " " +
                         assignments.getString("DUEDATE")+ " ");
             }
-            System.out.println("");
+            System.out.println();
             assignments.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -920,7 +925,7 @@ public class DatabaseHelper {
     /**
      * Prints all the items in the Submission database to console
      */
-    public void printSubmissionTable()
+    void printSubmissionTable()
     {
         try {
             String sql = "SELECT * FROM " + submissionTableName;
@@ -938,7 +943,7 @@ public class DatabaseHelper {
                         submissions.getString("COMMENTS") + " " +
                         submissions.getString("TIMESTAMP")+ " ");
             }
-            System.out.println("");
+            System.out.println();
             submissions.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -947,7 +952,7 @@ public class DatabaseHelper {
     /**
      * Prints all the items in the Grade database to console
      */
-    public void printGradeTable()
+    void printGradeTable()
     {
         try {
             String sql = "SELECT * FROM " + gradeTableName;
@@ -962,7 +967,7 @@ public class DatabaseHelper {
                         grades.getString("COURSEID") + " " +
                         grades.getString("ASSIGNMENTGRADE")+ " ");
             }
-            System.out.println("");
+            System.out.println();
             grades.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -987,7 +992,7 @@ public class DatabaseHelper {
      * Deletes a Course from the database with a matching id.
      * @param courseID the courseID of the Course to be deleted.
      */
-    public void deleteCourse(int courseID) {
+    void deleteCourse(int courseID) {
         try {
             String sql = "DELETE FROM " + courseTableName + " WHERE ID = "+courseID;
             statement = jdbc_connection.prepareStatement(sql);
@@ -1002,7 +1007,7 @@ public class DatabaseHelper {
      * Deletes a StudentEnrollment from the database with a matching id.
      * @param enrollmentID the enrollmentID of the StudentEnrollment to be deleted.
      */
-    public void deleteStudentEnrollment(int enrollmentID) {
+    void deleteStudentEnrollment(int enrollmentID) {
         try {
             String sql = "DELETE FROM " + studentEnrollmentTableName + " WHERE ID = "+enrollmentID;
             statement = jdbc_connection.prepareStatement(sql);
@@ -1017,7 +1022,7 @@ public class DatabaseHelper {
      * Deletes an Assignment from the database with a matching id.
      * @param assignmentID the assignmentID of the Assignment to be deleted.
      */
-    public void deleteAssignment(int assignmentID) {
+    void deleteAssignment(int assignmentID) {
         try {
             String sql = "DELETE FROM " + assignmentTableName + " WHERE ID = " + assignmentID;
             statement = jdbc_connection.prepareStatement(sql);
@@ -1032,7 +1037,7 @@ public class DatabaseHelper {
      * Deletes a Submission from the database with a matching id.
      * @param submissionID the submissionID of the Submission to be deleted.
      */
-    public void deleteSubmission(int submissionID) {
+    void deleteSubmission(int submissionID) {
         try {
             String sql = "DELETE FROM " + submissionTableName + " WHERE ID = " + submissionID;
             statement = jdbc_connection.prepareStatement(sql);
@@ -1047,7 +1052,7 @@ public class DatabaseHelper {
      * Deletes a Grade from the database with a matching id.
      * @param gradeID the gradeID of the Grade to be deleted.
      */
-    public void deleteGrade(int gradeID) {
+    void deleteGrade(int gradeID) {
         try {
             String sql = "DELETE FROM " + gradeTableName + " WHERE ID = " + gradeID;
             statement = jdbc_connection.prepareStatement(sql);
@@ -1063,7 +1068,7 @@ public class DatabaseHelper {
      * Modifies a Course from the database with a matching id.
      * @param course the updated Course to be modified in the database.
      */
-    public void modifyCourse(Course course) {
+    void modifyCourse(Course course) {
         String sql = "UPDATE " + courseTableName + " SET  " +
                 " ID = '"+ course.getCourseID() + "', " +
                 " PROFESSORID = '"+course.getProfessorID() + "', " +
@@ -1083,7 +1088,7 @@ public class DatabaseHelper {
      * Modifies a StudentEnrollmet from the database with a matching id.
      * @param studentEnrollment the updated StudentEnrollment to be modified in the database.
      */
-    public void modifyStudentEnrollment(StudentEnrollment studentEnrollment) {
+    void modifyStudentEnrollment(StudentEnrollment studentEnrollment) {
         String sql = "UPDATE " + assignmentTableName + " SET  " +
                 " ID = '"+ studentEnrollment.getEnrollmentID() + "', " +
                 " STUDENTID = '"+studentEnrollment.getStudentID() + "', " +
@@ -1101,7 +1106,7 @@ public class DatabaseHelper {
      * Modifies an Assignment from the database with a matching id.
      * @param assignment the updated Assignment to be modified in the database.
      */
-    public void modifyAssignment(Assignment assignment) {
+    void modifyAssignment(Assignment assignment) {
         String sql = "UPDATE " + assignmentTableName + " SET  " +
                 " ID = '"+ assignment.getAssignmentID() + "', " +
                 " COURSEID = '"+assignment.getCourseID() + "', " +

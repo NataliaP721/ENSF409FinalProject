@@ -46,7 +46,7 @@ new FormModel {
 					"font": new java.awt.Font( ".SF NS Text", 1, 30 )
 					"background": new java.awt.Color( 51, 153, 255, 255 )
 					"foreground": sfield java.awt.Color black
-					"text": "ENCM 511"
+					"text": "ENCM511"
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 0,alignx center,grow 0 100"
 				} )

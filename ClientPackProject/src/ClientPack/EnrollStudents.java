@@ -4,17 +4,12 @@ import SharedDataObjects.*;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.io.IOException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-//import java.util.List;
-
 /*
  * Created by JFormDesigner on Sun Apr 01 12:19:26 MDT 2018
  */
@@ -23,17 +18,19 @@ import java.io.ObjectOutputStream;
 /**
  * @author Aysha Panatch
  */
-public class EnrollStudents extends JFrame implements ActionListener, ListSelectionListener{
+public class EnrollStudents extends JFrame implements ActionListener{
     EnrollStudents(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
         this.course = course;
         initComponents();
+        ButtonGroup group= new ButtonGroup();
+        group.add(lastNameradioButton);
+        group.add(IDradioButton);
         search.addActionListener(this);
         back.addActionListener(this);
         enrollunenrollStudent.addActionListener(this);
         displayClassList.addActionListener(this);
-        enrollList.addListSelectionListener(this);
         this.setSize(700, 700);
         this.setVisible(true);
         try {
@@ -44,16 +41,16 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
             enrollList.setListData((StudentEnrollment[]) (in.readObject()));
         }
         catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("Object Error");
         }
         catch(IOException e) {
-            e.printStackTrace();
+            System.err.println("IO Error");
         }
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel1 = new JPanel();
         panel4 = new JPanel();
         panel2 = new JPanel();
@@ -66,7 +63,7 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
         searchparameter = new JTextField();
         search = new JButton();
         scrollPane5 = new JScrollPane();
-        enrollList = new JList();
+        enrollList = new JList<>();
         displayClassList = new JButton();
         enrollunenrollStudent = new JButton();
 
@@ -208,12 +205,11 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
         contentPane.add(panel1, "cell 0 0,grow");
         pack();
         setLocationRelativeTo(getOwner());
-
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel1;
     private JPanel panel4;
     private JPanel panel2;
@@ -226,32 +222,96 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
     private JTextField searchparameter;
     private JButton search;
     private JScrollPane scrollPane5;
-    private JList enrollList;
+    private JList<StudentEnrollment> enrollList;
     private JButton displayClassList;
     private JButton enrollunenrollStudent;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private Course course;
-    private boolean visible;
 
-
-    //    public static void main(String[] args) {
+//    public static void main(String[] args) {
 //        EnrollStudents obj = new EnrollStudents();
 //    }
     @Override
     public void actionPerformed(ActionEvent e) {
-    }
+        if(e.getSource() == back) {
+            this.dispose();
+        }
+        else if(e.getSource() == search) {
+            String param = searchparameter.getText();
+            if(IDradioButton.isSelected()){
+                StudentEnrollment current = new StudentEnrollment();
+                current.setStudentID(Integer.parseInt(param));
+                current.setCommand("SEARCHBYID");
+                try {
+                    out.writeObject(current);
+                    out.reset();
+                    enrollList.setListData((StudentEnrollment[])in.readObject());
+                }
+                catch(ClassNotFoundException f) {
+                    System.err.println("Object Error");
+                }
+                catch(IOException f) {
+                    System.err.println("IO Error");
+                }
+            }
+            else if (lastNameradioButton.isSelected()) {
+                User current = new User();
+                current.setLastName(param);
+                current.setCommand("SEARCHBYLASTNAME");
+                try {
+                    out.writeObject(current);
+                    out.reset();
+                    enrollList.setListData((StudentEnrollment[])in.readObject());
+                }
+                catch(ClassNotFoundException f) {
+                    System.err.println("Object Error");
+                }
+                catch(IOException f) {
+                    System.err.println("IO Error");
+                }
+            }
 
-    public void valueChanged(ListSelectionEvent e){
-    }
+        }
+        else if(e.getSource() == displayClassList) {
+            searchparameter.setText("");
+            course.setCommand("DISPLAYCLASSLIST");
+            try {
+                out.writeObject(course);
+                out.reset();
+                enrollList.setListData((StudentEnrollment[]) in.readObject());
+            }
+            catch(ClassNotFoundException f) {
+                System.err.println("Object Error");
+            }
+            catch(IOException f) {
+                System.err.println("IO Error");
+            }
+        }
+        else if(e.getSource() == enrollunenrollStudent) {
+            StudentEnrollment current = enrollList.getSelectedValue();
+            if(current.getEnrolling() == '1') {
+                current.setEnrolling(false);
+            }
+            else if(current.getEnrolling() == '0') {
+                current.setEnrolling(true);
+            }
 
-//    void setCourse(Course x) {
-//        this.course = x;
-//        visible = true;
-//    }
+            current.setCommand("MOD");
 
-    boolean getVisible() {
-        return visible;
+            try {
+                out.writeObject(current);
+                out.reset();
+                enrollList.setListData((StudentEnrollment[])in.readObject());
+            }
+            catch(ClassNotFoundException f) {
+                System.err.println("Object Error");
+            }
+            catch(IOException f) {
+                System.err.println("IO Error");
+            }
+        }
     }
 }
+

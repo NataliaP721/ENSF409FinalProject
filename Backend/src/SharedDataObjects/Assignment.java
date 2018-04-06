@@ -64,7 +64,7 @@ public class Assignment implements Serializable{
         else {
             answer = answer + "          INACTIVE";
         }
-        answer  = answer + "         DUE" + dueDate;
+        answer  = answer + "         DUE " + dueDate;
         return answer;
     }
 }

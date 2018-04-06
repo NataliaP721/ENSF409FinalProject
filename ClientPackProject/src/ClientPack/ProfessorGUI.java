@@ -44,7 +44,6 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         //courseList.addListSelectionListener(this);
         openCourse.addActionListener(this);
         addCourse.addActionListener(this);
-        deleteCourse.addActionListener(this);
         activatedeactivate.addActionListener(this);
 //        manager = new ManageCourses(in, out);
 //        manager.setVisible(false);
@@ -53,7 +52,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
     }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         frame1 = new JFrame();
         panel1 = new JPanel();
         panel7 = new JPanel();
@@ -76,10 +75,9 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         activatedeactivate = new JButton();
         openCourse = new JButton();
         addCourse = new JButton();
-        deleteCourse = new JButton();
         panel6 = new JPanel();
         scrollPane2 = new JScrollPane();
-        courseList = new JList();
+        courseList = new JList<>();
 
         //======== frame1 ========
         {
@@ -143,8 +141,8 @@ public class ProfessorGUI extends JPanel implements ActionListener {
 
                     //---- logout ----
                     logout.setText("Logout");
-                    logout.setBackground(Color.white);
                     logout.setForeground(Color.black);
+                    logout.setBackground(Color.black);
                     panel7.add(logout);
                 }
                 panel1.add(panel7);
@@ -195,38 +193,24 @@ public class ProfessorGUI extends JPanel implements ActionListener {
             //======== panel5 ========
             {
                 panel5.setBackground(new Color(115, 194, 251));
-                panel5.setPreferredSize(new Dimension(700, 91));
-                panel5.setMinimumSize(new Dimension(700, 91));
-                panel5.setMaximumSize(new Dimension(700, 91));
                 panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 30));
 
                 //---- activatedeactivate ----
                 activatedeactivate.setText("Activate/Deactivate");
                 activatedeactivate.setFont(activatedeactivate.getFont().deriveFont(activatedeactivate.getFont().getSize() - 1f));
-                activatedeactivate.setBackground(Color.white);
-                activatedeactivate.setForeground(Color.black);
-                activatedeactivate.setIconTextGap(2);
                 panel5.add(activatedeactivate);
 
                 //---- openCourse ----
                 openCourse.setText("Open Course");
                 openCourse.setFont(openCourse.getFont().deriveFont(openCourse.getFont().getSize() - 1f));
-                openCourse.setBackground(Color.white);
-                openCourse.setForeground(Color.black);
                 panel5.add(openCourse);
 
                 //---- addCourse ----
                 addCourse.setText("Add Course");
-                addCourse.setFont(addCourse.getFont().deriveFont(addCourse.getFont().getSize() - 1f));
+                addCourse.setBackground(Color.black);
                 addCourse.setForeground(Color.black);
+                addCourse.setFont(addCourse.getFont().deriveFont(addCourse.getFont().getSize() - 1f));
                 panel5.add(addCourse);
-
-                //---- deleteCourse ----
-                deleteCourse.setText("Delete Course");
-                deleteCourse.setFont(deleteCourse.getFont().deriveFont(deleteCourse.getFont().getSize() - 1f));
-                deleteCourse.setBackground(Color.white);
-                deleteCourse.setForeground(Color.black);
-                panel5.add(deleteCourse);
             }
             frame1ContentPane.add(panel5, BorderLayout.SOUTH);
 
@@ -254,7 +238,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JFrame frame1;
     private JPanel panel1;
     private JPanel panel7;
@@ -277,10 +261,9 @@ public class ProfessorGUI extends JPanel implements ActionListener {
     private JButton activatedeactivate;
     private JButton openCourse;
     private JButton addCourse;
-    private JButton deleteCourse;
     private JPanel panel6;
     private JScrollPane scrollPane2;
-    private JList courseList;
+    private JList<Course> courseList;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     private User prof;
     private ObjectInputStream in;
@@ -298,14 +281,8 @@ public class ProfessorGUI extends JPanel implements ActionListener {
             System.exit(0);
         }
         else if(e.getSource() == openCourse) {
-            manager = new ManageCourses(in, out);
-            Course current = (Course) courseList.getSelectedValue();
-            System.out.println(current.getCourseName());
-            manager.setCourse(current);
-            manager.setVisible(true);
-            this.setVisible(false);
-            while(!manager.getVisible()){}
-            this.setVisible(true);
+            Course current = courseList.getSelectedValue();
+            manager = new ManageCourses(in, out, current);
         }
         else if(e.getSource() == addCourse) {
             this.add();
@@ -319,31 +296,18 @@ public class ProfessorGUI extends JPanel implements ActionListener {
                 System.err.println("IO Error");
             }
         }
-        else if(e.getSource() == deleteCourse) {
-            Course current = (Course) courseList.getSelectedValue();
-            current.setCommand("DELETE");
-            try {
-                out.writeObject(current);
-                courseList.setListData((Course[])in.readObject());
-            }
-            catch(ClassNotFoundException c) {
-                System.err.println("Object error");
-            }
-            catch(IOException d) {
-                System.err.println("IO Error");
-            }
-        }
         else if(e.getSource() == activatedeactivate) {
-            Course current = (Course) courseList.getSelectedValue();
-            if(current.getActive()=='0') {
-                current.setActive(true);
-            }
-            else{
+            Course current = courseList.getSelectedValue();
+            if(current.getActive() == '1') {
                 current.setActive(false);
+            }
+            else if(current.getActive() == '0') {
+                current.setActive(true);
             }
             current.setCommand("MOD");
             try {
                 out.writeObject(current);
+                out.flush();
                 courseList.setListData((Course[])in.readObject());
             }
             catch(ClassNotFoundException c) {
@@ -375,6 +339,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
             newCourse.setCommand("ADD");
             try {
                 out.writeObject(newCourse);
+                out.flush();
             }
             catch(IOException d) {
                 System.err.println("IO Error");
