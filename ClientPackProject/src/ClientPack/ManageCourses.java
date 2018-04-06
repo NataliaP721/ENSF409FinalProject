@@ -12,7 +12,7 @@ import SharedDataObjects.*;
  * Created by JFormDesigner on Sun Apr 01 12:59:24 MDT 2018
  */
 
-class ManageCourses extends JFrame implements ActionListener{
+class ManageCourses extends JFrame implements ActionListener {
 
     ManageCourses(ObjectInputStream in, ObjectOutputStream out, Course course) {
 
@@ -28,7 +28,7 @@ class ManageCourses extends JFrame implements ActionListener{
         manageGrades.addActionListener(this);
         frame1.setSize(700, 700);
         frame1.setVisible(true);
-     }
+    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -55,8 +55,8 @@ class ManageCourses extends JFrame implements ActionListener{
             frame1.setTitle("Manage Course");
             frame1.setBackground(UIManager.getColor("TextPane.selectionBackground"));
             frame1.setForeground(UIManager.getColor("TextPane.selectionBackground"));
-            frame1.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame1.setFont(new Font("Geneva", Font.PLAIN, 13));
+            frame1.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             Container frame1ContentPane = frame1.getContentPane();
             frame1ContentPane.setLayout(new MigLayout(
                 "hidemode 3",
@@ -274,7 +274,7 @@ class ManageCourses extends JFrame implements ActionListener{
     private JPanel panel5;
     private JPanel panel7;
     private JPanel panel8;
-    private Course course;
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     private ObjectInputStream in;
     private ObjectOutputStream out;
@@ -283,26 +283,22 @@ class ManageCourses extends JFrame implements ActionListener{
     private ManageGrades gradeManager;
     private EmailStudents emailManager;
     private EnrollStudents enrollManager;
+    private Course course;
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == back) {
+        if (e.getSource() == back) {
             this.dispose();
-        }
-        else if(e.getSource() == manageAssignments) {
+        } else if (e.getSource() == manageAssignments) {
             assignManager = new ManageAssignment(in, out, course);
-        }
-        else if(e.getSource() == manageSubmissions) {
+        } else if (e.getSource() == manageSubmissions) {
             subManager = new ManageSubmissions(in, out, course);
-        }
-        else if(e.getSource() == manageGrades) {
+        } else if (e.getSource() == manageGrades) {
             gradeManager = new ManageGrades(in, out, course);
-        }
-        else if(e.getSource() == emailStudents) {
+        } else if (e.getSource() == emailStudents) {
             emailManager = new EmailStudents(in, out, course);
-        }
-        else if(e.getSource() == enrollStudents) {
+        } else if (e.getSource() == enrollStudents) {
             enrollManager = new EnrollStudents(in, out, course);
         }
     }

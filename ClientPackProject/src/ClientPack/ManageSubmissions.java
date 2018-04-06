@@ -68,6 +68,7 @@ import net.miginfocom.swing.*;
         setTitle("Manage Submissions");
         setBackground(new Color(115, 194, 251));
         setForeground(new Color(115, 194, 251));
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",

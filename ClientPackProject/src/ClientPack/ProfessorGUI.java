@@ -41,12 +41,9 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         }
 
         logout.addActionListener(this);
-        //courseList.addListSelectionListener(this);
         openCourse.addActionListener(this);
         addCourse.addActionListener(this);
         activatedeactivate.addActionListener(this);
-//        manager = new ManageCourses(in, out);
-//        manager.setVisible(false);
         frame1.setSize(700, 700);
         frame1.setVisible(true);
     }

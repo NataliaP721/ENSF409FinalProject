@@ -33,7 +33,7 @@ public class ManageGrades extends JFrame implements ActionListener{
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel1 = new JPanel();
         panel4 = new JPanel();
         panel2 = new JPanel();
@@ -53,6 +53,7 @@ public class ManageGrades extends JFrame implements ActionListener{
         //======== this ========
         setTitle("Grades Students");
         setBackground(new Color(115, 194, 251));
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",
@@ -193,7 +194,7 @@ public class ManageGrades extends JFrame implements ActionListener{
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel1;
     private JPanel panel4;
     private JPanel panel2;

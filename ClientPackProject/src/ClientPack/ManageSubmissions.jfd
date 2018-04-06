@@ -12,6 +12,7 @@ new FormModel {
 			"title": "Manage Submissions"
 			"background": new java.awt.Color( 115, 194, 251, 255 )
 			"foreground": new java.awt.Color( 115, 194, 251, 255 )
+			"defaultCloseOperation": 2
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "0[430,grow,fill]0"
@@ -75,6 +76,9 @@ new FormModel {
 							name: "assignmentList"
 							"background": sfield java.awt.Color lightGray
 							"foreground": sfield java.awt.Color black
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "Assignment"
+							}
 						} )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 1,width 500,height 500"
@@ -92,6 +96,9 @@ new FormModel {
 								name: "submissionList"
 								"background": sfield java.awt.Color lightGray
 								"foreground": sfield java.awt.Color black
+								auxiliary() {
+									"JavaCodeGenerator.typeParameters": "Submission"
+								}
 							} )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 1,width 500,height 500"

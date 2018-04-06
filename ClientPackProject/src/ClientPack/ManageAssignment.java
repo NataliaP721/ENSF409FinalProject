@@ -63,6 +63,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
 
         //======== this ========
         setTitle("Manage Assignments");
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",

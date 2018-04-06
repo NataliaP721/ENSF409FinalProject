@@ -38,7 +38,7 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel2 = new JPanel();
         panel3 = new JPanel();
         back = new JButton();
@@ -69,13 +69,14 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
         //======== this ========
         setTitle("Email Students");
         setBackground(new Color(115, 194, 251));
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
-                "hidemode 3",
-                // columns
-                "0[700,grow,fill]0",
-                // rows
-                "0[700,grow,fill]0"));
+            "hidemode 3",
+            // columns
+            "0[700,grow,fill]0",
+            // rows
+            "0[700,grow,fill]0"));
 
         //======== panel2 ========
         {
@@ -83,31 +84,31 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
 
             // JFormDesigner evaluation mark
             panel2.setBorder(new javax.swing.border.CompoundBorder(
-                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                            "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                            javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                            java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel2.setLayout(new MigLayout(
-                    "hidemode 3",
-                    // columns
-                    "[fill]" +
-                            "[grow,fill]" +
-                            "[381,grow,fill]",
-                    // rows
-                    "[]" +
-                            "[]" +
-                            "[]"));
+                "hidemode 3",
+                // columns
+                "[fill]" +
+                "[grow,fill]" +
+                "[381,grow,fill]",
+                // rows
+                "[]" +
+                "[]" +
+                "[]"));
 
             //======== panel3 ========
             {
                 panel3.setBackground(new Color(115, 194, 251));
                 panel3.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "0[]0",
-                        // rows
-                        "0[]0"));
+                    "hidemode 3",
+                    // columns
+                    "0[]0",
+                    // rows
+                    "0[]0"));
 
                 //---- back ----
                 back.setText("Back");
@@ -121,24 +122,24 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
             {
                 panel5.setBackground(new Color(115, 194, 251));
                 panel5.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "[]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]0" +
-                                "[fill]0",
-                        // rows
-                        "0[fill]0"));
+                    "hidemode 3",
+                    // columns
+                    "[]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]0" +
+                    "[fill]0",
+                    // rows
+                    "0[fill]0"));
 
                 //---- label5 ----
                 label5.setText("Email Students");
@@ -154,16 +155,16 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
             {
                 panel4.setBackground(new Color(115, 194, 251));
                 panel4.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "0[307,fill]0",
-                        // rows
-                        "0[35]" +
-                                "[27]" +
-                                "[]" +
-                                "[]" +
-                                "[445]" +
-                                "[]0"));
+                    "hidemode 3",
+                    // columns
+                    "0[307,fill]0",
+                    // rows
+                    "0[35]" +
+                    "[27]" +
+                    "[]" +
+                    "[]" +
+                    "[445]" +
+                    "[]0"));
 
                 //---- label10 ----
                 label10.setText("Search By:");
@@ -233,17 +234,17 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
             {
                 panel1.setBackground(new Color(115, 194, 251));
                 panel1.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "5[370,fill]0",
-                        // rows
-                        "0[22]" +
-                                "[0]" +
-                                "[]" +
-                                "[]" +
-                                "[0]" +
-                                "[]" +
-                                "[479]0"));
+                    "hidemode 3",
+                    // columns
+                    "5[370,fill]0",
+                    // rows
+                    "0[22]" +
+                    "[0]" +
+                    "[]" +
+                    "[]" +
+                    "[0]" +
+                    "[]" +
+                    "[479]0"));
 
                 //---- label1 ----
                 label1.setText("To:");
@@ -304,7 +305,7 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel2;
     private JPanel panel3;
     private JButton back;

@@ -12,8 +12,8 @@ new FormModel {
 			"title": "Manage Course"
 			"background": &SwingColor0 new com.jformdesigner.model.SwingColor( "TextPane.selectionBackground" )
 			"foreground": #SwingColor0
-			"defaultCloseOperation": 3
 			"font": new java.awt.Font( "Geneva", 0, 13 )
+			"defaultCloseOperation": 2
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "15[fill]"

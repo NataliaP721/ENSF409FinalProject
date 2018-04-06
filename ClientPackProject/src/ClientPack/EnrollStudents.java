@@ -70,6 +70,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
         //======== this ========
         setTitle("Enroll Students");
         setBackground(new Color(115, 194, 251));
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "hidemode 3",
