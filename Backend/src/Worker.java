@@ -52,6 +52,12 @@ public class Worker implements Runnable {
                         out.writeObject(courses);
                         out.reset();
                     }
+                    else if (user.getCommand().equals("SEARCHENROLLEDBYLASTNAME")) {
+                        ArrayList<StudentEnrollment> lastNamelist= databaseHelper.searchUsers(user.getLastName());
+                        StudentEnrollment [] enrollments = lastNamelist.toArray(new StudentEnrollment [lastNamelist.size()]);
+                        out.writeObject(enrollments);
+                        out.reset();
+                    }
 //                    if (user.getCommand().equals("ADD")) {
 //                        databaseHelper.addUser(user, loginInfo);
 //                    } else if (user.getCommand().equals("DEL")) {
@@ -104,16 +110,8 @@ public class Worker implements Runnable {
                         out.writeObject(enrollments);
                         out.reset();
                     }
-                    else if(course.getCommand().equals("SEARCHENROLLED")) {
-                        ArrayList<StudentEnrollment> enrollmentslist= databaseHelper.searchAllStudentEnrollments();
-                        StudentEnrollment enrollment = enrollmentslist.get(0);
-                        for (Iterator<StudentEnrollment> iter = enrollmentslist.iterator(); iter.hasNext(); ) {
-                            if(enrollment.getEnrolling() == '0') {
-                                enrollmentslist.remove(iter);
-                            }
-                            enrollment = iter.next();
-                        }
-                        databaseHelper.printAssignmentTable();
+                    else if(course.getCommand().equals("DISPLAYCLASSLIST")) {
+                        ArrayList<StudentEnrollment> enrollmentslist= databaseHelper.searchEnrolled();
                         StudentEnrollment [] enrollments = enrollmentslist.toArray(new StudentEnrollment [enrollmentslist.size()]);
                         out.writeObject(enrollments);
                         out.reset();
@@ -129,12 +127,16 @@ public class Worker implements Runnable {
                     }
                     else if(studentEnrollment.getCommand().equals("MOD")) {
                         databaseHelper.modifyStudentEnrollment(studentEnrollment);
-                    }
-                    else if(studentEnrollment.getCommand().equals("SEARCH")) {
-                        StudentEnrollment enrollment = databaseHelper.searchStudentEnrollment(studentEnrollment.getEnrollmentID());
-                        out.writeObject(enrollment);
+                        ArrayList<StudentEnrollment> enrollmentsList= databaseHelper.searchAllStudentEnrollments();
+                        StudentEnrollment [] enrollments = enrollmentsList.toArray(new StudentEnrollment[enrollmentsList.size()]);
+                        out.writeObject(enrollments);
                         out.reset();
-
+                    }
+                    else if(studentEnrollment.getCommand().equals("SEARCHBYID")) {
+                        ArrayList<StudentEnrollment> enrollmentslist = databaseHelper.searchStudentEnrollment(studentEnrollment.getStudentID());
+                        StudentEnrollment [] enrollments = enrollmentslist.toArray(new StudentEnrollment [enrollmentslist.size()]);
+                        out.writeObject(enrollments);
+                        out.reset();
                     }
                 }
                 else if(obj instanceof Assignment) {

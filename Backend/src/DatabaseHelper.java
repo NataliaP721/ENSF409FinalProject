@@ -68,6 +68,8 @@ public class DatabaseHelper {
 
             createTables();
             addUser(new User("Pavlovic", "Natalia", "natalia.nzp@gmail.com", 1, 'P' ), new LoginInfo(1, "12345"));
+            addUser(new User("Flintstone", "Fred", "fred@gmail.com", 2, 'P' ), new LoginInfo(2, "12345"));
+
             addCourse(new Course(1, 1, "ENSF409", false));
             addCourse(new Course(2, 1, "ENSF410", false));
             addCourse(new Course(3, 1, "ENSF411", false));
@@ -94,6 +96,7 @@ public class DatabaseHelper {
             addCourse(new Course(24, 1, "ENSF431", false));
             addAssignment(new Assignment(1, 1, "abc", "test", false, "tomorrow"));
             addStudentEnrollment(new StudentEnrollment(1, 2, 3, true));
+            addStudentEnrollment(new StudentEnrollment(2, 1, 5, true));
 
         }
         catch( SQLException e)
@@ -146,6 +149,7 @@ public class DatabaseHelper {
         String studentEnrollmentSql = "CREATE TABLE " + this.studentEnrollmentTableName + "(" +
                 "ID INT(8) PRIMARY KEY, " +
                 "STUDENTID INT(8) NOT NULL, " +
+                "ACTIVE BIT(1) NOT NULL, "+
                 "COURSEID INT(8) NOT NULL ) ";
         String assignmentSql = "CREATE TABLE " + this.assignmentTableName + "(" +
                 "ID INT(8) PRIMARY KEY, " +
@@ -270,8 +274,8 @@ public class DatabaseHelper {
                 loginInfo.getUsername() + ", '" +
                 loginInfo.getPassword() + "', '"+
                 user.getUserEmail() + "', '" +
-                user.getLastName() + "', '" +
                 user.getFirstName() + "', '" +
+                user.getLastName() + "', '" +
                 user.getUserType()+ "');";
 
         try{
@@ -313,9 +317,10 @@ public class DatabaseHelper {
     {
         String sql = "INSERT INTO " + studentEnrollmentTableName +
                 " VALUES ( " +
-                studentEnrollment.getEnrollmentID() + ", '" +
-                studentEnrollment.getStudentID() + "', '" +
-                studentEnrollment.getCourseID() + "');";
+                studentEnrollment.getEnrollmentID() + ", " +
+                studentEnrollment.getStudentID() + ", " +
+                studentEnrollment.getEnrolling()+", "+
+                studentEnrollment.getCourseID() + ");";
         try{
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();
@@ -403,16 +408,7 @@ public class DatabaseHelper {
      * @param lastName the lastName of the Object to be searched
      * @return the Object matching the ID. It should return null if no Objects matching that lastName are found in the dataTable.
      */
-    ResultSet searchByLastName(String tableName, String lastName) {
-        String sql = "SELECT * FROM " + tableName + "  WHERE LASTNAME =" + lastName;
-        ResultSet user;
-        try {
-            statement = jdbc_connection.prepareStatement(sql);
-            user = statement.executeQuery();
-            return user;
-        } catch (SQLException e) { e.printStackTrace(); }
-        return null;
-    }
+
     /**
      * This method searches the database table for an Object matching the ID parameter and return that ResultSet.
      * @param tableName the name of the database table being searched.
@@ -462,9 +458,14 @@ public class DatabaseHelper {
      * @param lastName the lastName of the User to be searched
      * @return the User matching the lastName. It should return null if no Users matching that ID are found.
      */
-    User searchUsers(String lastName) {
-        try {
-            ResultSet users = searchByLastName(userTableName, lastName);
+    ArrayList<StudentEnrollment> searchUsers(String lastName) {
+        try{
+            printUserTable();
+            String sql = "SELECT * FROM " + userTableName + "  WHERE LASTNAME = '" + lastName + "'";
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet users = statement.executeQuery();
+            ArrayList<StudentEnrollment> enrollmentList = new ArrayList<>();
+
             if(users == null) {
                 return null;
             }
@@ -476,12 +477,17 @@ public class DatabaseHelper {
                         users.getString("FIRSTNAME"),
                         users.getInt("ID"),
                         users.getString("TYPE").charAt(0));
+                System.out.println("HI");
+
+                ArrayList<StudentEnrollment> se = searchStudentEnrollment(temp.getID());
+                StudentEnrollment [] enrollments = se.toArray(new StudentEnrollment [se.size()]);
+                if(enrollments[0]!=null) {
+                    enrollmentList.add(enrollments[0]);
+                }
             }
             users.close();
-            return temp;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            return enrollmentList;
+        }catch (SQLException e) { e.printStackTrace(); }
         return null;
     }
     /**
@@ -585,28 +591,38 @@ public class DatabaseHelper {
      * @param ID the ID of the StudentEnrollment to be searched
      * @return the StudentEnrollment matching the ID. It should return null if no StudentEnrollments matching that ID are found.
      */
-    StudentEnrollment searchStudentEnrollment(int ID) {
+    ArrayList<StudentEnrollment> searchStudentEnrollment(int ID) {
         try {
-            ResultSet enrollments = searchByID(studentEnrollmentTableName, ID);
+            printStudentEnrollmentTable();
+            String sql = "SELECT * FROM " + studentEnrollmentTableName + "  WHERE STUDENTID =" + ID;
+            ResultSet enrollments = statement.executeQuery();
+            ArrayList<StudentEnrollment> enrollmentlist = new ArrayList<>();
+
+            try {
+                statement = jdbc_connection.prepareStatement(sql);
+                enrollments = statement.executeQuery();
+            } catch (SQLException e) { e.printStackTrace(); }
+
             if(enrollments == null) {
                 return null;
             }
             StudentEnrollment temp = null;
-            boolean activeBoolean = false;
-            if(enrollments.getString("ACTIVE").charAt(0)=='0') {
-                activeBoolean = false;
-            }
-            else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
-                activeBoolean = true;
-            }
             while(enrollments.next())
             {
+                boolean activeBoolean = false;
+                if(enrollments.getString("ACTIVE").charAt(0)=='0') {
+                    activeBoolean = false;
+                }
+                else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+                }
                 temp = new StudentEnrollment (enrollments.getInt("ID"),
                         enrollments.getInt("STUDENTID"),
                         enrollments.getInt("COURSEID"), activeBoolean);
+                enrollmentlist.add(temp);
             }
             enrollments.close();
-            return temp;
+            return enrollmentlist;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -625,11 +641,45 @@ public class DatabaseHelper {
             ArrayList<StudentEnrollment> courseList = new ArrayList<>();
             while(enrollments.next())
             {
+                boolean activeBoolean = false;
+                if(enrollments.getString("ACTIVE").charAt(0)=='0') {
+                    activeBoolean = false;
+                }
+                else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+                }
                 temp = new StudentEnrollment (enrollments.getInt("ID"),
                         enrollments.getInt("STUDENTID"),
-                        enrollments.getInt("COURSEID"), true);
+                        enrollments.getInt("COURSEID"), activeBoolean);
 
                 courseList.add(temp);
+            }
+            enrollments.close();
+            return courseList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    ArrayList<StudentEnrollment> searchEnrolled() {
+        try {
+            String sql = "SELECT * FROM " + studentEnrollmentTableName;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet enrollments = statement.executeQuery();
+            StudentEnrollment temp;
+            ArrayList<StudentEnrollment> courseList = new ArrayList<>();
+            while(enrollments.next())
+            {
+                boolean activeBoolean = false;
+                if(enrollments.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+
+                    temp = new StudentEnrollment(enrollments.getInt("ID"),
+                            enrollments.getInt("STUDENTID"),
+                            enrollments.getInt("COURSEID"), activeBoolean);
+
+                    courseList.add(temp);
+                }
             }
             enrollments.close();
             return courseList;
@@ -1089,10 +1139,11 @@ public class DatabaseHelper {
      * @param studentEnrollment the updated StudentEnrollment to be modified in the database.
      */
     void modifyStudentEnrollment(StudentEnrollment studentEnrollment) {
-        String sql = "UPDATE " + assignmentTableName + " SET  " +
-                " ID = '"+ studentEnrollment.getEnrollmentID() + "', " +
-                " STUDENTID = '"+studentEnrollment.getStudentID() + "', " +
-                " COURSEID ='" +studentEnrollment.getCourseID()+ "'"+ " WHERE ID = "+studentEnrollment.getEnrollmentID() +";";
+        String sql = "UPDATE " + studentEnrollmentTableName + " SET  " +
+                " ID = "+ studentEnrollment.getEnrollmentID() + ", " +
+                " STUDENTID = "+studentEnrollment.getStudentID() + ", " +
+                " ACTIVE = "+studentEnrollment.getEnrolling() + ", "+
+                " COURSEID =" +studentEnrollment.getCourseID() + " WHERE ID = "+studentEnrollment.getEnrollmentID() +";";
         try {
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();

@@ -247,7 +247,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
                 try {
                     out.writeObject(current);
                     out.reset();
-                    enrollList.setListData((StudentEnrollment[])in.readObject());
+                    enrollList.setListData((StudentEnrollment[]) (in.readObject()));
                 }
                 catch(ClassNotFoundException f) {
                     System.err.println("Object Error");
@@ -259,7 +259,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
             else if (lastNameradioButton.isSelected()) {
                 User current = new User();
                 current.setLastName(param);
-                current.setCommand("SEARCHBYLASTNAME");
+                current.setCommand("SEARCHENROLLEDBYLASTNAME");
                 try {
                     out.writeObject(current);
                     out.reset();
