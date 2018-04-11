@@ -52,6 +52,8 @@ public class Client {
                 break;
             }
             else if (user.getUserType() == 'S') {
+                System.out.println(user.getUserType());
+                StudentGUI student = new StudentGUI(socketIn, socketOut, user);
                 break;
             }
         }

@@ -9,8 +9,7 @@ public class Course implements Serializable{
     private boolean active;
     private String command;
 
-    public Course(int courseID, int professorID, String courseName, boolean active) {
-        this.courseID = courseID;
+    public Course(int professorID, String courseName, boolean active) {
         this.professorID = professorID;
         this.courseName = courseName;
         this.active = active;
@@ -40,6 +39,9 @@ public class Course implements Serializable{
     public void setCommand(String com) {this.command = com;}
     public void setActive(boolean active) {
         this.active = active;
+    }
+    public void setCourseID(int courseID) {
+        this.courseID = courseID;
     }
     @Override
      public String toString() {

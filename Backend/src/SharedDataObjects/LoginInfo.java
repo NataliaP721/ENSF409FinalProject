@@ -7,8 +7,7 @@ public class LoginInfo implements Serializable{
     private String password;
     private String command;
 
-    public LoginInfo(int username, String password) {
-        this.username = username;
+    public LoginInfo(String password) {
         this.password = password;
         this.command = null;
     }
@@ -24,6 +23,9 @@ public class LoginInfo implements Serializable{
         return this.command;
     }
     public void setCommand(String com) { this.command = com;}
+    public void setUsername(int username) {
+        this.username = username;
+    }
     public void setPassword(String password) {
         this.password = password;
     }

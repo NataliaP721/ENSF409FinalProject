@@ -13,8 +13,7 @@ public class StudentEnrollment implements Serializable{
 
     }
 
-    public StudentEnrollment(int enrollmentID, int studentID, int courseID, boolean Enrolling) {
-        this.enrollmentID = enrollmentID;
+    public StudentEnrollment(int studentID, int courseID, boolean Enrolling) {
         this.studentID = studentID;
         this.courseID = courseID;
         this.enrolling = Enrolling;
@@ -39,6 +38,9 @@ public class StudentEnrollment implements Serializable{
     }
     public void setCommand(String com) { this.command = com;}
     public void setStudentID(int id) { this.studentID = id;}
+    public void setEnrollmentID(int enrollmentID) {
+        this.enrollmentID = enrollmentID;
+    }
     public char getEnrolling() {
         if (!this.enrolling) {
             return '0';

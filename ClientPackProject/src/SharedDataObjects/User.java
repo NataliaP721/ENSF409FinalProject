@@ -13,11 +13,10 @@ public class User implements Serializable{
     public User() {
 
     }
-    public User(String lastName, String firstName, String userEmail, int id, char userType) {
+    public User(String lastName, String firstName, String userEmail, char userType) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.userEmail = userEmail;
-        this.id = id;
         this.userType = userType;
         this.command = null;
     }
@@ -41,6 +40,9 @@ public class User implements Serializable{
     }
     public int getID() {
         return this.id;
+    }
+    public void setID(int studentID) {
+        this.id = studentID;
     }
 
     public void setLastName(String last) { this.lastName = last;}

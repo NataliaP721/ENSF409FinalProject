@@ -1,6 +1,9 @@
 import java.sql.*;
 import SharedDataObjects.*;
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
 
 /**
  * This class allows you to create and manage a FinalProjectDB database.
@@ -10,8 +13,12 @@ import java.util.ArrayList;
  * @since April 3, 2018
  */
 public class DatabaseHelper {
-    //   static private int totalEnteries = 1;
-
+    static private int totalUserEnteries = 1;
+    static private int totalCourseEnteries = 1;
+    static private int totalEnrollmentEnteries = 1;
+    static private int totalAssignmentEnteries = 1;
+    static private int totalSubmissionEnteries = 1;
+    static private int totalGradeEnteries = 1;
     /**
      * The connection to the MySQL server
      */
@@ -28,7 +35,7 @@ public class DatabaseHelper {
      * dataFile is the name of the input text file
      */
     public String databaseName = "FinalProjectDB";
-    // public String dataFile = "sampleInput.txt";
+     public String dataFile = "UserInput.txt";
 
     public String userTableName = "UserTable";
     public String courseTableName = "CourseTable";
@@ -66,18 +73,19 @@ public class DatabaseHelper {
             // You should comment this line out once the first database is created (either here or in MySQL workbench)
             // databaseHelper.createDB();
 
+            // Create a text document for students
             createTables();
-            addUser(new User("Pavlovic", "Natalia", "natalia.nzp@gmail.com", 1, 'P' ), new LoginInfo(1, "12345"));
-            addUser(new User("Flintstone", "Fred", "fred@gmail.com", 2, 'S' ), new LoginInfo(2, "12345"));
-            addUser(new User("Simpson", "Bart", "fred@gmail.com", 3, 'S' ), new LoginInfo(3, "12345"));
+            addUser(new User("Pavlovic", "Natalia", "natalia.nzp@gmail.com", 'P' ), new LoginInfo("12345"));
+            addUser(new User("Flintstone", "Fred", "fred@gmail.com",  'S' ), new LoginInfo("12345"));
+            addUser(new User("Simpson", "Bart", "fred@gmail.com",  'S' ), new LoginInfo("12345"));
 
-            addCourse(new Course(1, 1, "ENSF409", false));
-            addCourse(new Course(2, 1, "ENSF410", false));
-            addCourse(new Course(3, 1, "ENSF411", false));
-            addCourse(new Course(4, 1, "ENSF412", false));
-            addAssignment(new Assignment(1, 1, "abc", "test", false, "tomorrow"));
-            addStudentEnrollment(new StudentEnrollment(1, 2, 1, true));
-            addStudentEnrollment(new StudentEnrollment(2, 3, 2, true));
+            addCourse(new Course( 1, "ENSF409", true));
+            addCourse(new Course(1, "ENSF410", true));
+            addCourse(new Course(1, "ENSF411", true));
+            addCourse(new Course( 1, "ENSF412", true));
+            addAssignment(new Assignment( 1, "abc", "test", false, "18:04:06"));
+            addStudentEnrollment(new StudentEnrollment(2, 1, true));
+            addStudentEnrollment(new StudentEnrollment(3, 2, true));
 
         }
         catch( SQLException e)
@@ -243,6 +251,30 @@ public class DatabaseHelper {
             System.out.println("\nThe program is finished running");
         }
     }
+
+    /**
+     * Fills the data table with all the Clients from the text file 'clients.txt' if found
+     */
+    public void fillTable()
+    {
+        try{
+            Scanner sc = new Scanner(new FileReader(dataFile));
+            while(sc.hasNext())
+            {
+                String userInfo[] = sc.nextLine().split(";");
+               // addUser( new User( clientInfo[0], clientInfo[1], clientInfo[2], clientInfo[3], clientInfo[4], clientInfo[5]));
+            }
+            sc.close();
+        }
+        catch(FileNotFoundException e)
+        {
+            System.err.println("File " + dataFile + " Not Found!");
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
     /**
      * Add a User to the User database table
      * @param user the User to be added to the User database Table
@@ -252,13 +284,13 @@ public class DatabaseHelper {
     {
         String sql = "INSERT INTO " + userTableName +
                 " VALUES ( " +
-                loginInfo.getUsername() + ", '" +
+                totalUserEnteries + ", '" +
                 loginInfo.getPassword() + "', '"+
                 user.getUserEmail() + "', '" +
                 user.getFirstName() + "', '" +
                 user.getLastName() + "', '" +
                 user.getUserType()+ "');";
-
+                totalUserEnteries++;
         try{
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();
@@ -276,14 +308,17 @@ public class DatabaseHelper {
     {
         String sql = "INSERT INTO " + courseTableName +
                 " VALUES ( " +
-                course.getCourseID() + ", " +
+                totalCourseEnteries + ", "+
                 course.getProfessorID() + ", '" +
                 course.getCourseName() + "', " +
                 course.getActive()+ ");";
-
+                totalCourseEnteries++;
+                course.setCourseID(totalCourseEnteries);
+                System.out.println("Added Course: "+ course.getCourseName());
         try{
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();
+            printCourseTable();
         }
         catch(SQLException e)
         {
@@ -298,10 +333,12 @@ public class DatabaseHelper {
     {
         String sql = "INSERT INTO " + studentEnrollmentTableName +
                 " VALUES ( " +
-                studentEnrollment.getEnrollmentID() + ", " +
+                totalEnrollmentEnteries + ", " +
                 studentEnrollment.getStudentID() + ", " +
                 studentEnrollment.getEnrolling()+", "+
                 studentEnrollment.getCourseID() + ");";
+                totalEnrollmentEnteries++;
+                studentEnrollment.setEnrollmentID(totalEnrollmentEnteries);
         try{
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();
@@ -319,16 +356,20 @@ public class DatabaseHelper {
     {
         String sql = "INSERT INTO " + assignmentTableName +
                 " VALUES ( " +
-                assignment.getAssignmentID() + ", '" +
-                assignment.getCourseID() + "', '" +
+                totalAssignmentEnteries + ", " +
+                assignment.getCourseID() + ", '" +
                 assignment.getAssignmentTitle() + "', '" +
                 assignment.getAssignmentPath() + "', " +
                 assignment.getActive()+ ", '" +
                 assignment.getDueDate()+ "');";
+                totalAssignmentEnteries++;
+                assignment.setAssignmentID(totalAssignmentEnteries);
+                System.out.println("Added Assignment: "+ assignment.getAssignmentTitle());
 
         try{
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();
+            printAssignmentTable();
         }
         catch(SQLException e)
         {
@@ -343,17 +384,21 @@ public class DatabaseHelper {
     {
         String sql = "INSERT INTO " + submissionTableName +
                 " VALUES ( " +
-                submission.getSubmissionID() + ", " +
+                totalSubmissionEnteries + ", " +
                 submission.getAssignmentID() + ", " +
                 submission.getStudentID() + ", '" +
                 submission.getSubmissionPath() + "', '" +
-                submission.getAssignmentTitle() + "', '" +
                 submission.getSubmissionGrade() + "', '" +
                 submission.getSubmissionComment() + "', '" +
-                submission.getSubmissionTimestamp()+ "');";
+                submission.getSubmissionTimestamp() + "', '" +
+                submission.getAssignmentTitle()+ "');";
+                totalSubmissionEnteries++;
+                submission.setSubmissionID(totalSubmissionEnteries);
+                System.out.println("Added Submission: "+ submission.getAssignmentTitle());
         try{
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();
+            printSubmissionTable();
         }
         catch(SQLException e)
         {
@@ -368,28 +413,24 @@ public class DatabaseHelper {
     {
         String sql = "INSERT INTO " + gradeTableName +
                 " VALUES ( " +
-                grade.getGradeID() + ", " +
+                totalGradeEnteries + ", " +
                 grade.getAssignmentID() + ", " +
                 grade.getStudentID() + ", " +
                 grade.getCourseID() + ", " +
                 grade.getAssignmentGrade()+ ");";
-
+                totalGradeEnteries++;
+                grade.setGradeID(totalGradeEnteries);
+                System.out.println("Added Grade: "+ grade.getAssignmentGrade());
         try{
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();
+            printGradeTable();
         }
         catch(SQLException e)
         {
             e.printStackTrace();
         }
     }
-    /**
-     * This method searches the database table for an Object matching the lastName parameter and return that ResultSet.
-     * @param tableName the name of the database table being searched.
-     * @param lastName the lastName of the Object to be searched
-     * @return the Object matching the ID. It should return null if no Objects matching that lastName are found in the dataTable.
-     */
-
     /**
      * This method searches the database table for an Object matching the ID parameter and return that ResultSet.
      * @param tableName the name of the database table being searched.
@@ -424,8 +465,8 @@ public class DatabaseHelper {
                 temp = new User (users.getString("EMAIL"),
                         users.getString("LASTNAME"),
                         users.getString("FIRSTNAME"),
-                        users.getInt("ID"),
                         users.getString("TYPE").charAt(0));
+                temp.setID(users.getInt("ID"));
             }
             users.close();
             return temp;
@@ -456,8 +497,8 @@ public class DatabaseHelper {
                 temp = new User (users.getString("EMAIL"),
                         users.getString("LASTNAME"),
                         users.getString("FIRSTNAME"),
-                        users.getInt("ID"),
                         users.getString("TYPE").charAt(0));
+                temp.setID( users.getInt("ID"));
                 System.out.println("HI");
 
                 ArrayList<StudentEnrollment> se = searchStudentEnrollment(temp.getID());
@@ -488,8 +529,9 @@ public class DatabaseHelper {
                 temp = new User (users.getString("LASTNAME"),
                         users.getString("FIRSTNAME"),
                         users.getString("EMAIL"),
-                        users.getInt("ID"),
                         users.getString("TYPE").charAt(0));
+
+                temp.setID(users.getInt("ID"));
                 courseList.add(temp);
             }
             users.close();
@@ -520,10 +562,10 @@ public class DatabaseHelper {
                 else if(courses.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
                 }
-                temp = new Course (courses.getInt("ID"),
-                        courses.getInt("PROFESSORID"),
+                temp = new Course (courses.getInt("PROFESSORID"),
                         courses.getString("COURSENAME"),
                         activeBoolean);
+                temp.setCourseID(courses.getInt("ID"));
             }
             courses.close();
             return temp;
@@ -553,10 +595,10 @@ public class DatabaseHelper {
                 else if(courses.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
                 }
-                temp = new Course (courses.getInt("ID"),
-                        courses.getInt("PROFESSORID"),
+                temp = new Course (courses.getInt("PROFESSORID"),
                         courses.getString("COURSENAME"),
                         activeBoolean);
+                temp.setCourseID(courses.getInt("ID"));
                 courseList.add(temp);
             }
             courses.close();
@@ -565,6 +607,72 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
         return null;
+    }
+
+    ArrayList<Course> searchEnrolledActiveCourses() {
+        try {
+            String sql = "SELECT * FROM " + courseTableName;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet courses = statement.executeQuery();
+            Course temp;
+            ArrayList<Course> courseList = new ArrayList<>();
+            while(courses.next()) {
+                boolean activeBoolean = false;
+                if (courses.getString("ACTIVE").charAt(0) == '0') {
+                    activeBoolean = false;
+                } else if (courses.getString("ACTIVE").charAt(0) == '1') {
+                    activeBoolean = true;
+                }
+                temp = new Course(courses.getInt("PROFESSORID"),
+                        courses.getString("COURSENAME"),
+                        activeBoolean);
+                temp.setCourseID(courses.getInt("ID"));
+
+                if (activeBoolean == true){
+                    isEnrolled(temp.getCourseID());
+
+                    if (activeBoolean == true) {
+                        courseList.add(temp);
+                    }
+                }
+            }
+            courses.close();
+            return courseList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public boolean isEnrolled(int courseID) {
+        try {
+            String sql = "SELECT * FROM " + studentEnrollmentTableName + "  WHERE COURSEID =" + courseID;
+            ResultSet enrollments = statement.executeQuery();
+            StudentEnrollment temp = null;
+            boolean activeBoolean = false;
+
+            while(enrollments.next())
+            {
+                if(enrollments.getString("ACTIVE").charAt(0)=='0') {
+                    activeBoolean = false;
+                }
+                else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+                }
+                temp = new StudentEnrollment (enrollments.getInt("STUDENTID"),
+                        enrollments.getInt("COURSEID"), activeBoolean);
+                temp.setEnrollmentID(enrollments.getInt("ID"));
+            }
+            enrollments.close();
+            if(activeBoolean==true){
+                return true;
+            }
+            else
+                return false;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
     /**
      * This method searches the StudentEnrollment database table for a StudentEnrollment matching the ID parameter
@@ -597,9 +705,9 @@ public class DatabaseHelper {
                 else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
                 }
-                temp = new StudentEnrollment (enrollments.getInt("ID"),
-                        enrollments.getInt("STUDENTID"),
+                temp = new StudentEnrollment (enrollments.getInt("STUDENTID"),
                         enrollments.getInt("COURSEID"), activeBoolean);
+                temp.setEnrollmentID(enrollments.getInt("ID"));
                 enrollmentlist.add(temp);
             }
             enrollments.close();
@@ -629,9 +737,9 @@ public class DatabaseHelper {
                 else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
                 }
-                temp = new StudentEnrollment (enrollments.getInt("ID"),
-                        enrollments.getInt("STUDENTID"),
+                temp = new StudentEnrollment (enrollments.getInt("STUDENTID"),
                         enrollments.getInt("COURSEID"), activeBoolean);
+                temp.setEnrollmentID(enrollments.getInt("ID"));
 
                 courseList.add(temp);
             }
@@ -642,6 +750,7 @@ public class DatabaseHelper {
         }
         return null;
     }
+
     ArrayList<StudentEnrollment> searchEnrolled() {
         try {
             String sql = "SELECT * FROM " + studentEnrollmentTableName;
@@ -655,9 +764,10 @@ public class DatabaseHelper {
                 if(enrollments.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
 
-                    temp = new StudentEnrollment(enrollments.getInt("ID"),
-                            enrollments.getInt("STUDENTID"),
+                    temp = new StudentEnrollment(enrollments.getInt("STUDENTID"),
                             enrollments.getInt("COURSEID"), activeBoolean);
+
+                    temp.setEnrollmentID(enrollments.getInt("ID"));
 
                     courseList.add(temp);
                 }
@@ -690,12 +800,12 @@ public class DatabaseHelper {
                 else if(assignments.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
                 }
-                temp = new Assignment(assignments.getInt("ID"),
-                        assignments.getInt("COURSEID"),
+                temp = new Assignment(assignments.getInt("COURSEID"),
                         assignments.getString("ASSIGNMENTTITLE"),
                         assignments.getString("ASSIGNMENTPATH"),
                         activeBoolean,
                         assignments.getString("DUEDATE"));
+                temp.setAssignmentID(assignments.getInt("ID"));
             }
             assignments.close();
             return temp;
@@ -724,12 +834,13 @@ public class DatabaseHelper {
                 else if(assignments.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
                 }
-                temp = new Assignment (assignments.getInt("ID"),
-                        assignments.getInt("COURSEID"),
+                temp = new Assignment (assignments.getInt("COURSEID"),
                         assignments.getString("ASSIGNMENTTITLE"),
                         assignments.getString("ASSIGNMENTPATH"),
                         activeBoolean,
                         assignments.getString("DUEDATE"));
+
+                temp.setAssignmentID(assignments.getInt("ID"));
 
                 if(temp.getCourseID()==courseID){
                     courseList.add(temp);
@@ -759,12 +870,13 @@ public class DatabaseHelper {
                 else if(assignments.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
                 }
-                temp = new Assignment (assignments.getInt("ID"),
-                        assignments.getInt("COURSEID"),
+                temp = new Assignment (assignments.getInt("COURSEID"),
                         assignments.getString("ASSIGNMENTTITLE"),
                         assignments.getString("ASSIGNMENTPATH"),
                         activeBoolean,
                         assignments.getString("DUEDATE"));
+
+                temp.setAssignmentID(assignments.getInt("ID"));
 
                     courseList.add(temp);
             }
@@ -789,14 +901,14 @@ public class DatabaseHelper {
             Submission temp = null;
             while(submissions.next())
             {
-                temp = new Submission (submissions.getInt("ID"),
-                        submissions.getInt("ASSIGNMENTID"),
+                temp = new Submission (submissions.getInt("ASSIGNMENTID"),
                         submissions.getInt("STUDENTID"),
                         submissions.getString("PATH"),
                         submissions.getInt("SUBMISSIONGRADE"),
                         submissions.getString("COMMENTS"),
                         submissions.getString("TIMESTAMP"),
                         submissions.getString("TITLE"));
+                temp.setSubmissionID(submissions.getInt("ID"));
             }
             submissions.close();
             return temp;
@@ -819,14 +931,15 @@ public class DatabaseHelper {
             ArrayList<Submission> courseList = new ArrayList<>();
             while(submissions.next())
             {
-                temp = new Submission (submissions.getInt("ID"),
-                        submissions.getInt("ASSIGNMENTID"),
+                temp = new Submission (submissions.getInt("ASSIGNMENTID"),
                         submissions.getInt("STUDENTID"),
                         submissions.getString("PATH"),
                         submissions.getInt("SUBMISSIONGRADE"),
                         submissions.getString("TITLE"),
                         submissions.getString("COMMENTS"),
                         submissions.getString("TIMESTAMP"));
+
+                temp.setSubmissionID(submissions.getInt("ID"));
 
                 courseList.add(temp);
             }
@@ -851,11 +964,11 @@ public class DatabaseHelper {
             Grade temp = null;
             while(submissions.next())
             {
-                temp = new Grade (submissions.getInt("ID"),
-                        submissions.getInt("ASSIGNMENTID"),
+                temp = new Grade (submissions.getInt("ASSIGNMENTID"),
                         submissions.getInt("STUDENTID"),
                         submissions.getInt("COURSEID"),
                         submissions.getInt("ASSIGNMENTGRADE"));
+                temp.setGradeID(submissions.getInt("ID"));
             }
             submissions.close();
             return temp;
@@ -878,11 +991,12 @@ public class DatabaseHelper {
             ArrayList<Grade> courseList = new ArrayList<>();
             while(grades.next())
             {
-                temp = new Grade (grades.getInt("ID"),
-                        grades.getInt("ASSIGNMENTID"),
+                temp = new Grade (grades.getInt("ASSIGNMENTID"),
                         grades.getInt("STUDENTID"),
                         grades.getInt("COURSEID"),
                         grades.getInt("ASSIGNMENTGRADE"));
+
+                temp.setGradeID(grades.getInt("ID"));
 
                 courseList.add(temp);
             }
@@ -893,6 +1007,7 @@ public class DatabaseHelper {
         }
         return null;
     }
+
     /**
      * Prints all the items in the User database to console
      */
@@ -918,6 +1033,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Prints all the items in the Course database to console
      */
@@ -941,6 +1057,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Prints all the items in the StudentEnrollment database to console
      */
@@ -963,6 +1080,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Prints all the items in the Assignment database to console
      */
@@ -988,6 +1106,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Prints all the items in the Submission database to console
      */
@@ -1015,6 +1134,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Prints all the items in the Grade database to console
      */
@@ -1039,6 +1159,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Deletes a User from the database with a matching id.
      * @param userID the userID of the User to be deleted.
@@ -1054,6 +1175,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Deletes a Course from the database with a matching id.
      * @param courseID the courseID of the Course to be deleted.
@@ -1069,6 +1191,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Deletes a StudentEnrollment from the database with a matching id.
      * @param enrollmentID the enrollmentID of the StudentEnrollment to be deleted.
@@ -1084,6 +1207,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Deletes an Assignment from the database with a matching id.
      * @param assignmentID the assignmentID of the Assignment to be deleted.
@@ -1099,6 +1223,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Deletes a Submission from the database with a matching id.
      * @param submissionID the submissionID of the Submission to be deleted.
@@ -1114,6 +1239,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     /**
      * Deletes a Grade from the database with a matching id.
      * @param gradeID the gradeID of the Grade to be deleted.
@@ -1129,6 +1255,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     // ID must be kept the same for all modifies
     /**
      * Modifies a Course from the database with a matching id.
@@ -1149,6 +1276,7 @@ public class DatabaseHelper {
         }
 
     }
+
     // ID must be kept the same for all modifies
     /**
      * Modifies a StudentEnrollmet from the database with a matching id.
@@ -1168,6 +1296,7 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+
     // ID must be kept the same for all modifies
     /**
      * Modifies an Assignment from the database with a matching id.
@@ -1190,27 +1319,5 @@ public class DatabaseHelper {
         }
 
     }
-//    /**
-//     * @param args a string array for input parameters passed to main
-//     */
-//    public static void main(String args[])
-//    {
-//        DatabaseHelper databaseHelper = new DatabaseHelper();
-//
-//        try {
-//            // You should comment this line out once the first database is created (either here or in MySQL workbench)
-//            // databaseHelper.createDB();
-//
-//            databaseHelper.createTables();
-//        }
-//        catch (Exception e) {
-//            System.out.println("None found in search");
-//        }
-//        finally {
-//            databaseHelper.removeTables();
-//        }
-//
-//    }
-
 }
 

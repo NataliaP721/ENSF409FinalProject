@@ -117,11 +117,18 @@ new FormModel {
 						"value": "cell 0 6,grow"
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "displayAll"
+						"text": "Display All Students"
+					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+						"value": "cell 0 7"
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "displayClassList"
 						"text": "Display Class List"
 						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 						"font": new com.jformdesigner.model.SwingDerivedFont( null, 65536, 0, false )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "displayClassListActionPerformed", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 7"
 					} )

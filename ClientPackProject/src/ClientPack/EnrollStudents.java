@@ -31,6 +31,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
         back.addActionListener(this);
         enrollunenrollStudent.addActionListener(this);
         displayClassList.addActionListener(this);
+        displayAll.addActionListener(this);
         this.setSize(700, 700);
         this.setVisible(true);
         try {
@@ -46,6 +47,10 @@ public class EnrollStudents extends JFrame implements ActionListener{
         catch(IOException e) {
             System.err.println("IO Error");
         }
+    }
+
+    private void displayClassListActionPerformed(ActionEvent e) {
+        // TODO add your code here
     }
 
     private void initComponents() {
@@ -64,6 +69,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
         search = new JButton();
         scrollPane5 = new JScrollPane();
         enrollList = new JList<>();
+        displayAll = new JButton();
         displayClassList = new JButton();
         enrollunenrollStudent = new JButton();
 
@@ -83,6 +89,11 @@ public class EnrollStudents extends JFrame implements ActionListener{
             panel1.setBackground(new Color(115, 194, 251));
 
             // JFormDesigner evaluation mark
+            panel1.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel1.setLayout(new MigLayout(
                 "hidemode 3",
@@ -182,11 +193,16 @@ public class EnrollStudents extends JFrame implements ActionListener{
                 }
                 panel4.add(scrollPane5, "cell 0 6,grow");
 
+                //---- displayAll ----
+                displayAll.setText("Display All Students");
+                panel4.add(displayAll, "cell 0 7");
+
                 //---- displayClassList ----
                 displayClassList.setText("Display Class List");
                 displayClassList.setBackground(Color.white);
                 displayClassList.setForeground(Color.black);
                 displayClassList.setFont(displayClassList.getFont().deriveFont(displayClassList.getFont().getStyle() & ~Font.BOLD));
+                displayClassList.addActionListener(e -> displayClassListActionPerformed(e));
                 panel4.add(displayClassList, "cell 0 7");
 
                 //---- enrollunenrollStudent ----
@@ -219,6 +235,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
     private JButton search;
     private JScrollPane scrollPane5;
     private JList<StudentEnrollment> enrollList;
+    private JButton displayAll;
     private JButton displayClassList;
     private JButton enrollunenrollStudent;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
@@ -305,6 +322,21 @@ public class EnrollStudents extends JFrame implements ActionListener{
                 System.err.println("Object Error");
             }
             catch(IOException f) {
+                System.err.println("IO Error");
+            }
+        }
+        else if(e.getSource() == displayAll) {
+            try {
+                course.setCommand("GETSTUDENTS");
+                out.writeObject(course);
+                out.reset();
+                System.out.println(course.getCourseName());
+                enrollList.setListData((StudentEnrollment[]) (in.readObject()));
+            }
+            catch (ClassNotFoundException d) {
+                System.err.println("Object Error");
+            }
+            catch(IOException d) {
                 System.err.println("IO Error");
             }
         }

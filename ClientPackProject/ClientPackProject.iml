@@ -16,5 +16,22 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../lib/javax.mail.jar!/" />
+          <root url="jar://$MODULE_DIR$/../lib/miglayout-core.jar!/" />
+          <root url="jar://$MODULE_DIR$/../lib/miglayout-swing.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../lib/miglayout-core-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../lib/miglayout-swing-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../lib/miglayout-core-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../lib/miglayout-swing-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

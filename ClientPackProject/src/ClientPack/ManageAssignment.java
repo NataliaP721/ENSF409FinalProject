@@ -307,15 +307,15 @@ public class ManageAssignment extends JFrame implements ActionListener{
         JPanel addAssignPanel = new JPanel();
         addAssignPanel.add(new JLabel("Enter the assignment title: "));
         addAssignPanel.add(assignTitle);
-        addAssignPanel.add(new JLabel("Enter the assignment ID: "));
-        addAssignPanel.add(assignID);
+//        addAssignPanel.add(new JLabel("Enter the assignment ID: "));
+//        addAssignPanel.add(assignID);
         addAssignPanel.add(new JLabel("Enter the assignment due date (DDMMYYYY): "));
         addAssignPanel.add(assignDueDate);
 
         int result = JOptionPane.showConfirmDialog(null, addAssignPanel,
                 "Please Enter Assignment Information", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            Assignment newAssign = new Assignment(Integer.parseInt(assignID.getText()), course.getCourseID(), assignTitle.getText(), filePath, true, assignDueDate.getText());
+            Assignment newAssign = new Assignment(course.getCourseID(), assignTitle.getText(), filePath, true, assignDueDate.getText());
             newAssign.setCommand("ADD");
             try {
                 out.writeObject(newAssign);

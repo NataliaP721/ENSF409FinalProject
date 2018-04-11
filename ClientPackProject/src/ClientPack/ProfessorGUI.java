@@ -340,13 +340,16 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         JPanel addCoursePanel = new JPanel();
         addCoursePanel.add(new JLabel("Enter the course name: "));
         addCoursePanel.add(courseName);
-        addCoursePanel.add(new JLabel("Enter the course ID: "));
-        addCoursePanel.add(courseID);
+//        addCoursePanel.add(new JLabel("Enter the course ID: "));
+//        addCoursePanel.add(courseID);
 
         int result = JOptionPane.showConfirmDialog(null, addCoursePanel,
                 "Please Enter Course Information", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            Course newCourse = new Course(Integer.parseInt(courseID.getText()), prof.getID(), courseName.getText(), false);
+            Course newCourse = new Course(this.prof.getID(), courseName.getText(), false);
+
+            //Course newCourse = new Course(Integer.parseInt(courseID.getText()), courseName.getText(), false);
+            newCourse.setCourseID(prof.getID());
             newCourse.setCommand("ADD");
             try {
                 out.writeObject(newCourse);

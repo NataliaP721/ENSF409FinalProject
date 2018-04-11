@@ -12,9 +12,8 @@ public class Assignment implements Serializable{
     private String dueDate;
     private String command;
 
-    public Assignment(int assignmentID, int courseID, String assignmentTitle,
+    public Assignment(int courseID, String assignmentTitle,
                       String assignmentPath, boolean active, String dueDate) {
-        this.assignmentID = assignmentID;
         this.courseID = courseID;
         this.assignmentTitle = assignmentTitle;
         this.assignmentPath = assignmentPath;
@@ -53,6 +52,9 @@ public class Assignment implements Serializable{
     public void setCommand(String com) { this.command = com;}
     public void setActive(boolean active) {
         this.active = active;
+    }
+    public void setAssignmentID(int assignmentID) {
+        this.assignmentID = assignmentID;
     }
 
     @Override

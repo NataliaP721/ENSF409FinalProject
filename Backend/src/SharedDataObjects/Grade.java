@@ -10,8 +10,7 @@ public class Grade implements Serializable{
     private int assignmentGrade;
     private String command;
 
-    public Grade(int gradeID, int assignmentID, int studentID, int courseID, int assignmentGrade) {
-        this.gradeID = gradeID;
+    public Grade(int assignmentID, int studentID, int courseID, int assignmentGrade) {
         this.assignmentID = assignmentID;
         this.studentID = studentID;
         this.courseID = courseID;
@@ -41,5 +40,8 @@ public class Grade implements Serializable{
     public void setCommand(String com) { this.command = com;}
     public void setAssignmentGrade(int assignmentGrade) {
         this.assignmentGrade = assignmentGrade;
+    }
+    public void setGradeID (int gradeID) {
+        this.gradeID = gradeID;
     }
 }

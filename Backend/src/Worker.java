@@ -49,7 +49,13 @@ public class Worker implements Runnable {
                 else if(obj instanceof User) {
                     User user = (User) obj;
                     if(user.getCommand().equals("GETCOURSES")) {
-                        ArrayList<Course> courseList= databaseHelper.searchAllCourses();
+                        ArrayList<Course> courseList = null;
+                        if(user.getUserType()=='P') {
+                            courseList= databaseHelper.searchAllCourses();
+                        }
+                        else{
+                            courseList= databaseHelper.searchEnrolledActiveCourses();
+                        }
                         databaseHelper.printCourseTable();
                         Course [] courses = courseList.toArray(new Course[courseList.size()]);
                         out.writeObject(courses);
@@ -194,7 +200,7 @@ public class Worker implements Runnable {
                     System.out.println("here1");
                     String STORAGE_PATH = "/home/natalia/Server/";
                     Upload upload = (Upload) obj;
-                    if(upload.getCommand().equals("ADDASSIGNMENT")) {
+                    if(upload.getCommand().equals("ADDASSIGNMENT")|upload.getCommand().equals("ADDSUBMISSION")) {
                         String FILE_EXTENSION = upload.getFileExtension();
                         String FILE_NAME = upload.getFileName();
                         byte[] content = upload.getContent();

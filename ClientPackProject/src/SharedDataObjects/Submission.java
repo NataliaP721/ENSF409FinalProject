@@ -13,9 +13,8 @@ public class Submission implements Serializable{
     private String assignmentTitle;
     private String command;
 
-    public Submission(int submissionID, int assignmentID, int studentID, String submissionPath, int submissionGrade,
+    public Submission(int assignmentID, int studentID, String submissionPath, int submissionGrade,
                       String submissionComment, String submissionTimestamp, String assignmentTitle) {
-        this.submissionID = submissionID;
         this.assignmentID = assignmentID;
         this.studentID = studentID;
         this.submissionPath = submissionPath;
@@ -57,5 +56,8 @@ public class Submission implements Serializable{
     public void setCommand(String com) { this.command = com;}
     public void setSubmissionGrade(int submissionGrade) {
         this.submissionGrade = submissionGrade;
+    }
+    public void setSubmissionID(int submissionID) {
+        this.submissionID = submissionID;
     }
 }

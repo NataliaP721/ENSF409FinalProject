@@ -19,8 +19,19 @@ public class Server {
      */
     private ExecutorService pool;
 
+    /**
+     * The DatabaseHelper that manages connecting and communicating with the mySQL database
+     */
     private DatabaseHelper database;
+
+    /**
+     * The EmailHelper that manages sending emails.
+     */
     private EmailHelper emailService;
+
+    /**
+     * The FileHelper that manages the downloading of files to server and uploading files from the server.
+     */
     private FileHelper fileManager;
 
     /**
