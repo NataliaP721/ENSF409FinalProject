@@ -69,10 +69,8 @@ public class DatabaseHelper {
             // If this fails make sure your connectionInfo and login/password are correct
             jdbc_connection = DriverManager.getConnection(connectionInfo, login, password);
             System.out.println("Connected to: " + connectionInfo + "\n");
-
             // You should comment this line out once the first database is created (either here or in MySQL workbench)
             // databaseHelper.createDB();
-
             // Create a text document for students
             createTables();
             addUser(new User("Pavlovic", "Natalia", "natalia.nzp@gmail.com", 'P' ), new LoginInfo("12345"));
@@ -155,7 +153,7 @@ public class DatabaseHelper {
                 "TITLE VARCHAR(50) NOT NULL, "+
                 "SUBMISSIONGRADE INT(3) NOT NULL,"+
                 "COMMENTS VARCHAR(140) NOT NULL, "+
-                "TIMESTAMP CHAR(16) NOT NULL ) ";
+                "TIMESTAMP CHAR(30) NOT NULL ) ";
         String gradeSql = "CREATE TABLE " + this.gradeTableName + "(" +
                 "ID INT(8) PRIMARY KEY, " +
                 "ASSIGNMENTID INT(8) NOT NULL,"+
@@ -183,7 +181,7 @@ public class DatabaseHelper {
             statement = jdbc_connection.prepareStatement(submissionSql);
             statement.executeUpdate();
             System.out.println("Created Table " + submissionTableName);
-            // Create grade table
+             //Create grade table
             statement = jdbc_connection.prepareStatement(gradeSql);
             statement.executeUpdate();
             System.out.println("Created Table " + gradeTableName);
@@ -388,10 +386,10 @@ public class DatabaseHelper {
                 submission.getAssignmentID() + ", " +
                 submission.getStudentID() + ", '" +
                 submission.getSubmissionPath() + "', '" +
+                submission.getAssignmentTitle() + "', '" +
                 submission.getSubmissionGrade() + "', '" +
                 submission.getSubmissionComment() + "', '" +
-                submission.getSubmissionTimestamp() + "', '" +
-                submission.getAssignmentTitle()+ "');";
+                submission.getSubmissionTimestamp() + "');";
                 totalSubmissionEnteries++;
                 submission.setSubmissionID(totalSubmissionEnteries);
                 System.out.println("Added Submission: "+ submission.getAssignmentTitle());

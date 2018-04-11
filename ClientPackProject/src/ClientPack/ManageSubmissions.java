@@ -262,7 +262,7 @@ import net.miginfocom.swing.*;
                 out.writeObject(current);
                 out.reset();
                 Upload content = (Upload)in.readObject();
-                File newFile = new File("/home/natalia/client/" + content.getFileName() + content.getFileExtension());
+                File newFile = new File("/home/natalia/Client/" + content.getFileName() + "." + content.getFileExtension());
                 if (!newFile.exists())
                     newFile.createNewFile();
                 FileOutputStream writer = new FileOutputStream(newFile);

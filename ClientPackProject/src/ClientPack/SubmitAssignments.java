@@ -221,21 +221,8 @@ public class SubmitAssignments extends JFrame implements ActionListener {
         } else if (e.getSource() == submitAssignment) {
            selected = assignmentList.getSelectedValue();
            this.addSub(this.addFile());
-//           try {
-//               submitted = (Boolean)in.readObject();
-//           }
-//           catch(ClassNotFoundException f) {
-//               f.printStackTrace();
-//           }
-//           catch(IOException g) {
-//               g.printStackTrace();
-//           }
-//           if(submitted) {
-//               JOptionPane.showMessageDialog( this, "Submitted successfully!");
-//           }
-//           else
-//               JOptionPane.showMessageDialog( this, "Submission failed. Please try again.");
         }
+
     }
 
     private String addFile() {
