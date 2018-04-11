@@ -10,6 +10,8 @@ import java.io.*;
 
 import SharedDataObjects.*;
 
+import javax.swing.*;
+
 public class Worker implements Runnable {
     private DatabaseHelper databaseHelper;
     private EmailHelper emailHelper;
@@ -183,6 +185,47 @@ public class Worker implements Runnable {
                         out.writeObject(assignments);
                         out.reset();
                     }
+                    else if(assignment.getCommand().equals("GETFILE")) {
+                        Assignment found = databaseHelper.searchAssignments(assignment.getAssignmentID());
+                        File selectedFile = null;
+                        String fileExtension = null;
+                        String fileName = null;
+                        String filePath = null;
+                        if(found!=null) {
+                            selectedFile = new File(found.getAssignmentPath());
+                            // Gets extension or type of file
+                            fileName = found.getAssignmentTitle();
+                            System.out.println("filename" + fileName);
+                            // System.out.println(fileName);
+                            String[] splitString = found.getAssignmentPath().split("\\.");
+                            fileExtension = splitString[1];
+                            System.out.println("filename" + fileExtension);
+                        }
+                        assert selectedFile != null;
+                        long length = selectedFile.length();
+
+                        byte[] content = new byte[(int) length];
+                        try {
+                            FileInputStream fis = new FileInputStream(selectedFile);
+                            BufferedInputStream bos = new BufferedInputStream(fis);
+                            bos.read(content, 0, (int)length);
+                        }
+                        catch(FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        catch(IOException f) {
+                            f.printStackTrace();
+                        }
+
+                        Upload upload = new Upload(content, fileName, fileExtension);
+                        try{
+                            out.writeObject(upload);
+                            out.reset();
+                        }
+                        catch(IOException e){
+                            e.printStackTrace();
+                        }
+                    }
                 }
                 else if(obj instanceof Submission) {
                     Submission submission = (Submission) obj;
@@ -208,14 +251,16 @@ public class Worker implements Runnable {
                     System.out.println("here1");
                     String STORAGE_PATH = "/home/natalia/Server/";
                     Upload upload = (Upload) obj;
+                    String FILE_EXTENSION = null;
+                    String FILE_NAME = null;
                     if(upload.getCommand().equals("ADDASSIGNMENT")|upload.getCommand().equals("ADDSUBMISSION")) {
-                        String FILE_EXTENSION = upload.getFileExtension();
-                        String FILE_NAME = upload.getFileName();
+                        FILE_EXTENSION = upload.getFileExtension();
+                        FILE_NAME = upload.getFileName();
                         byte[] content = upload.getContent();
                         System.out.println(STORAGE_PATH);
                         System.out.println(FILE_NAME);
                         System.out.println(FILE_EXTENSION);
-                        File newFile = new File(STORAGE_PATH + FILE_NAME + FILE_EXTENSION);
+                        File newFile = new File(STORAGE_PATH + FILE_NAME + "."+FILE_EXTENSION);
                         boolean exist = false;
                         try{
                             System.out.println(newFile.exists());
@@ -232,7 +277,7 @@ public class Worker implements Runnable {
                             e.printStackTrace();
                         }
                     }
-                    out.writeObject(STORAGE_PATH);
+                    out.writeObject(STORAGE_PATH + FILE_NAME + "."+ FILE_EXTENSION);
                     out.reset();
                     System.out.println("here2");
                 }

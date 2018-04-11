@@ -13,7 +13,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "0[700,grow,fill]0"
-				"$rowConstraints": "0[25]0[][][][450]0"
+				"$rowConstraints": "0[25]0[][][][231]0[][235][]"
 			} ) {
 				name: "panel2"
 				"background": new java.awt.Color( 115, 194, 251, 255 )
@@ -73,6 +73,36 @@ new FormModel {
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 4,grow"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "Submissions"
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 2, false )
+					"foreground": sfield java.awt.Color black
+					"background": new java.awt.Color( 115, 194, 251, 255 )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 5,alignx center,growx 0"
+				} )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "scrollPane2"
+					add( new FormComponent( "javax.swing.JList" ) {
+						name: "submissionList"
+						"background": sfield java.awt.Color white
+						"foreground": sfield java.awt.Color black
+						auxiliary() {
+							"JavaCodeGenerator.typeParameters": "Submission"
+						}
+					} )
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 6,grow"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "viewSubmissions"
+					"text": "View Submissions"
+					"background": sfield java.awt.Color white
+					"foreground": sfield java.awt.Color black
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "cell 0 7,alignx center,growx 0"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 0"

@@ -13,9 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.*;
-
 import net.miginfocom.swing.*;
 import SharedDataObjects.*;
 import java.util.Random;
@@ -23,7 +20,7 @@ import java.util.Random;
 /**
  * Creates the assignment submission's homepage with all the assignments listed, including the ability to submit assignments
  */
-public class SubmitAssignments extends JFrame implements ActionListener, ListSelectionListener {
+public class SubmitAssignments extends JFrame implements ActionListener {
     SubmitAssignments(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;
         this.out = out;
@@ -32,13 +29,8 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
         random = new Random();
         initComponents();
         submitAssignment.addActionListener(this);
-        submitAssignment.setEnabled(false);
         back.addActionListener(this);
         courseName.setText(course.getCourseName());
-        assignmentList.addListSelectionListener(this);
-        viewSubmissions.addActionListener(this);
-        viewSubmissions.setEnabled(false);
-
         this.setSize(700,700);
         this.setVisible(true);
         try {
@@ -59,7 +51,7 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
      */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         panel2 = new JPanel();
         back = new JButton();
         courseName = new JLabel();
@@ -189,7 +181,7 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JPanel panel2;
     private JButton back;
     private JLabel courseName;
@@ -226,33 +218,23 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == back) {
             this.dispose();
-        }
-        else if (e.getSource() == submitAssignment) {
+        } else if (e.getSource() == submitAssignment) {
            selected = assignmentList.getSelectedValue();
            this.addSub(this.addFile());
-           try {
-               submissionList.setListData((Submission[])in.readObject());
-           }
-           catch(ClassNotFoundException f) {
-               f.printStackTrace();
-           }
-           catch(IOException g) {
-               g.printStackTrace();
-           }
-        }
-        else if (e.getSource() == viewSubmissions) {
-            student.setCommand("GETSUBMISSIONS");
-            try {
-                out.writeObject(student);
-                out.reset();
-                submissionList.setListData((Submission[])in.readObject());
-            }
-            catch(ClassNotFoundException f) {
-                f.printStackTrace();
-            }
-            catch(IOException g) {
-                g.printStackTrace();
-            }
+//           try {
+//               submitted = (Boolean)in.readObject();
+//           }
+//           catch(ClassNotFoundException f) {
+//               f.printStackTrace();
+//           }
+//           catch(IOException g) {
+//               g.printStackTrace();
+//           }
+//           if(submitted) {
+//               JOptionPane.showMessageDialog( this, "Submitted successfully!");
+//           }
+//           else
+//               JOptionPane.showMessageDialog( this, "Submission failed. Please try again.");
         }
     }
 
@@ -335,13 +317,6 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
             } catch (IOException d) {
                 d.printStackTrace();
             }
-        }
-    }
-
-    public void valueChanged (ListSelectionEvent e){
-        if(e.getSource() == assignmentList) {
-            submitAssignment.setEnabled(true);
-            viewSubmissions.setEnabled(true);
         }
     }
 }

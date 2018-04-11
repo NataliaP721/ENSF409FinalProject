@@ -83,7 +83,7 @@ public class DatabaseHelper {
             addCourse(new Course(1, "ENSF410", true));
             addCourse(new Course(1, "ENSF411", true));
             addCourse(new Course( 1, "ENSF412", true));
-            addAssignment(new Assignment( 1, "abc", "test", true, "18:04:06"));
+           // addAssignment(new Assignment( 1, "abc", "test", true, "18:04:06"));
             addStudentEnrollment(new StudentEnrollment(2, 1, true));
             addStudentEnrollment(new StudentEnrollment(2, 2, true));
 

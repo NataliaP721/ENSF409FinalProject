@@ -75,6 +75,9 @@ new FormModel {
 							name: "assignmentList"
 							"background": sfield java.awt.Color lightGray
 							"foreground": sfield java.awt.Color black
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "Assignment"
+							}
 						} )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 1,width 500,height 500"
@@ -92,6 +95,9 @@ new FormModel {
 								name: "submissionList"
 								"background": sfield java.awt.Color lightGray
 								"foreground": sfield java.awt.Color black
+								auxiliary() {
+									"JavaCodeGenerator.typeParameters": "Submission"
+								}
 							} )
 						}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 							"value": "cell 1 1,width 500,height 500"

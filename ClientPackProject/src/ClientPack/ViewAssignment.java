@@ -189,12 +189,12 @@ public class ViewAssignment extends JFrame implements ActionListener {
         }
         else if (e.getSource() == viewAssignment) {
             Assignment current = assignmentList.getSelectedValue();
-            current.setCommand("GETACTIVE");
+            current.setCommand("GETFILE");
             try {
                 out.writeObject(current);
                 out.reset();
                 Upload content = (Upload) in.readObject();
-                File newFile = new File("/home/natalia/client/" + content.getFileName() + content.getFileExtension());
+                File newFile = new File("/home/natalia/Client/" + content.getFileName() + "."+content.getFileExtension());
                 if (!newFile.exists())
                     newFile.createNewFile();
                 FileOutputStream writer = new FileOutputStream(newFile);
