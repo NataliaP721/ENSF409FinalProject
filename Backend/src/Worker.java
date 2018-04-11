@@ -54,7 +54,7 @@ public class Worker implements Runnable {
                             courseList= databaseHelper.searchAllCourses();
                         }
                         else{
-                            courseList= databaseHelper.searchEnrolledActiveCourses();
+                            courseList= databaseHelper.searchEnrolledActiveCourses(user.getID());
                         }
                         databaseHelper.printCourseTable();
                         Course [] courses = courseList.toArray(new Course[courseList.size()]);
@@ -104,7 +104,15 @@ public class Worker implements Runnable {
                     else if(course.getCommand().equals("SEARCHBYID")) {
                         databaseHelper.searchCourses(course.getCourseID());
                     }
+                    else if(course.getCommand().equals("GETACTIVE")) {
+                        ArrayList<Assignment> assignmentList= databaseHelper.searchAllActiveAssignments(course.getCourseID());
+                        databaseHelper.printAssignmentTable();
+                        Assignment [] assignments = assignmentList.toArray(new Assignment [assignmentList.size()]);
+                        out.writeObject(assignments);
+                        out.reset();
+                    }
                     else if(course.getCommand().equals("GETASSIGNMENTS")) {
+                        System.out.println(course.getProfessorID());
                         ArrayList<Assignment> assignmentList= databaseHelper.searchAllAssignments(course.getCourseID());
                         databaseHelper.printAssignmentTable();
                         Assignment [] assignments = assignmentList.toArray(new Assignment [assignmentList.size()]);
