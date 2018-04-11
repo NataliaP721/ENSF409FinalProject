@@ -42,7 +42,7 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
         this.setSize(700,700);
         this.setVisible(true);
         try {
-            course.setCommand("GETASSIGNMENTS");
+            course.setCommand("GETACTIVE");
             out.writeObject(course);
             out.reset();
             assignmentList.setListData((Assignment[])(in.readObject()));

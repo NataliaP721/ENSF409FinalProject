@@ -83,9 +83,9 @@ public class DatabaseHelper {
             addCourse(new Course(1, "ENSF410", true));
             addCourse(new Course(1, "ENSF411", true));
             addCourse(new Course( 1, "ENSF412", true));
-            addAssignment(new Assignment( 1, "abc", "test", false, "18:04:06"));
+            addAssignment(new Assignment( 1, "abc", "test", true, "18:04:06"));
             addStudentEnrollment(new StudentEnrollment(2, 1, true));
-            addStudentEnrollment(new StudentEnrollment(3, 2, true));
+            addStudentEnrollment(new StudentEnrollment(2, 2, true));
 
         }
         catch( SQLException e)
@@ -609,7 +609,7 @@ public class DatabaseHelper {
         return null;
     }
 
-    ArrayList<Course> searchEnrolledActiveCourses() {
+    ArrayList<Course> searchEnrolledActiveCourses(int studentID) {
         try {
             String sql = "SELECT * FROM " + courseTableName;
             statement = jdbc_connection.prepareStatement(sql);
@@ -629,7 +629,7 @@ public class DatabaseHelper {
                 temp.setCourseID(courses.getInt("ID"));
 
                 if (activeBoolean == true){
-                   boolean enrolled =  isEnrolled(temp.getCourseID());
+                   boolean enrolled =  isEnrolled(temp.getCourseID(), studentID);
 
                     if (enrolled == true) {
                         courseList.add(temp);
@@ -643,32 +643,40 @@ public class DatabaseHelper {
         }
         return null;
     }
-    public boolean isEnrolled(int courseID) {
+    public boolean isEnrolled(int courseID, int studentID) {
         try {
+            printStudentEnrollmentTable();
             String sql = "SELECT * FROM " + studentEnrollmentTableName + "  WHERE COURSEID =" + courseID;
             ResultSet enrollments = statement.executeQuery();
-            System.out.println(enrollments);
-            StudentEnrollment temp = null;
-            boolean activeBoolean = false;
+            ArrayList<StudentEnrollment> enrollmentlist = new ArrayList<>();
 
+            try {
+                statement = jdbc_connection.prepareStatement(sql);
+                enrollments = statement.executeQuery();
+            } catch (SQLException e) { e.printStackTrace(); }
+
+            if(enrollments == null) {
+                return false;
+            }
+            StudentEnrollment temp = null;
             while(enrollments.next())
             {
+                boolean activeBoolean = false;
                 if(enrollments.getString("ACTIVE").charAt(0)=='0') {
                     activeBoolean = false;
                 }
                 else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
                 }
-//                temp = new StudentEnrollment (enrollments.getInt("STUDENTID"),
-//                        enrollments.getInt("COURSEID"), activeBoolean);
-//                temp.setEnrollmentID(enrollments.getInt("ID"));
+                temp = new StudentEnrollment (enrollments.getInt("STUDENTID"),
+                        enrollments.getInt("COURSEID"), activeBoolean);
+                temp.setEnrollmentID(enrollments.getInt("ID"));
+                if(temp.getStudentID() == studentID) {
+                    return true;
+                }
+                enrollmentlist.add(temp);
             }
             enrollments.close();
-            if(activeBoolean==true){
-                return true;
-            }
-            else
-                return false;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -854,7 +862,42 @@ public class DatabaseHelper {
         }
         return null;
     }
+    ArrayList<Assignment> searchAllActiveAssignments(int courseID) {
+        try {
+            String sql = "SELECT * FROM " + assignmentTableName;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet assignments = statement.executeQuery();
+            Assignment temp;
+            ArrayList<Assignment> courseList = new ArrayList<>();
+            while(assignments.next())
+            {
+                boolean activeBoolean = false;
+                if(assignments.getString("ACTIVE").charAt(0)=='0') {
+                    activeBoolean = false;
+                }
+                else if(assignments.getString("ACTIVE").charAt(0)=='1') {
+                    activeBoolean = true;
+                }
+                temp = new Assignment (assignments.getInt("COURSEID"),
+                        assignments.getString("ASSIGNMENTTITLE"),
+                        assignments.getString("ASSIGNMENTPATH"),
+                        activeBoolean,
+                        assignments.getString("DUEDATE"));
 
+                temp.setAssignmentID(assignments.getInt("ID"));
+
+                if(temp.getCourseID()==courseID && activeBoolean==true){
+                    //System.out.println(activeBoolean);
+                    courseList.add(temp);
+                }
+            }
+            assignments.close();
+            return courseList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     ArrayList<Assignment> searchAllAssignments() {
         try {
             String sql = "SELECT * FROM " + assignmentTableName;

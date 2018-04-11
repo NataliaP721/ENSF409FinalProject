@@ -31,7 +31,7 @@ public class ViewAssignment extends JFrame implements ActionListener {
 
         try {
             //REPLACE WITH THE DESIRED COMMAND
-            course.setCommand("GETASSIGNMENTS");
+            course.setCommand("GETACTIVE");
             out.writeObject(course);
             out.reset();
             System.out.println(course.getCourseName());
@@ -63,11 +63,11 @@ public class ViewAssignment extends JFrame implements ActionListener {
         setTitle("View Assignments");
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
-                "hidemode 3",
-                // columns
-                "0[700,grow,fill]0",
-                // rows
-                "0[642,grow,fill]0"));
+            "hidemode 3",
+            // columns
+            "0[700,grow,fill]0",
+            // rows
+            "0[642,grow,fill]0"));
 
         //======== panel2 ========
         {
@@ -75,26 +75,21 @@ public class ViewAssignment extends JFrame implements ActionListener {
 
             // JFormDesigner evaluation mark
             panel2.setBorder(new javax.swing.border.CompoundBorder(
-                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                            "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                            javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                            java.awt.Color.red), panel2.getBorder()));
-            panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-                public void propertyChange(java.beans.PropertyChangeEvent e) {
-                    if ("border".equals(e.getPropertyName())) throw new RuntimeException();
-                }
-            });
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel2.setLayout(new MigLayout(
-                    "hidemode 3",
-                    // columns
-                    "0[700,grow,fill]0",
-                    // rows
-                    "0[25]0" +
-                            "[]" +
-                            "[]" +
-                            "[]" +
-                            "[450]0"));
+                "hidemode 3",
+                // columns
+                "0[700,grow,fill]0",
+                // rows
+                "0[25]0" +
+                "[]" +
+                "[]" +
+                "[]" +
+                "[450]0"));
 
             //---- back ----
             back.setText("Back");
@@ -113,16 +108,16 @@ public class ViewAssignment extends JFrame implements ActionListener {
             {
                 panel1.setBackground(new Color(115, 194, 251));
                 panel1.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "[180,fill]" +
-                                "[175,fill]",
-                        // rows
-                        "[]" +
-                                "[]"));
+                    "hidemode 3",
+                    // columns
+                    "[180,fill]" +
+                    "[175,fill]",
+                    // rows
+                    "[]" +
+                    "[]"));
 
                 //---- viewAssignment ----
-                viewAssignment.setText("View Assignment");
+                viewAssignment.setText("Download Assignment");
                 viewAssignment.setBackground(Color.white);
                 viewAssignment.setForeground(Color.black);
                 panel1.add(viewAssignment, "cell 0 1");
@@ -194,7 +189,7 @@ public class ViewAssignment extends JFrame implements ActionListener {
         }
         else if (e.getSource() == viewAssignment) {
             Assignment current = assignmentList.getSelectedValue();
-            current.setCommand("GETASSIGNMENT");
+            current.setCommand("GETACTIVE");
             try {
                 out.writeObject(current);
                 out.reset();

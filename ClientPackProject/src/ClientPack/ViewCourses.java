@@ -114,7 +114,7 @@ public class ViewCourses extends JFrame implements ActionListener{
                 courseName.setFont(new Font(".SF NS Text", Font.BOLD, 30));
                 courseName.setBackground(new Color(51, 153, 255));
                 courseName.setForeground(Color.black);
-                courseName.setText("ENCM511");
+                courseName.setText(course.getCourseName());
                 panel3.add(courseName, "cell 0 0,alignx center,grow 0 100");
             }
             frame1ContentPane.add(panel3, "cell 1 0,grow");

@@ -256,7 +256,6 @@ public class StudentGUI extends JFrame implements ActionListener, ListSelectionL
             System.exit(0);
         }
         else if(e.getSource() == openCourse) {
-            System.out.println("Clicked");
             Course current = courseList.getSelectedValue();
             manager = new ViewCourses(in, out, current, student);
         }
