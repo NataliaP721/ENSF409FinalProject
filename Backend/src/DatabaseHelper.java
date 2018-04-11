@@ -629,9 +629,9 @@ public class DatabaseHelper {
                 temp.setCourseID(courses.getInt("ID"));
 
                 if (activeBoolean == true){
-                    isEnrolled(temp.getCourseID());
+                   boolean enrolled =  isEnrolled(temp.getCourseID());
 
-                    if (activeBoolean == true) {
+                    if (enrolled == true) {
                         courseList.add(temp);
                     }
                 }
@@ -647,6 +647,7 @@ public class DatabaseHelper {
         try {
             String sql = "SELECT * FROM " + studentEnrollmentTableName + "  WHERE COURSEID =" + courseID;
             ResultSet enrollments = statement.executeQuery();
+            System.out.println(enrollments);
             StudentEnrollment temp = null;
             boolean activeBoolean = false;
 
@@ -658,9 +659,9 @@ public class DatabaseHelper {
                 else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
                 }
-                temp = new StudentEnrollment (enrollments.getInt("STUDENTID"),
-                        enrollments.getInt("COURSEID"), activeBoolean);
-                temp.setEnrollmentID(enrollments.getInt("ID"));
+//                temp = new StudentEnrollment (enrollments.getInt("STUDENTID"),
+//                        enrollments.getInt("COURSEID"), activeBoolean);
+//                temp.setEnrollmentID(enrollments.getInt("ID"));
             }
             enrollments.close();
             if(activeBoolean==true){
