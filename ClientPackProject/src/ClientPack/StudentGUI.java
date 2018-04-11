@@ -11,17 +11,21 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import SharedDataObjects.*;
 
 /**
  * @author Aysha Panatch
  */
-public class StudentGUI extends JFrame implements ActionListener{
-    public StudentGUI(ObjectInputStream in, ObjectOutputStream out, User student) {
+public class StudentGUI extends JFrame implements ActionListener, ListSelectionListener {
+    StudentGUI(ObjectInputStream in, ObjectOutputStream out, User student) {
         this.in = in;
         this.out = out;
         this.student = student;
         initComponents();
+        openCourse.setEnabled(false);
 
         try {
             //MODIFY COMMAND BASED ON THE FUNCTION DESIRED
@@ -36,6 +40,7 @@ public class StudentGUI extends JFrame implements ActionListener{
             e.printStackTrace();
         }
 
+        courseList.addListSelectionListener(this);
         logout.addActionListener(this);
         openCourse.addActionListener(this);
         frame1.setSize(700, 700);
@@ -44,7 +49,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         frame1 = new JFrame();
         panel1 = new JPanel();
         panel7 = new JPanel();
@@ -216,7 +221,7 @@ public class StudentGUI extends JFrame implements ActionListener{
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JFrame frame1;
     private JPanel panel1;
     private JPanel panel7;
@@ -254,6 +259,11 @@ public class StudentGUI extends JFrame implements ActionListener{
             System.out.println("Clicked");
             Course current = courseList.getSelectedValue();
             manager = new ViewCourses(in, out, current, student);
+        }
+    }
+    public void valueChanged (ListSelectionEvent e){
+        if(e.getSource() == courseList) {
+            openCourse.setEnabled(true);
         }
     }
 }

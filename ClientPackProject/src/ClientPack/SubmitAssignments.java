@@ -13,6 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.*;
+
 import net.miginfocom.swing.*;
 import SharedDataObjects.*;
 import java.util.Random;
@@ -20,7 +23,7 @@ import java.util.Random;
 /**
  * Creates the assignment submission's homepage with all the assignments listed, including the ability to submit assignments
  */
-public class SubmitAssignments extends JFrame implements ActionListener {
+public class SubmitAssignments extends JFrame implements ActionListener, ListSelectionListener {
     SubmitAssignments(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;
         this.out = out;
@@ -29,8 +32,13 @@ public class SubmitAssignments extends JFrame implements ActionListener {
         random = new Random();
         initComponents();
         submitAssignment.addActionListener(this);
+        submitAssignment.setEnabled(false);
         back.addActionListener(this);
         courseName.setText(course.getCourseName());
+        assignmentList.addListSelectionListener(this);
+        viewSubmissions.addActionListener(this);
+        viewSubmissions.setEnabled(false);
+
         this.setSize(700,700);
         this.setVisible(true);
         try {
@@ -51,7 +59,7 @@ public class SubmitAssignments extends JFrame implements ActionListener {
      */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel2 = new JPanel();
         back = new JButton();
         courseName = new JLabel();
@@ -60,6 +68,10 @@ public class SubmitAssignments extends JFrame implements ActionListener {
         label2 = new JLabel();
         scrollPane1 = new JScrollPane();
         assignmentList = new JList<>();
+        label1 = new JLabel();
+        scrollPane2 = new JScrollPane();
+        submissionList = new JList<>();
+        viewSubmissions = new JButton();
 
         //======== this ========
         setTitle("Submit Assignments");
@@ -91,7 +103,10 @@ public class SubmitAssignments extends JFrame implements ActionListener {
                 "[]" +
                 "[]" +
                 "[]" +
-                "[450]0"));
+                "[231]0" +
+                "[]" +
+                "[235]" +
+                "[]"));
 
             //---- back ----
             back.setText("Back");
@@ -143,6 +158,29 @@ public class SubmitAssignments extends JFrame implements ActionListener {
                 scrollPane1.setViewportView(assignmentList);
             }
             panel2.add(scrollPane1, "cell 0 4,grow");
+
+            //---- label1 ----
+            label1.setText("Submissions");
+            label1.setFont(label1.getFont().deriveFont(label1.getFont().getStyle() | Font.BOLD, label1.getFont().getSize() + 2f));
+            label1.setForeground(Color.black);
+            label1.setBackground(new Color(115, 194, 251));
+            panel2.add(label1, "cell 0 5,alignx center,growx 0");
+
+            //======== scrollPane2 ========
+            {
+
+                //---- submissionList ----
+                submissionList.setBackground(Color.white);
+                submissionList.setForeground(Color.black);
+                scrollPane2.setViewportView(submissionList);
+            }
+            panel2.add(scrollPane2, "cell 0 6,grow");
+
+            //---- viewSubmissions ----
+            viewSubmissions.setText("View Submissions");
+            viewSubmissions.setBackground(Color.white);
+            viewSubmissions.setForeground(Color.black);
+            panel2.add(viewSubmissions, "cell 0 7,alignx center,growx 0");
         }
         contentPane.add(panel2, "cell 0 0");
         pack();
@@ -151,7 +189,7 @@ public class SubmitAssignments extends JFrame implements ActionListener {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel2;
     private JButton back;
     private JLabel courseName;
@@ -160,6 +198,10 @@ public class SubmitAssignments extends JFrame implements ActionListener {
     private JLabel label2;
     private JScrollPane scrollPane1;
     private JList<Assignment> assignmentList;
+    private JLabel label1;
+    private JScrollPane scrollPane2;
+    private JList<Submission> submissionList;
+    private JButton viewSubmissions;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     private Course course;
     private ObjectInputStream in;
@@ -184,23 +226,33 @@ public class SubmitAssignments extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == back) {
             this.dispose();
-        } else if (e.getSource() == submitAssignment) {
+        }
+        else if (e.getSource() == submitAssignment) {
            selected = assignmentList.getSelectedValue();
            this.addSub(this.addFile());
-//           try {
-//               submitted = (Boolean)in.readObject();
-//           }
-//           catch(ClassNotFoundException f) {
-//               f.printStackTrace();
-//           }
-//           catch(IOException g) {
-//               g.printStackTrace();
-//           }
-//           if(submitted) {
-//               JOptionPane.showMessageDialog( this, "Submitted successfully!");
-//           }
-//           else
-//               JOptionPane.showMessageDialog( this, "Submission failed. Please try again.");
+           try {
+               submissionList.setListData((Submission[])in.readObject());
+           }
+           catch(ClassNotFoundException f) {
+               f.printStackTrace();
+           }
+           catch(IOException g) {
+               g.printStackTrace();
+           }
+        }
+        else if (e.getSource() == viewSubmissions) {
+            student.setCommand("GETSUBMISSIONS");
+            try {
+                out.writeObject(student);
+                out.reset();
+                submissionList.setListData((Submission[])in.readObject());
+            }
+            catch(ClassNotFoundException f) {
+                f.printStackTrace();
+            }
+            catch(IOException g) {
+                g.printStackTrace();
+            }
         }
     }
 
@@ -283,6 +335,13 @@ public class SubmitAssignments extends JFrame implements ActionListener {
             } catch (IOException d) {
                 d.printStackTrace();
             }
+        }
+    }
+
+    public void valueChanged (ListSelectionEvent e){
+        if(e.getSource() == assignmentList) {
+            submitAssignment.setEnabled(true);
+            viewSubmissions.setEnabled(true);
         }
     }
 }

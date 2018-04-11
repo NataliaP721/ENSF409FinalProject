@@ -35,7 +35,7 @@ public class ViewCourses extends JFrame implements ActionListener{
      */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         frame1 = new JFrame();
         panel2 = new JPanel();
         back = new JButton();
@@ -242,7 +242,7 @@ public class ViewCourses extends JFrame implements ActionListener{
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JFrame frame1;
     private JPanel panel2;
     private JButton back;
@@ -283,7 +283,7 @@ public class ViewCourses extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == back) {
-            this.dispose();
+            frame1.dispose();
         }
         else if(e.getSource() == viewAssignments) {
             assignManager = new ViewAssignment(in, out, course, student);

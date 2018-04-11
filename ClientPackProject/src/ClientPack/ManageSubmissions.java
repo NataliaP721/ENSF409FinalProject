@@ -3,9 +3,7 @@ package ClientPack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import javax.swing.*;
 
 import SharedDataObjects.*;
@@ -47,7 +45,7 @@ import net.miginfocom.swing.*;
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel4 = new JPanel();
         back = new JButton();
         panel3 = new JPanel();
@@ -56,10 +54,10 @@ import net.miginfocom.swing.*;
         label2 = new JLabel();
         label3 = new JLabel();
         scrollPane1 = new JScrollPane();
-        assignmentList = new JList();
+        assignmentList = new JList<>();
         panel2 = new JPanel();
         scrollPane2 = new JScrollPane();
-        submissionList = new JList();
+        submissionList = new JList<>();
         selectAssignment = new JButton();
         openSubmission = new JButton();
         gradeSubmission = new JButton();
@@ -82,6 +80,11 @@ import net.miginfocom.swing.*;
             panel4.setBackground(new Color(115, 194, 251));
 
             // JFormDesigner evaluation mark
+            panel4.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), panel4.getBorder())); panel4.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel4.setLayout(new MigLayout(
                 "hidemode 3",
@@ -209,7 +212,7 @@ import net.miginfocom.swing.*;
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel4;
     private JButton back;
     private JPanel panel3;
@@ -218,10 +221,10 @@ import net.miginfocom.swing.*;
     private JLabel label2;
     private JLabel label3;
     private JScrollPane scrollPane1;
-    private JList assignmentList;
+    private JList<Assignment> assignmentList;
     private JPanel panel2;
     private JScrollPane scrollPane2;
-    private JList submissionList;
+    private JList<Submission> submissionList;
     private JButton selectAssignment;
     private JButton openSubmission;
     private JButton gradeSubmission;
@@ -258,16 +261,19 @@ import net.miginfocom.swing.*;
             try {
                 out.writeObject(current);
                 out.reset();
-                byte[] content = (byte[])in.readObject();
-                //TODO
+                Upload content = (Upload)in.readObject();
+                File newFile = new File("/home/natalia/client/" + content.getFileName() + content.getFileExtension());
+                if (!newFile.exists())
+                    newFile.createNewFile();
+                FileOutputStream writer = new FileOutputStream(newFile);
+                BufferedOutputStream bos = new BufferedOutputStream(writer);
+                bos.write(content.getContent());
+                bos.close();
+            } catch (ClassNotFoundException f) {
+                f.printStackTrace();
+            } catch (IOException g) {
+                g.printStackTrace();
             }
-            catch(ClassNotFoundException c) {
-                System.err.println("Object error");
-            }
-            catch(IOException d) {
-                System.err.println("IO Error");
-            }
-
         }
         else if(e.getSource() == gradeSubmission) {
             Submission submit = (Submission) submissionList.getSelectedValue();
@@ -290,8 +296,8 @@ import net.miginfocom.swing.*;
                 "Please Enter Grade", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
-            //Grade newGrade = new Grade((assignmentList.getSelectedValue().getAssignmentID())*2/3, assignmentList.getSelectedValue().getAssignmentID(), submit.getStudentID(), course.getCourseID(), Integer.parseInt(gradeMark.getText()));
-            //newGrade.setCommand("NEWGRADE");
+            Grade newGrade = new Grade(assignmentList.getSelectedValue().getAssignmentID(), submit.getStudentID(), course.getCourseID(), Integer.parseInt(gradeMark.getText()));
+            newGrade.setCommand("NEWGRADE");
             try {
                 //out.writeObject(newGrade);
                 out.reset();

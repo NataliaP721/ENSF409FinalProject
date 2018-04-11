@@ -285,17 +285,6 @@ public class ManageAssignment extends JFrame implements ActionListener{
     }
 
     private void addAssign(String filePath) {
-//        try {
-//            out.writeObject(filePath);
-//            out.flush();
-//            path = (String)in.readObject();
-//        }
-//        catch(ClassNotFoundException e) {
-//            System.err.println("Object Error");
-//        }
-//        catch(IOException e) {
-//            e.printStackTrace();
-//        }
 
 
         JTextField assignTitle = new JTextField(20);
@@ -307,8 +296,6 @@ public class ManageAssignment extends JFrame implements ActionListener{
         JPanel addAssignPanel = new JPanel();
         addAssignPanel.add(new JLabel("Enter the assignment title: "));
         addAssignPanel.add(assignTitle);
-//        addAssignPanel.add(new JLabel("Enter the assignment ID: "));
-//        addAssignPanel.add(assignID);
         addAssignPanel.add(new JLabel("Enter the assignment due date (DDMMYYYY): "));
         addAssignPanel.add(assignDueDate);
 
