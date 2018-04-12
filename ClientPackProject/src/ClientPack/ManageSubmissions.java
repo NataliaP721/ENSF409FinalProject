@@ -256,6 +256,7 @@ import net.miginfocom.swing.*;
             }
         }
         else if(e.getSource() == openSubmission) {
+
             Submission current = (Submission) submissionList.getSelectedValue();
             current.setCommand("GETFILE");
             try {
@@ -299,7 +300,7 @@ import net.miginfocom.swing.*;
             Grade newGrade = new Grade(assignmentList.getSelectedValue().getAssignmentID(), submit.getStudentID(), course.getCourseID(), Integer.parseInt(gradeMark.getText()));
             newGrade.setCommand("NEWGRADE");
             try {
-                //out.writeObject(newGrade);
+                out.writeObject(newGrade);
                 out.reset();
                 submissionList.setListData((Submission[])(in.readObject()));
             }

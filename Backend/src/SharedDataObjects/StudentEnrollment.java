@@ -58,6 +58,7 @@ public class StudentEnrollment implements Serializable{
         else {
             answer = answer + "          UNENROLLED";
         }
+        answer += "            "+this.courseID;
         return answer;
     }
 }

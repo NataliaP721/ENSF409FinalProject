@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
+import java.util.Iterator;
 
 /**
  * This class allows you to create and manage a FinalProjectDB database.
@@ -82,8 +83,8 @@ public class DatabaseHelper {
             addCourse(new Course(1, "ENSF411", true));
             addCourse(new Course( 1, "ENSF412", true));
            // addAssignment(new Assignment( 1, "abc", "test", true, "18:04:06"));
-            addStudentEnrollment(new StudentEnrollment(2, 1, true));
-            addStudentEnrollment(new StudentEnrollment(2, 2, true));
+            //addStudentEnrollment(new StudentEnrollment(2, 1, false));
+            //addStudentEnrollment(new StudentEnrollment(2, 2, false));
 
         }
         catch( SQLException e)
@@ -298,6 +299,14 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
+    void newCourseUnenroll(int courseID) {
+        // get arraylist of student users
+        ArrayList <User> students = searchAllUsers('S');
+        Iterator itr = students.iterator();
+        while(itr.hasNext()){
+            addStudentEnrollment(new StudentEnrollment(((User) itr.next()).getID(), courseID,false));
+        }
+    }
     /**
      * Add a Course to the Course database table
      * @param course the Course to be added to the Course database table
@@ -310,9 +319,11 @@ public class DatabaseHelper {
                 course.getProfessorID() + ", '" +
                 course.getCourseName() + "', " +
                 course.getActive()+ ");";
-                totalCourseEnteries++;
                 course.setCourseID(totalCourseEnteries);
                 System.out.println("Added Course: "+ course.getCourseName());
+                // create studentEnrollment for this course unenrolled for all students in users.
+                newCourseUnenroll(totalCourseEnteries);
+                totalCourseEnteries++;
         try{
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();
@@ -497,7 +508,6 @@ public class DatabaseHelper {
                         users.getString("FIRSTNAME"),
                         users.getString("TYPE").charAt(0));
                 temp.setID( users.getInt("ID"));
-                System.out.println("HI");
 
                 ArrayList<StudentEnrollment> se = searchStudentEnrollment(temp.getID());
                 StudentEnrollment [] enrollments = se.toArray(new StudentEnrollment [se.size()]);
@@ -515,9 +525,9 @@ public class DatabaseHelper {
      * @param userType the ID of the Course to be searched
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
-    ArrayList<User> searchAllUsers(String userType) {
+    ArrayList<User> searchAllUsers(char userType) {
         try {
-            String sql = "SELECT * FROM " + userTableName + "  WHERE TYPE =" + userType;
+            String sql = "SELECT * FROM " + userTableName + "  WHERE TYPE ='" + userType+"'";
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet users = statement.executeQuery();
             User temp;
@@ -728,7 +738,7 @@ public class DatabaseHelper {
      * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
-    ArrayList<StudentEnrollment> searchAllStudentEnrollments() {
+    ArrayList<StudentEnrollment> searchAllStudentEnrollments(int courseID) {
         try {
             String sql = "SELECT * FROM " + studentEnrollmentTableName;
             statement = jdbc_connection.prepareStatement(sql);
@@ -748,7 +758,9 @@ public class DatabaseHelper {
                         enrollments.getInt("COURSEID"), activeBoolean);
                 temp.setEnrollmentID(enrollments.getInt("ID"));
 
-                courseList.add(temp);
+                if(courseID == temp.getCourseID()){
+                    courseList.add(temp);
+                }
             }
             enrollments.close();
             return courseList;
@@ -931,16 +943,20 @@ public class DatabaseHelper {
     }
     /**
      * This method searches the Submissions database table for a Submission matching the ID parameter and return that Submission.
-     * @param ID the ID of the Submission to be searched
+     * @param studentID the ID of the Submission to be searched
      * @return the Submission matching the ID. It should return null if no Submissions matching that ID are found.
      */
-    Submission searchSubmissions(int ID) {
+    ArrayList<Submission> searchSubmissions(int assignmentID, int studentID) {
         try {
-            ResultSet submissions = searchByID(submissionTableName, ID);
+            String sql = "SELECT * FROM " + submissionTableName + "  WHERE ASSIGNMENTID =" + assignmentID;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet submissions = statement.executeQuery();
+            Submission temp = null;
+            ArrayList<Submission> submissionList = new ArrayList<>();
+
             if(submissions == null) {
                 return null;
             }
-            Submission temp = null;
             while(submissions.next())
             {
                 temp = new Submission (submissions.getInt("ASSIGNMENTID"),
@@ -951,9 +967,75 @@ public class DatabaseHelper {
                         submissions.getString("TIMESTAMP"),
                         submissions.getString("TITLE"));
                 temp.setSubmissionID(submissions.getInt("ID"));
+                if(temp.getStudentID()==studentID) {
+                    submissionList.add(temp);
+                }
             }
             submissions.close();
-            return temp;
+            return submissionList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    ArrayList<Submission> searchSubmissions(int assignmentID) {
+        try {
+            String sql = "SELECT * FROM " + submissionTableName + "  WHERE ASSIGNMENTID =" + assignmentID;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet submissions = statement.executeQuery();
+            Submission temp = null;
+            ArrayList<Submission> submissionList = new ArrayList<>();
+
+            if(submissions == null) {
+                return null;
+            }
+            while(submissions.next())
+            {
+                temp = new Submission (submissions.getInt("ASSIGNMENTID"),
+                        submissions.getInt("STUDENTID"),
+                        submissions.getString("PATH"),
+                        submissions.getInt("SUBMISSIONGRADE"),
+                        submissions.getString("COMMENTS"),
+                        submissions.getString("TIMESTAMP"),
+                        submissions.getString("TITLE"));
+                temp.setSubmissionID(submissions.getInt("ID"));
+                    submissionList.add(temp);
+
+            }
+            submissions.close();
+            return submissionList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    Submission searchSingleSubmission(int assignmentID, int studentID) {
+        try {
+            String sql = "SELECT * FROM " + submissionTableName + "  WHERE ASSIGNMENTID =" + assignmentID;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet submissions = statement.executeQuery();
+            Submission temp = null;
+
+            if(submissions == null) {
+                return null;
+            }
+            while(submissions.next())
+            {
+                temp = new Submission (submissions.getInt("ASSIGNMENTID"),
+                        submissions.getInt("STUDENTID"),
+                        submissions.getString("PATH"),
+                        submissions.getInt("SUBMISSIONGRADE"),
+                        submissions.getString("COMMENTS"),
+                        submissions.getString("TIMESTAMP"),
+                        submissions.getString("TITLE"));
+                temp.setSubmissionID(submissions.getInt("ID"));
+
+                if(temp.getStudentID()==studentID) {
+                    return temp;
+                }
+            }
+            submissions.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -1352,6 +1434,25 @@ public class DatabaseHelper {
                 " ASSIGNMENTPATH ='"+assignment.getAssignmentPath() + "', " +
                 " ACTIVE ="+assignment.getActive() + ", " +
                 " DUEDATE ='" +assignment.getDueDate()+ "'"+ " WHERE ID = "+assignment.getAssignmentID() +";";
+        try {
+            statement = jdbc_connection.prepareStatement(sql);
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+    void modifySubmission(Submission submission) {
+        String sql = "UPDATE " + submissionTableName + " SET  " +
+                " ID = "+ submission.getSubmissionID() + ", " +
+                " ASSIGNMENTID = "+submission.getAssignmentID() + ", " +
+                " STUDENTID ="+ submission.getStudentID() + ", " +
+                " PATH ='"+submission.getSubmissionPath() + "', " +
+                " TITLE ='"+submission.getAssignmentTitle() + "', " +
+                " SUBMISSIONGRADE ="+ submission.getSubmissionGrade()+", " +
+                " COMMENTS ='"+ submission.getSubmissionComment()+"', "+
+                " TIMESTAMP ='" +submission.getSubmissionTimestamp()+ "'"+ " WHERE ID = "+submission.getSubmissionID() +";";
         try {
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();

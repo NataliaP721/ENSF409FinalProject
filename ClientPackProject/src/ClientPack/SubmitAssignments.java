@@ -29,6 +29,7 @@ public class SubmitAssignments extends JFrame implements ActionListener {
         random = new Random();
         initComponents();
         submitAssignment.addActionListener(this);
+        viewSubmissions.addActionListener(this);
         back.addActionListener(this);
         courseName.setText(course.getCourseName());
         this.setSize(700,700);
@@ -218,11 +219,37 @@ public class SubmitAssignments extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == back) {
             this.dispose();
-        } else if (e.getSource() == submitAssignment) {
-           selected = assignmentList.getSelectedValue();
-           this.addSub(this.addFile());
         }
-
+        else if (e.getSource() == submitAssignment) {
+            selected = assignmentList.getSelectedValue();
+            this.addSub(this.addFile());
+            try {
+                submissionList.setListData((Submission[])in.readObject());
+            }
+            catch(ClassNotFoundException f) {
+                f.printStackTrace();
+            }
+            catch(IOException g) {
+                g.printStackTrace();
+            }
+        }
+        else if (e.getSource() == viewSubmissions) {
+            selected = assignmentList.getSelectedValue();
+            Submission view = new Submission(selected.getAssignmentID(), student.getID());
+            view.setCommand("SEARCHSUBMISSION");
+            try {
+                out.writeObject(view);
+                out.reset();
+               // System.out.println(((Submission[])in.readObject())[0].getSubmissionPath());
+                submissionList.setListData((Submission[])in.readObject());
+            }
+            catch(ClassNotFoundException f) {
+                f.printStackTrace();
+            }
+            catch(IOException g) {
+                g.printStackTrace();
+            }
+        }
     }
 
     private String addFile() {
@@ -295,7 +322,7 @@ public class SubmitAssignments extends JFrame implements ActionListener {
             comment = comments.getText();
             System.out.println(comment);
 
-            Submission newSub = new Submission(selected.getAssignmentID(), student.getID(), filePath, 0, comment, reportDate, selected.getAssignmentTitle());
+            Submission newSub = new Submission(selected.getAssignmentID(), student.getID(), filePath, -1, comment, reportDate, selected.getAssignmentTitle());
             newSub.setCommand("ADD");
 
             try {

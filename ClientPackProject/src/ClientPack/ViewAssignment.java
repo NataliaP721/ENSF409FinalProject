@@ -190,6 +190,7 @@ public class ViewAssignment extends JFrame implements ActionListener {
         else if (e.getSource() == viewAssignment) {
             Assignment current = assignmentList.getSelectedValue();
             current.setCommand("GETFILE");
+            System.out.println("GETASSIGNFILE");
             try {
                 out.writeObject(current);
                 out.reset();

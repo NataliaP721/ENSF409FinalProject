@@ -13,6 +13,11 @@ public class Submission implements Serializable{
     private String assignmentTitle;
     private String command;
 
+
+    public Submission(int assignmentID, int studentID) {
+        this.assignmentID = assignmentID;
+        this.studentID = studentID;
+    }
     public Submission(int assignmentID, int studentID, String submissionPath, int submissionGrade,
                       String submissionComment, String submissionTimestamp, String assignmentTitle) {
         this.assignmentID = assignmentID;
@@ -59,5 +64,10 @@ public class Submission implements Serializable{
     }
     public void setSubmissionID(int submissionID) {
         this.submissionID = submissionID;
+    }
+
+    @Override
+    public String toString() {
+        return assignmentTitle + "    submitted: " + submissionTimestamp + "    Grade: " + submissionGrade;
     }
 }

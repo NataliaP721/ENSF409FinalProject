@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.*;
@@ -69,15 +70,6 @@ public class Worker implements Runnable {
                         out.writeObject(enrollments);
                         out.reset();
                     }
-//                    if (user.getCommand().equals("ADD")) {
-//                        databaseHelper.addUser(user, loginInfo);
-//                    } else if (user.getCommand().equals("DEL")) {
-//                        databaseHelper.deleteUser(loginInfo.getUsername());
-//                    } else if (user.getCommand().equals("SEARCHBYID")) {
-//                        databaseHelper.searchUsers(loginInfo.getUsername());
-//                    } else if (user.getCommand().equals("SEARCHBYLASTNAME")) {
-//                        databaseHelper.searchUsers(user.getLastName());
-//                    }
                 }
                 else if(obj instanceof Course) {
                     Course course = (Course) obj;
@@ -122,9 +114,8 @@ public class Worker implements Runnable {
                         out.reset();
                     }
                     else if(course.getCommand().equals("GETSTUDENTS")) {
-                        ArrayList<StudentEnrollment> enrollmentslist= databaseHelper.searchAllStudentEnrollments();
+                        ArrayList<StudentEnrollment> enrollmentslist= databaseHelper.searchAllStudentEnrollments(course.getCourseID());
                         databaseHelper.printStudentEnrollmentTable();
-                        System.out.println("Here");
                         StudentEnrollment [] enrollments = enrollmentslist.toArray(new StudentEnrollment [enrollmentslist.size()]);
                         out.writeObject(enrollments);
                         out.reset();
@@ -146,7 +137,7 @@ public class Worker implements Runnable {
                     }
                     else if(studentEnrollment.getCommand().equals("MOD")) {
                         databaseHelper.modifyStudentEnrollment(studentEnrollment);
-                        ArrayList<StudentEnrollment> enrollmentsList= databaseHelper.searchAllStudentEnrollments();
+                        ArrayList<StudentEnrollment> enrollmentsList= databaseHelper.searchAllStudentEnrollments(studentEnrollment.getCourseID());
                         StudentEnrollment [] enrollments = enrollmentsList.toArray(new StudentEnrollment[enrollmentsList.size()]);
                         out.writeObject(enrollments);
                         out.reset();
@@ -183,6 +174,12 @@ public class Worker implements Runnable {
                         System.out.println("MOD");
                         Assignment [] assignments = assignmentList.toArray(new Assignment[assignmentList.size()]);
                         out.writeObject(assignments);
+                        out.reset();
+                    }
+                    else if(assignment.getCommand().equals("GETSUBMISSION")) {
+                        ArrayList<Submission> submissionList=databaseHelper.searchSubmissions(assignment.getAssignmentID());
+                        Submission [] submissions = submissionList.toArray(new Submission[submissionList.size()]);
+                        out.writeObject(submissions);
                         out.reset();
                     }
                     else if(assignment.getCommand().equals("GETFILE")) {
@@ -231,10 +228,58 @@ public class Worker implements Runnable {
                     Submission submission = (Submission) obj;
                     if (submission.getCommand().equals("ADD")) {
                         databaseHelper.addSubmission(submission);
+                        ArrayList<Submission> submissionList= databaseHelper.searchSubmissions(submission.getAssignmentID(), submission.getStudentID());
+                        Submission [] array = submissionList.toArray(new Submission[submissionList.size()]);
+                        out.writeObject(array);
+                        out.reset();
                     } else if (submission.getCommand().equals("DEL")) {
                         databaseHelper.deleteSubmission(submission.getSubmissionID());
-                    } else if (submission.getCommand().equals("SEARCHBYID")) {
-                        databaseHelper.searchSubmissions(submission.getSubmissionID());
+                    }else if(submission.getCommand().equals("SEARCHSUBMISSION")) {
+                        ArrayList<Submission> submissionList = databaseHelper.searchSubmissions(submission.getAssignmentID(), submission.getStudentID());
+                        Submission [] array = submissionList.toArray(new Submission[submissionList.size()]);
+                        out.writeObject(array);
+                        out.reset();
+                    } else if(submission.getCommand().equals("GETFILE")) {
+                        Submission found = databaseHelper.searchSingleSubmission(submission.getAssignmentID(), submission.getStudentID());
+                        System.out.println(found.getSubmissionPath());
+                        File selectedFile = null;
+                        String fileExtension = null;
+                        String fileName = null;
+                        String filePath = null;
+                        if(found!=null) {
+                            selectedFile = new File(found.getSubmissionPath());
+                            // Gets extension or type of file
+                            fileName = found.getAssignmentTitle()+"Submission";
+                            System.out.println("filename" + fileName);
+                            // System.out.println(fileName);
+                            String[] splitString = found.getSubmissionPath().split("\\.");
+                            fileExtension = splitString[1];
+                            System.out.println("filename" + fileExtension);
+                        }
+                        assert selectedFile != null;
+                        long length = selectedFile.length();
+
+                        byte[] content = new byte[(int) length];
+                        try {
+                            FileInputStream fis = new FileInputStream(selectedFile);
+                            BufferedInputStream bos = new BufferedInputStream(fis);
+                            bos.read(content, 0, (int)length);
+                        }
+                        catch(FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        catch(IOException f) {
+                            f.printStackTrace();
+                        }
+
+                        Upload upload = new Upload(content, fileName, fileExtension);
+                        try{
+                            out.writeObject(upload);
+                            out.reset();
+                        }
+                        catch(IOException e){
+                            e.printStackTrace();
+                        }
                     }
                 }
                 else if(obj instanceof Grade) {
@@ -245,6 +290,15 @@ public class Worker implements Runnable {
                         databaseHelper.deleteGrade(grade.getGradeID());
                     } else if (grade.getCommand().equals("SEARCHBYID")) {
                         databaseHelper.searchGrades(grade.getGradeID());
+                    } else if (grade.getCommand().equals("NEWGRADE")) {
+                        databaseHelper.addGrade(grade);
+                        Submission changed = databaseHelper.searchSingleSubmission(grade.getAssignmentID(), grade.getStudentID());
+                        changed.setSubmissionGrade(grade.getAssignmentGrade());
+                        databaseHelper.modifySubmission(changed);
+                        ArrayList<Submission> submissionList = databaseHelper.searchSubmissions(changed.getAssignmentID(), changed.getStudentID());
+                        Submission [] array = submissionList.toArray(new Submission[submissionList.size()]);
+                        out.writeObject(array);
+                        out.reset();
                     }
                 }
                 else if (obj instanceof Upload) {
@@ -279,7 +333,6 @@ public class Worker implements Runnable {
                     }
                     out.writeObject(STORAGE_PATH + FILE_NAME + "."+ FILE_EXTENSION);
                     out.reset();
-                    System.out.println("here2");
                 }
             }
             // ADD NECESSARY catch CLAUSES HERE
