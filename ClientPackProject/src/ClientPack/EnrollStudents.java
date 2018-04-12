@@ -4,12 +4,15 @@ import SharedDataObjects.*;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 /*
  * Created by JFormDesigner on Sun Apr 01 12:19:26 MDT 2018
  */
@@ -18,7 +21,7 @@ import java.io.ObjectOutputStream;
 /**
  * @author Aysha Panatch
  */
-public class EnrollStudents extends JFrame implements ActionListener{
+public class EnrollStudents extends JFrame implements ActionListener, ListSelectionListener{
     EnrollStudents(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
@@ -32,6 +35,8 @@ public class EnrollStudents extends JFrame implements ActionListener{
         enrollunenrollStudent.addActionListener(this);
         displayClassList.addActionListener(this);
         displayAll.addActionListener(this);
+        enrollunenrollStudent.setEnabled(false);
+        enrollList.addListSelectionListener(this);
         this.setSize(700, 700);
         this.setVisible(true);
         try {
@@ -109,7 +114,8 @@ public class EnrollStudents extends JFrame implements ActionListener{
                 panel4.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
-                    "10[700,grow,fill]10",
+                    "[fill]10" +
+                    "[700,grow,fill]10",
                     // rows
                     "0[0]0" +
                     "[]0" +
@@ -118,7 +124,8 @@ public class EnrollStudents extends JFrame implements ActionListener{
                     "[]" +
                     "[]" +
                     "[473]" +
-                    "[]0"));
+                    "[]0" +
+                    "[]"));
 
                 //======== panel2 ========
                 {
@@ -133,55 +140,55 @@ public class EnrollStudents extends JFrame implements ActionListener{
                     //---- back ----
                     back.setText("Back");
                     back.setBackground(Color.white);
-                    back.setForeground(Color.darkGray);
+                    back.setForeground(Color.black);
                     panel2.add(back, "cell 0 0");
                 }
-                panel4.add(panel2, "cell 0 1,alignx left,growx 0");
+                panel4.add(panel2, "cell 1 1,alignx left,growx 0");
 
                 //---- label1 ----
                 label1.setText("Enroll Students");
                 label1.setFont(new Font(".SF NS Text", Font.BOLD, 26));
                 label1.setForeground(Color.black);
                 label1.setHorizontalAlignment(SwingConstants.RIGHT);
-                panel4.add(label1, "cell 0 1");
+                panel4.add(label1, "cell 1 1");
 
                 //---- label10 ----
                 label10.setText("  Search Students By:");
                 label10.setFont(new Font(".SF NS Text", Font.PLAIN, 16));
                 label10.setForeground(Color.black);
                 label10.setBackground(new Color(115, 194, 251));
-                panel4.add(label10, "cell 0 2");
+                panel4.add(label10, "cell 1 2");
 
                 //---- IDradioButton ----
                 IDradioButton.setText("ID");
                 IDradioButton.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
                 IDradioButton.setBackground(new Color(115, 194, 251));
                 IDradioButton.setForeground(Color.black);
-                panel4.add(IDradioButton, "cell 0 3");
+                panel4.add(IDradioButton, "cell 1 3");
 
                 //---- lastNameradioButton ----
                 lastNameradioButton.setText("Last Name");
                 lastNameradioButton.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
                 lastNameradioButton.setBackground(new Color(115, 194, 251));
                 lastNameradioButton.setForeground(Color.black);
-                panel4.add(lastNameradioButton, "cell 0 3");
+                panel4.add(lastNameradioButton, "cell 1 3");
 
                 //---- label11 ----
                 label11.setText("  Enter Search Parameter:");
                 label11.setFont(new Font(".SF NS Text", Font.PLAIN, 16));
                 label11.setForeground(Color.black);
-                panel4.add(label11, "cell 0 4");
+                panel4.add(label11, "cell 1 4");
 
                 //---- searchparameter ----
                 searchparameter.setBackground(Color.white);
-                panel4.add(searchparameter, "cell 0 5");
+                panel4.add(searchparameter, "cell 1 5");
 
                 //---- search ----
                 search.setText("Search");
-                search.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
+                search.setFont(new Font("Ubuntu", Font.PLAIN, 17));
                 search.setBackground(Color.white);
                 search.setForeground(Color.black);
-                panel4.add(search, "cell 0 5,alignx right,growx 0");
+                panel4.add(search, "cell 1 5,alignx right,growx 0");
 
                 //======== scrollPane5 ========
                 {
@@ -191,26 +198,30 @@ public class EnrollStudents extends JFrame implements ActionListener{
                     enrollList.setForeground(Color.black);
                     scrollPane5.setViewportView(enrollList);
                 }
-                panel4.add(scrollPane5, "cell 0 6,grow");
+                panel4.add(scrollPane5, "cell 1 6,grow");
 
                 //---- displayAll ----
-                displayAll.setText("Display All Students");
-                panel4.add(displayAll, "cell 0 7");
+                displayAll.setText("Display All");
+                displayAll.setBackground(Color.white);
+                displayAll.setForeground(Color.black);
+                displayAll.setFont(new Font("Ubuntu", Font.PLAIN, 17));
+                displayAll.addActionListener(e -> displayClassListActionPerformed(e));
+                panel4.add(displayAll, "cell 1 7");
 
                 //---- displayClassList ----
                 displayClassList.setText("Display Class List");
                 displayClassList.setBackground(Color.white);
                 displayClassList.setForeground(Color.black);
-                displayClassList.setFont(displayClassList.getFont().deriveFont(displayClassList.getFont().getStyle() & ~Font.BOLD));
+                displayClassList.setFont(new Font("Ubuntu", Font.PLAIN, 17));
                 displayClassList.addActionListener(e -> displayClassListActionPerformed(e));
-                panel4.add(displayClassList, "cell 0 7");
+                panel4.add(displayClassList, "cell 1 7");
 
                 //---- enrollunenrollStudent ----
                 enrollunenrollStudent.setText("Enroll/Unenroll Student");
-                enrollunenrollStudent.setFont(new Font(".SF NS Text", Font.PLAIN, 17));
+                enrollunenrollStudent.setFont(new Font("Ubuntu", Font.PLAIN, 17));
                 enrollunenrollStudent.setBackground(Color.white);
                 enrollunenrollStudent.setForeground(Color.black);
-                panel4.add(enrollunenrollStudent, "cell 0 7");
+                panel4.add(enrollunenrollStudent, "cell 1 7");
             }
             panel1.add(panel4, "cell 0 0,grow");
         }
@@ -341,6 +352,10 @@ public class EnrollStudents extends JFrame implements ActionListener{
                 System.err.println("IO Error");
             }
         }
+    }
+
+    public void valueChanged(ListSelectionEvent e){
+        enrollunenrollStudent.setEnabled(true);
     }
 }
 

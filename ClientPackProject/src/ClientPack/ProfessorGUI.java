@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.*;
-//import javax.swing.event.ListSelectionEvent;
-//import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 import SharedDataObjects.*;
 /*
  * Created by JFormDesigner on Fri Mar 30 13:52:20 MDT 2018
@@ -19,7 +19,7 @@ import SharedDataObjects.*;
 /**
  * @author unknown
  */
-public class ProfessorGUI extends JPanel implements ActionListener {
+public class ProfessorGUI extends JPanel implements ActionListener, ListSelectionListener {
 
     ProfessorGUI(ObjectInputStream in, ObjectOutputStream out, User prof) {
         this.in = in;
@@ -41,11 +41,15 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         }
 
         logout.addActionListener(this);
-        //courseList.addListSelectionListener(this);
+        courseList.addListSelectionListener(this);
         openCourse.addActionListener(this);
         addCourse.addActionListener(this);
         activatedeactivate.addActionListener(this);
         deleteCourse.addActionListener(this);
+        openCourse.setEnabled(false);
+        activatedeactivate.setEnabled(false);
+        deleteCourse.setEnabled(false);
+
 //        manager = new ManageCourses(in, out);
 //        manager.setVisible(false);
         frame1.setSize(700, 700);
@@ -361,12 +365,9 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         }
 
     }
-//    public void valueChanged(ListSelectionEvent e){
-//        Course current = courses[courseList.getSelectedIndex()];
-//        manager.setCourse(current);
-//        manager.setVisible(true);
-//        this.setVisible(false);
-//        while(!manager.getVisible()){}
-//        this.setVisible(true);
-//    }
+    public void valueChanged(ListSelectionEvent e){
+        activatedeactivate.setEnabled(true);
+        deleteCourse.setEnabled(true);
+        openCourse.setEnabled(true);
+    }
 }

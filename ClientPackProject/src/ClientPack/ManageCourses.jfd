@@ -76,7 +76,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
 				"$columnConstraints": "[0,fill][0,fill][175,fill][7,fill][fill]"
-				"$rowConstraints": "0[90]0[90][70][79]20[33][233]"
+				"$rowConstraints": "0[90]0[90][70]30[37][233]"
 			} ) {
 				name: "panel1"
 				"background": new java.awt.Color( 115, 194, 251, 255 )
@@ -99,22 +99,13 @@ new FormModel {
 					"value": "cell 2 1"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "manageGrades"
-					"text": "Manage Grades"
-					"font": new java.awt.Font( ".SF NS Text", 0, 20 )
-					"foreground": sfield java.awt.Color darkGray
-					"background": sfield java.awt.Color white
-				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 2 2"
-				} )
-				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "emailStudents"
 					"text": "Email Students"
 					"font": new java.awt.Font( ".SF NS Text", 0, 20 )
 					"foreground": sfield java.awt.Color darkGray
 					"background": sfield java.awt.Color white
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 2 3"
+					"value": "cell 2 2"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "enrollStudents"
@@ -125,7 +116,7 @@ new FormModel {
 					"foreground": sfield java.awt.Color darkGray
 					"background": sfield java.awt.Color white
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-					"value": "cell 2 4,aligny center,growy 0"
+					"value": "cell 2 3,aligny center,grow 100 0"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 1 1 1 2"

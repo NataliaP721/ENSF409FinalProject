@@ -207,7 +207,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "attach"
-						"text": "attach..."
+						"text": "Attach"
 						"foreground": sfield java.awt.Color black
 						"background": sfield java.awt.Color white
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
@@ -215,7 +215,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "send"
-						"text": "send"
+						"text": "Send"
 						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {

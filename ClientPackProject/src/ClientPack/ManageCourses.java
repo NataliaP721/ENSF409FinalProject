@@ -26,7 +26,6 @@ class ManageCourses extends JFrame implements ActionListener{
         emailStudents.addActionListener(this);
         enrollStudents.addActionListener(this);
         backk.addActionListener(this);
-        manageGrades.addActionListener(this);
         frame1.setSize(700, 700);
         frame1.setVisible(true);
      }
@@ -44,7 +43,6 @@ class ManageCourses extends JFrame implements ActionListener{
         panel1 = new JPanel();
         manageAssignments = new JButton();
         manageSubmissions = new JButton();
-        manageGrades = new JButton();
         emailStudents = new JButton();
         enrollStudents = new JButton();
         panel5 = new JPanel();
@@ -172,28 +170,21 @@ class ManageCourses extends JFrame implements ActionListener{
                 manageSubmissions.setBackground(Color.white);
                 panel1.add(manageSubmissions, "cell 2 1");
 
-                //---- manageGrades ----
-                manageGrades.setText("Manage Grades");
-                manageGrades.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
-                manageGrades.setForeground(Color.darkGray);
-                manageGrades.setBackground(Color.white);
-                panel1.add(manageGrades, "cell 2 2");
 
                 //---- emailStudents ----
                 emailStudents.setText("Email Students");
                 emailStudents.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
                 emailStudents.setForeground(Color.darkGray);
                 emailStudents.setBackground(Color.white);
-                panel1.add(emailStudents, "cell 2 3");
+                panel1.add(emailStudents, "cell 2 2");
 
                 //---- enrollStudents ----
                 enrollStudents.setText("Enroll Students");
                 enrollStudents.setFont(new Font(".SF NS Text", Font.PLAIN, 20));
                 enrollStudents.setIcon(null);
-                enrollStudents.setPreferredSize(new Dimension(120, 100));
                 enrollStudents.setForeground(Color.darkGray);
                 enrollStudents.setBackground(Color.white);
-                panel1.add(enrollStudents, "cell 2 4,aligny center,growy 0");
+                panel1.add(enrollStudents, "cell 2 3");
             }
             frame1ContentPane.add(panel1, "cell 1 1 1 2");
 
@@ -265,7 +256,6 @@ class ManageCourses extends JFrame implements ActionListener{
     private JPanel panel1;
     private JButton manageAssignments;
     private JButton manageSubmissions;
-    private JButton manageGrades;
     private JButton emailStudents;
     private JButton enrollStudents;
     private JPanel panel5;
@@ -293,9 +283,6 @@ class ManageCourses extends JFrame implements ActionListener{
         }
         else if(e.getSource() == manageSubmissions) {
             subManager = new ManageSubmissions(in, out, course);
-        }
-        else if(e.getSource() == manageGrades) {
-            gradeManager = new ManageGrades(in, out, course);
         }
         else if(e.getSource() == emailStudents) {
             emailManager = new EmailStudents(in, out, course, prof);

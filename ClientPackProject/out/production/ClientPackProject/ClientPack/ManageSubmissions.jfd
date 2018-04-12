@@ -14,7 +14,7 @@ new FormModel {
 			"foreground": new java.awt.Color( 115, 194, 251, 255 )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
-				"$columnConstraints": "0[430,grow,fill]0"
+				"$columnConstraints": "10[430,grow,fill]10"
 				"$rowConstraints": "[][576]0"
 			} ) {
 				name: "panel4"

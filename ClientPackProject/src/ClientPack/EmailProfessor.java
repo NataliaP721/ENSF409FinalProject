@@ -44,7 +44,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
      */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         panel2 = new JPanel();
         panel5 = new JPanel();
         back = new JButton();
@@ -114,7 +114,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
                     "[fill]" +
                     "[fill]" +
                     "[fill]0" +
-                    "[fill]0",
+                    "[fill]15",
                     // rows
                     "0[fill]0"));
 
@@ -128,7 +128,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
                 send.setText("Send");
                 send.setBackground(Color.white);
                 send.setForeground(Color.black);
-                panel5.add(send, "cell 2 0");
+                panel5.add(send, "cell 3 0,align left top,grow 0 0");
 
                 //---- label5 ----
                 label5.setText("Email Professor");
@@ -146,7 +146,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
                 panel1.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
-                    "5[644,fill]0",
+                    "5[843,fill]0",
                     // rows
                     "0[22]" +
                     "[0]" +
@@ -154,7 +154,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
                     "[]" +
                     "[0]" +
                     "[]" +
-                    "[479]0"));
+                    "[624]0"));
 
                 //---- label1 ----
                 label1.setText("To:");
@@ -197,10 +197,10 @@ public class EmailProfessor extends JFrame implements ActionListener {
                 panel1.add(jlabel4, "cell 0 5,aligny top,growy 0");
 
                 //---- attach ----
-                attach.setText("attach...");
+                attach.setText("Attach");
                 attach.setBackground(Color.white);
                 attach.setForeground(Color.black);
-                panel1.add(attach, "cell 0 5");
+                panel1.add(attach, "cell 0 5,alignx right,growx 0");
 
                 //======== scrollPane2 ========
                 {
@@ -220,7 +220,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JPanel panel2;
     private JPanel panel5;
     private JButton back;

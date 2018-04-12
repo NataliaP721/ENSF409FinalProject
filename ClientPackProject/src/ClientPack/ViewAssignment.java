@@ -9,13 +9,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+
 import net.miginfocom.swing.*;
 import SharedDataObjects.*;
 
 /**
  * Creates a page listing all assignments with options to view the assignment or view recorded grades for each assignment
  */
-public class ViewAssignment extends JFrame implements ActionListener {
+public class ViewAssignment extends JFrame implements ActionListener, ListSelectionListener {
     ViewAssignment(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;
         this.out = out;
@@ -23,9 +26,10 @@ public class ViewAssignment extends JFrame implements ActionListener {
         this.student = student;
         initComponents();
         viewAssignment.addActionListener(this);
-        viewGrade.addActionListener(this);
         back.addActionListener(this);
         courseName.setText(course.getCourseName());
+        viewAssignment.setEnabled(false);
+        assignmentList.addListSelectionListener(this);
         this.setSize(700, 700);
         this.setVisible(true);
 
@@ -54,7 +58,6 @@ public class ViewAssignment extends JFrame implements ActionListener {
         courseName = new JLabel();
         panel1 = new JPanel();
         viewAssignment = new JButton();
-        viewGrade = new JButton();
         label2 = new JLabel();
         scrollPane1 = new JScrollPane();
         assignmentList = new JList<>();
@@ -110,8 +113,7 @@ public class ViewAssignment extends JFrame implements ActionListener {
                 panel1.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
-                    "[180,fill]" +
-                    "[175,fill]",
+                    "[180,fill]",
                     // rows
                     "[]" +
                     "[]"));
@@ -121,12 +123,6 @@ public class ViewAssignment extends JFrame implements ActionListener {
                 viewAssignment.setBackground(Color.white);
                 viewAssignment.setForeground(Color.black);
                 panel1.add(viewAssignment, "cell 0 1");
-
-                //---- viewGrade ----
-                viewGrade.setBackground(Color.white);
-                viewGrade.setText("View Assignment Grade");
-                viewGrade.setForeground(Color.black);
-                panel1.add(viewGrade, "cell 1 1");
             }
             panel2.add(panel1, "cell 0 1 1 2,alignx center,growx 0");
 
@@ -160,7 +156,6 @@ public class ViewAssignment extends JFrame implements ActionListener {
     private JLabel courseName;
     private JPanel panel1;
     private JButton viewAssignment;
-    private JButton viewGrade;
     private JLabel label2;
     private JScrollPane scrollPane1;
     private JList<Assignment> assignmentList;
@@ -208,23 +203,10 @@ public class ViewAssignment extends JFrame implements ActionListener {
                 g.printStackTrace();
             }
         }
-        else if (e.getSource() == viewGrade) {
-            Grade current = new Grade( assignmentList.getSelectedValue().getAssignmentID(), student.getID(), course.getCourseID(), 0);
-            current.setCommand("GETGRADE");
-            try {
-                out.writeObject(current);
-                out.reset();
-                grade = (Grade) in.readObject();
-            } catch (ClassNotFoundException f) {
-                f.printStackTrace();
-            } catch (IOException g) {
-                g.printStackTrace();
-            }
 
-            String message = "Your grade for this assignment is: " + grade.getAssignmentGrade();
-            JOptionPane.showMessageDialog( this, message);
+    }
 
-        }
-
+    public void valueChanged(ListSelectionEvent e){
+        viewAssignment.setEnabled(true);
     }
 }

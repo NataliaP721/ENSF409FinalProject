@@ -33,6 +33,9 @@ public class EmailStudents extends JFrame implements ActionListener {
         addAll.addActionListener(this);
         addRecipient.addActionListener(this);
         back.addActionListener(this);
+        ButtonGroup group= new ButtonGroup();
+        group.add(lastNameradioButton);
+        group.add(IDradioButton);
         this.setupMail();
         this.setSize(700, 700);
         this.setVisible(true);
@@ -41,7 +44,7 @@ public class EmailStudents extends JFrame implements ActionListener {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         panel2 = new JPanel();
         panel3 = new JPanel();
         back = new JButton();
@@ -291,13 +294,13 @@ public class EmailStudents extends JFrame implements ActionListener {
                 panel1.add(jlabel4, "cell 0 5,aligny top,growy 0");
 
                 //---- attach ----
-                attach.setText("attach...");
+                attach.setText("Attach");
                 attach.setForeground(Color.black);
                 attach.setBackground(Color.white);
                 panel1.add(attach, "cell 0 5");
 
                 //---- send ----
-                send.setText("send");
+                send.setText("Send");
                 send.setBackground(Color.white);
                 send.setForeground(Color.black);
                 panel1.add(send, "cell 0 5");
@@ -321,7 +324,7 @@ public class EmailStudents extends JFrame implements ActionListener {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JPanel panel2;
     private JPanel panel3;
     private JButton back;

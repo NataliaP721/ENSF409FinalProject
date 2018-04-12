@@ -13,6 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+
 import net.miginfocom.swing.*;
 import SharedDataObjects.*;
 import java.util.Random;
@@ -20,7 +23,7 @@ import java.util.Random;
 /**
  * Creates the assignment submission's homepage with all the assignments listed, including the ability to submit assignments
  */
-public class SubmitAssignments extends JFrame implements ActionListener {
+public class SubmitAssignments extends JFrame implements ActionListener, ListSelectionListener {
     SubmitAssignments(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;
         this.out = out;
@@ -32,6 +35,10 @@ public class SubmitAssignments extends JFrame implements ActionListener {
         viewSubmissions.addActionListener(this);
         back.addActionListener(this);
         courseName.setText(course.getCourseName());
+        submitAssignment.setEnabled(false);
+        assignmentList.addListSelectionListener(this);
+        submissionList.addListSelectionListener(this);
+        viewSubmissions.setEnabled(false);
         this.setSize(700,700);
         this.setVisible(true);
         try {
@@ -331,6 +338,15 @@ public class SubmitAssignments extends JFrame implements ActionListener {
             } catch (IOException d) {
                 d.printStackTrace();
             }
+        }
+    }
+
+    public void valueChanged(ListSelectionEvent e){
+        if(e.getSource()==assignmentList){
+            submitAssignment.setEnabled(true);
+        }
+        else if(e.getSource()==submissionList){
+            viewSubmissions.setEnabled(true);
         }
     }
 }

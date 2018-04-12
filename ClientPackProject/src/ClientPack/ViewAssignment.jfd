@@ -36,7 +36,7 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
-					"$columnConstraints": "[180,fill][175,fill]"
+					"$columnConstraints": "[180,fill]"
 					"$rowConstraints": "[][]"
 				} ) {
 					name: "panel1"
@@ -48,14 +48,6 @@ new FormModel {
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 1"
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "viewGrade"
-						"background": sfield java.awt.Color white
-						"text": "View Assignment Grade"
-						"foreground": sfield java.awt.Color black
-					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 1 1"
 					} )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "cell 0 1 1 2,alignx center,growx 0"

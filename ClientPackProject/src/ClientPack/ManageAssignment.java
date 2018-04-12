@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 
 import net.miginfocom.swing.*;
@@ -19,7 +21,7 @@ import SharedDataObjects.*;
 /**
  * @author Aysha Panatch
  */
-public class ManageAssignment extends JFrame implements ActionListener{
+public class ManageAssignment extends JFrame implements ActionListener, ListSelectionListener{
     ManageAssignment(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
@@ -28,6 +30,9 @@ public class ManageAssignment extends JFrame implements ActionListener{
         addAssignment.addActionListener(this);
         deleteAssignment.addActionListener(this);
         activatedeactivate.addActionListener(this);
+        activatedeactivate.setEnabled(false);
+        deleteAssignment.setEnabled(false);
+        assignmentList.addListSelectionListener(this);
         back.addActionListener(this);
         this.setSize(700,700);
         this.setVisible(true);
@@ -36,7 +41,7 @@ public class ManageAssignment extends JFrame implements ActionListener{
             course.setCommand("GETASSIGNMENTS");
             out.writeObject(course);
             out.reset();
-            System.out.println(course.getCourseName());
+            courseName.setText(course.getCourseName());
             assignmentList.setListData((Assignment[]) (in.readObject()));
         }
         catch (ClassNotFoundException e) {
@@ -76,11 +81,16 @@ public class ManageAssignment extends JFrame implements ActionListener{
             panel2.setBackground(new Color(115, 194, 251));
 
             // JFormDesigner evaluation mark
+            panel2.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel2.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
-                "0[700,grow,fill]0",
+                "10[700,grow,fill]10",
                 // rows
                 "0[25]0" +
                 "[]" +
@@ -313,6 +323,11 @@ public class ManageAssignment extends JFrame implements ActionListener{
             }
         }
 
+    }
+
+    public void valueChanged(ListSelectionEvent e){
+        activatedeactivate.setEnabled(true);
+        deleteAssignment.setEnabled(true);
     }
 }
 

@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import SharedDataObjects.*;
 import net.miginfocom.swing.*;
@@ -17,7 +19,7 @@ import net.miginfocom.swing.*;
 /**
  * @author Edward Gu
  */
-    class ManageSubmissions extends JFrame implements ActionListener{
+    class ManageSubmissions extends JFrame implements ActionListener, ListSelectionListener{
     ManageSubmissions(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
@@ -27,6 +29,11 @@ import net.miginfocom.swing.*;
         openSubmission.addActionListener(this);
         gradeSubmission.addActionListener(this);
         back.addActionListener(this);
+        selectAssignment.setEnabled(false);
+        openSubmission.setEnabled(false);
+        gradeSubmission.setEnabled(false);
+        assignmentList.addListSelectionListener(this);
+        submissionList.addListSelectionListener(this);
         this.setSize(700,700);
         this.setVisible(true);
         try {
@@ -45,7 +52,7 @@ import net.miginfocom.swing.*;
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         panel4 = new JPanel();
         back = new JButton();
         panel3 = new JPanel();
@@ -89,7 +96,7 @@ import net.miginfocom.swing.*;
             panel4.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns
-                "0[430,grow,fill]0",
+                "10[430,grow,fill]10",
                 // rows
                 "[]" +
                 "[576]0"));
@@ -212,7 +219,7 @@ import net.miginfocom.swing.*;
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JPanel panel4;
     private JButton back;
     private JPanel panel3;
@@ -310,6 +317,17 @@ import net.miginfocom.swing.*;
             catch(IOException d) {
                 System.err.println("IO Error");
             }
+        }
+
+    }
+
+    public void valueChanged(ListSelectionEvent e){
+        if(e.getSource()==assignmentList){
+            selectAssignment.setEnabled(true);
+        }
+        if(e.getSource()==submissionList){
+            openSubmission.setEnabled(true);
+            gradeSubmission.setEnabled(true);
         }
 
     }

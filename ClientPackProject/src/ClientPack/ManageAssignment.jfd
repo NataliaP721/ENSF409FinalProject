@@ -12,7 +12,7 @@ new FormModel {
 			"title": "Manage Assignments"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$layoutConstraints": "hidemode 3"
-				"$columnConstraints": "0[700,grow,fill]0"
+				"$columnConstraints": "10[700,grow,fill]10"
 				"$rowConstraints": "0[25]0[][][][450]0"
 			} ) {
 				name: "panel2"
