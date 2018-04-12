@@ -115,7 +115,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
                     "[fill]" +
                     "[fill]" +
                     "[fill]0" +
-                    "[fill]15",
+                    "[fill]0",
                     // rows
                     "0[fill]0"));
 
@@ -129,7 +129,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
                 send.setText("Send");
                 send.setBackground(Color.white);
                 send.setForeground(Color.black);
-                panel5.add(send, "cell 3 0,align left top,grow 0 0");
+                panel5.add(send, "cell 2 0,align left top,grow 0 0");
 
                 //---- label5 ----
                 label5.setText("Email Professor");
@@ -147,7 +147,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
                 panel1.setLayout(new MigLayout(
                     "hidemode 3",
                     // columns
-                    "5[843,fill]0",
+                    "5[853,fill]0",
                     // rows
                     "0[22]" +
                     "[0]" +
@@ -155,7 +155,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
                     "[]" +
                     "[0]" +
                     "[]" +
-                    "[624]0"));
+                    "[614]0"));
 
                 //---- label1 ----
                 label1.setText("To:");
@@ -270,6 +270,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
                 email.send();
 
                 JOptionPane.showMessageDialog(this, "Email sent!");
+                this.dispose();
             }
             catch(EmailException f) {
                 f.printStackTrace();
@@ -286,6 +287,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
                 attachment.setName(selectedFile.getName());
                 try {
                     email.attach(attachment);
+                    JOptionPane.showMessageDialog(this, "Attachment added.");
                 }
                 catch(EmailException f) {
                     f.printStackTrace();

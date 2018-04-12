@@ -34,6 +34,8 @@ public class EmailStudents extends JFrame implements ActionListener {
         addAll.addActionListener(this);
         addRecipient.addActionListener(this);
         back.addActionListener(this);
+        send.addActionListener(this);
+        attach.addActionListener(this);
         ButtonGroup group= new ButtonGroup();
         group.add(lastNameradioButton);
         group.add(IDradioButton);
@@ -45,7 +47,7 @@ public class EmailStudents extends JFrame implements ActionListener {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Edward Gu
+        // Generated using JFormDesigner Evaluation license - Aysha Panatch
         panel2 = new JPanel();
         panel3 = new JPanel();
         back = new JButton();
@@ -295,13 +297,13 @@ public class EmailStudents extends JFrame implements ActionListener {
                 panel1.add(jlabel4, "cell 0 5,aligny top,growy 0");
 
                 //---- attach ----
-                attach.setText("attach...");
+                attach.setText("Attach");
                 attach.setForeground(Color.black);
                 attach.setBackground(Color.white);
                 panel1.add(attach, "cell 0 5");
 
                 //---- send ----
-                send.setText("send");
+                send.setText("Send");
                 send.setBackground(Color.white);
                 send.setForeground(Color.black);
                 panel1.add(send, "cell 0 5");
@@ -311,7 +313,7 @@ public class EmailStudents extends JFrame implements ActionListener {
 
                     //---- content ----
                     content.setBackground(Color.white);
-                    content.setForeground(Color.white);
+                    content.setForeground(Color.black);
                     scrollPane2.setViewportView(content);
                 }
                 panel1.add(scrollPane2, "cell 0 6,grow");
@@ -325,7 +327,7 @@ public class EmailStudents extends JFrame implements ActionListener {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Edward Gu
+    // Generated using JFormDesigner Evaluation license - Aysha Panatch
     private JPanel panel2;
     private JPanel panel3;
     private JButton back;
@@ -367,12 +369,14 @@ public class EmailStudents extends JFrame implements ActionListener {
             this.dispose();
         } else if (e.getSource() == send) {
             try {
+
                 email.setSubject(subject.getText());
                 email.setMsg(content.getText());
 
                 email.send();
 
                 JOptionPane.showMessageDialog(this, "Email sent!");
+                this.dispose();
             }
             catch(EmailException f) {
                 f.printStackTrace();
@@ -389,6 +393,7 @@ public class EmailStudents extends JFrame implements ActionListener {
                 attachment.setName(selectedFile.getName());
                 try {
                     email.attach(attachment);
+                    JOptionPane.showMessageDialog(this, "Attachment added.");
                 }
                 catch(EmailException f) {
                     f.printStackTrace();
@@ -452,7 +457,8 @@ public class EmailStudents extends JFrame implements ActionListener {
             User current = studentList.getSelectedValue();
             try {
                 email.addBcc(current.getUserEmail());
-                to.setText(to.getText() + ", " + current.getUserEmail());
+                to.setText(to.getText()+current.getUserEmail());
+                //to.setText(to.getText() + ", " + current.getUserEmail());
             }
             catch(EmailException f) {
                 f.printStackTrace();

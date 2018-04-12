@@ -20,7 +20,7 @@ new FormModel {
 				"background": new java.awt.Color( 115, 194, 251, 255 )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
-					"$columnConstraints": "[][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill]0[fill]15"
+					"$columnConstraints": "[][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill][fill]0[fill]0"
 					"$rowConstraints": "0[fill]0"
 				} ) {
 					name: "panel5"
@@ -39,7 +39,7 @@ new FormModel {
 						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-						"value": "cell 3 0,align left top,grow 0 0"
+						"value": "cell 2 0,align left top,grow 0 0"
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label5"
@@ -56,8 +56,8 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 					"$layoutConstraints": "hidemode 3"
-					"$columnConstraints": "5[843,fill]0"
-					"$rowConstraints": "0[22][0][][][0][][624]0"
+					"$columnConstraints": "5[853,fill]0"
+					"$rowConstraints": "0[22][0][][][0][][614]0"
 				} ) {
 					name: "panel1"
 					"background": new java.awt.Color( 115, 194, 251, 255 )

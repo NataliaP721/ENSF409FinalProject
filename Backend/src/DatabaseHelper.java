@@ -74,9 +74,9 @@ public class DatabaseHelper {
             // databaseHelper.createDB();
             // Create a text document for students
             createTables();
-            addUser(new User("Pavlovic", "Natalia", "natalia.nzp@gmail.com", 'P' ), new LoginInfo("12345"));
-            addUser(new User("Flintstone", "Fred", "fred@gmail.com",  'S' ), new LoginInfo("12345"));
-            addUser(new User("Simpson", "Bart", "fred@gmail.com",  'S' ), new LoginInfo("12345"));
+            addUser(new User("Pavlovic", "Natalia", "ensf409proffessoremail@gmail.com", 'P' ), new LoginInfo("12345"));
+            addUser(new User("Flintstone", "Fred", "ensf409proffessoremail@gmail.com",  'S' ), new LoginInfo("12345"));
+            addUser(new User("Simpson", "Bart", "ensf409proffessoremail@gmail.com",  'S' ), new LoginInfo("12345"));
 
             addCourse(new Course( 1, "ENSF409", true));
             addCourse(new Course(1, "ENSF410", true));
@@ -292,6 +292,7 @@ public class DatabaseHelper {
                 user.getLastName() + "', '" +
                 user.getUserType()+ "');";
                 totalUserEnteries++;
+                printUserTable();
         try{
             statement = jdbc_connection.prepareStatement(sql);
             statement.executeUpdate();
@@ -473,9 +474,9 @@ public class DatabaseHelper {
             User temp = null;
             while(users.next())
             {
-                temp = new User (users.getString("EMAIL"),
-                        users.getString("LASTNAME"),
+                temp = new User (users.getString("LASTNAME"),
                         users.getString("FIRSTNAME"),
+                        users.getString("EMAIL"),
                         users.getString("TYPE").charAt(0));
                 temp.setID(users.getInt("ID"));
             }
@@ -519,6 +520,37 @@ public class DatabaseHelper {
             }
             users.close();
             return enrollmentList;
+        }catch (SQLException e) { e.printStackTrace(); }
+        return null;
+    }
+    ArrayList<User> searchLastnameUsers(String lastName) {
+        try{
+            printUserTable();
+            String sql = "SELECT * FROM " + userTableName + "  WHERE LASTNAME = '" + lastName + "'";
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet users = statement.executeQuery();
+            ArrayList<User> userList = new ArrayList<>();
+
+            if(users == null) {
+                return null;
+            }
+            User temp = null;
+            while(users.next())
+            {
+                temp = new User (users.getString("LASTNAME"),
+                        users.getString("FIRSTNAME"),
+                        users.getString("EMAIL"),
+                        users.getString("TYPE").charAt(0));
+                temp.setID( users.getInt("ID"));
+
+                ArrayList<StudentEnrollment> se = searchStudentEnrollment(temp.getID());
+                StudentEnrollment [] enrollments = se.toArray(new StudentEnrollment [se.size()]);
+                if(enrollments[0]!=null) {
+                    userList.add(temp);
+                }
+            }
+            users.close();
+            return userList;
         }catch (SQLException e) { e.printStackTrace(); }
         return null;
     }
@@ -767,6 +799,33 @@ public class DatabaseHelper {
             }
             enrollments.close();
             return courseList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    ArrayList<User> searchEnrolledEmail(int courseID) {
+        try {
+            String sql = "SELECT * FROM " +userTableName;
+            statement = jdbc_connection.prepareStatement(sql);
+            ResultSet users = statement.executeQuery();
+            User temp;
+            ArrayList<User> userList = new ArrayList<>();
+            while(users.next())
+            {
+                 temp = new User (users.getString("LASTNAME"),
+                        users.getString("FIRSTNAME"),
+                        users.getString("EMAIL"),
+                        users.getString("TYPE").charAt(0));
+
+                temp.setID(users.getInt("ID"));
+                    temp.setID(users.getInt("ID"));
+                if(isEnrolled(courseID, temp.getID())) {
+                    userList.add(temp);
+                }
+            }
+            users.close();
+            return userList;
         } catch (SQLException e) {
             e.printStackTrace();
         }

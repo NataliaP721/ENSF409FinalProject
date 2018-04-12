@@ -71,6 +71,20 @@ public class Worker implements Runnable {
                         out.writeObject(enrollments);
                         out.reset();
                     }
+                    else if (user.getCommand().equals("SEARCHBYID")) {
+                        User found = databaseHelper.searchUsers(user.getID());
+                        User[] array = new User[1];
+                        array[0] = found;
+                        out.writeObject(array);
+                        out.reset();
+                    }
+                    else if(user.getCommand().equals("SEARCHBYLASTNAME")) {
+                        ArrayList<User> studentlist = databaseHelper.searchLastnameUsers(user.getLastName());
+                        User[] students = studentlist.toArray(new User[studentlist.size()]);
+                        out.writeObject(students);
+                        out.reset();
+                    }
+
                 }
                 else if(obj instanceof Course) {
                     Course course = (Course) obj;
@@ -125,6 +139,18 @@ public class Worker implements Runnable {
                         ArrayList<StudentEnrollment> enrollmentslist= databaseHelper.searchEnrolled();
                         StudentEnrollment [] enrollments = enrollmentslist.toArray(new StudentEnrollment [enrollmentslist.size()]);
                         out.writeObject(enrollments);
+                        out.reset();
+                    }
+                    else if(course.getCommand().equals("GETEMAILLIST")) {
+                        ArrayList<User> classlist= databaseHelper.searchEnrolledEmail(course.getCourseID());
+                        User [] students = classlist.toArray(new User [classlist.size()]);
+                        System.out.println(students[0].getUserEmail());
+                        out.writeObject(students);
+                        out.reset();
+                    }
+                    else if(course.getCommand().equals("GETPROFEMAIL")) {
+                        User prof = databaseHelper.searchUsers(course.getProfessorID());
+                        out.writeObject(prof);
                         out.reset();
                     }
                 }
