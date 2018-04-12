@@ -33,5 +33,22 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../lib/activation.jar!/" />
+          <root url="jar://$MODULE_DIR$/../lib/mail.jar!/" />
+          <root url="file://$MODULE_DIR$/../lib/commons-email-1.5" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$MODULE_DIR$/../lib/commons-email-1.5/apidocs" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../lib/commons-email-1.5" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/../lib/commons-email-1.5" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../lib/commons-email-1.5" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -41,6 +41,9 @@ public class StudentEnrollment implements Serializable{
     public void setEnrollmentID(int enrollmentID) {
         this.enrollmentID = enrollmentID;
     }
+    public void setCourseID(int courseID) {
+        this.courseID = courseID;
+    }
     public char getEnrolling() {
         if (!this.enrolling) {
             return '0';
@@ -62,3 +65,4 @@ public class StudentEnrollment implements Serializable{
         return answer;
     }
 }
+

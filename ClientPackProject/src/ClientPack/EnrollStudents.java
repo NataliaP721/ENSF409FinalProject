@@ -256,6 +256,7 @@ public class EnrollStudents extends JFrame implements ActionListener{
             if(IDradioButton.isSelected()){
                 StudentEnrollment current = new StudentEnrollment();
                 current.setStudentID(Integer.parseInt(param));
+                current.setCourseID(course.getCourseID());
                 current.setCommand("SEARCHBYID");
                 try {
                     out.writeObject(current);

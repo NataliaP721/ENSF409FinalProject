@@ -82,7 +82,9 @@ public class DatabaseHelper {
             addCourse(new Course(1, "ENSF410", true));
             addCourse(new Course(1, "ENSF411", true));
             addCourse(new Course( 1, "ENSF412", true));
-           // addAssignment(new Assignment( 1, "abc", "test", true, "18:04:06"));
+            addCourse(new Course( 2, "ENSF413", true));
+
+            // addAssignment(new Assignment( 1, "abc", "test", true, "18:04:06"));
             //addStudentEnrollment(new StudentEnrollment(2, 1, false));
             //addStudentEnrollment(new StudentEnrollment(2, 2, false));
 
@@ -587,7 +589,7 @@ public class DatabaseHelper {
      * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
      * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
      */
-    ArrayList<Course> searchAllCourses() {
+    ArrayList<Course> searchAllCourses(int profID) {
         try {
             String sql = "SELECT * FROM " + courseTableName;
             statement = jdbc_connection.prepareStatement(sql);
@@ -607,7 +609,9 @@ public class DatabaseHelper {
                         courses.getString("COURSENAME"),
                         activeBoolean);
                 temp.setCourseID(courses.getInt("ID"));
-                courseList.add(temp);
+                if(profID == temp.getProfessorID()){
+                    courseList.add(temp);
+                }
             }
             courses.close();
             return courseList;
@@ -656,7 +660,6 @@ public class DatabaseHelper {
             printStudentEnrollmentTable();
             String sql = "SELECT * FROM " + studentEnrollmentTableName + "  WHERE COURSEID =" + courseID;
             ResultSet enrollments = statement.executeQuery();
-            ArrayList<StudentEnrollment> enrollmentlist = new ArrayList<>();
 
             try {
                 statement = jdbc_connection.prepareStatement(sql);
@@ -676,13 +679,13 @@ public class DatabaseHelper {
                 else if(enrollments.getString("ACTIVE").charAt(0)=='1') {
                     activeBoolean = true;
                 }
+               // System.out.println(activeBoolean);
                 temp = new StudentEnrollment (enrollments.getInt("STUDENTID"),
                         enrollments.getInt("COURSEID"), activeBoolean);
                 temp.setEnrollmentID(enrollments.getInt("ID"));
-                if(temp.getStudentID() == studentID) {
+                if(temp.getStudentID() == studentID && activeBoolean==true) {
                     return true;
                 }
-                enrollmentlist.add(temp);
             }
             enrollments.close();
 

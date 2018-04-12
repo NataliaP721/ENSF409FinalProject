@@ -10,6 +10,7 @@ import java.io.*;
 
 
 import SharedDataObjects.*;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import javax.swing.*;
 
@@ -54,7 +55,7 @@ public class Worker implements Runnable {
                     if(user.getCommand().equals("GETCOURSES")) {
                         ArrayList<Course> courseList = null;
                         if(user.getUserType()=='P') {
-                            courseList= databaseHelper.searchAllCourses();
+                            courseList= databaseHelper.searchAllCourses(user.getID());
                         }
                         else{
                             courseList= databaseHelper.searchEnrolledActiveCourses(user.getID());
@@ -65,8 +66,8 @@ public class Worker implements Runnable {
                         out.reset();
                     }
                     else if (user.getCommand().equals("SEARCHENROLLEDBYLASTNAME")) {
-                        ArrayList<StudentEnrollment> lastNamelist= databaseHelper.searchUsers(user.getLastName());
-                        StudentEnrollment [] enrollments = lastNamelist.toArray(new StudentEnrollment [lastNamelist.size()]);
+                        ArrayList<StudentEnrollment> lastNamelist = databaseHelper.searchUsers(user.getLastName());
+                        StudentEnrollment[] enrollments = lastNamelist.toArray(new StudentEnrollment[lastNamelist.size()]);
                         out.writeObject(enrollments);
                         out.reset();
                     }
@@ -75,7 +76,7 @@ public class Worker implements Runnable {
                     Course course = (Course) obj;
                     if(course.getCommand().equals("ADD")) {
                         databaseHelper.addCourse(course);
-                        ArrayList<Course> courseList= databaseHelper.searchAllCourses();
+                        ArrayList<Course> courseList= databaseHelper.searchAllCourses(course.getProfessorID());
                         databaseHelper.printCourseTable();
                         Course [] courses = courseList.toArray(new Course[courseList.size()]);
                         out.writeObject(courses);
@@ -83,14 +84,14 @@ public class Worker implements Runnable {
                     }
                     else if(course.getCommand().equals("DELETE")) {
                         databaseHelper.deleteCourse(course.getCourseID());
-                        ArrayList<Course> courseList= databaseHelper.searchAllCourses();
+                        ArrayList<Course> courseList= databaseHelper.searchAllCourses(course.getProfessorID());
                         Course [] courses = courseList.toArray(new Course[courseList.size()]);
                         out.writeObject(courses);
                         out.reset();
                     }
                     else if(course.getCommand().equals("MOD")) {
                         databaseHelper.modifyCourse(course);
-                        ArrayList<Course> courseList= databaseHelper.searchAllCourses();
+                        ArrayList<Course> courseList= databaseHelper.searchAllCourses(course.getProfessorID());
                         Course [] courses = courseList.toArray(new Course[courseList.size()]);
                         out.writeObject(courses);
                         out.reset();
@@ -144,6 +145,13 @@ public class Worker implements Runnable {
                     }
                     else if(studentEnrollment.getCommand().equals("SEARCHBYID")) {
                         ArrayList<StudentEnrollment> enrollmentslist = databaseHelper.searchStudentEnrollment(studentEnrollment.getStudentID());
+                        // Remove if not in course
+                        Iterator itr = enrollmentslist.iterator();
+                        while(itr.hasNext()){
+                            if((((StudentEnrollment)itr.next()).getCourseID()!=studentEnrollment.getCourseID())) {
+                                itr.remove();
+                            }
+                        }
                         StudentEnrollment [] enrollments = enrollmentslist.toArray(new StudentEnrollment [enrollmentslist.size()]);
                         out.writeObject(enrollments);
                         out.reset();
