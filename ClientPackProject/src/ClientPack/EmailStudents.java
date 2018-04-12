@@ -3,14 +3,16 @@ package ClientPack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import SharedDataObjects.*;
 import net.miginfocom.swing.*;
+import org.apache.commons.mail.*;
+
 /*
  * Created by JFormDesigner on Sun Apr 01 12:19:26 MDT 2018
  */
@@ -20,17 +22,18 @@ import net.miginfocom.swing.*;
 /**
  * @author Aysha Panatch
  */
-public class EmailStudents extends JFrame implements ActionListener, ListSelectionListener{
-    EmailStudents(ObjectInputStream in, ObjectOutputStream out, Course course) {
+public class EmailStudents extends JFrame implements ActionListener {
+    EmailStudents(ObjectInputStream in, ObjectOutputStream out, Course course, User prof) {
         this.in = in;
         this.out = out;
         this.course = course;
+        this.prof = prof;
         initComponents();
         search.addActionListener(this);
         addAll.addActionListener(this);
         addRecipient.addActionListener(this);
         back.addActionListener(this);
-        studentList.addListSelectionListener(this);
+        this.setupMail();
         this.setSize(700, 700);
         this.setVisible(true);
 
@@ -38,7 +41,7 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel2 = new JPanel();
         panel3 = new JPanel();
         back = new JButton();
@@ -63,6 +66,8 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
         label2 = new JLabel();
         subject = new JTextField();
         jlabel4 = new JLabel();
+        attach = new JButton();
+        send = new JButton();
         scrollPane2 = new JScrollPane();
         content = new JTextArea();
 
@@ -82,6 +87,11 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
             panel2.setBackground(new Color(115, 194, 251));
 
             // JFormDesigner evaluation mark
+            panel2.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel2.setLayout(new MigLayout(
                 "hidemode 3",
@@ -280,6 +290,18 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
                 jlabel4.setForeground(Color.black);
                 panel1.add(jlabel4, "cell 0 5,aligny top,growy 0");
 
+                //---- attach ----
+                attach.setText("attach...");
+                attach.setForeground(Color.black);
+                attach.setBackground(Color.white);
+                panel1.add(attach, "cell 0 5");
+
+                //---- send ----
+                send.setText("send");
+                send.setBackground(Color.white);
+                send.setForeground(Color.black);
+                panel1.add(send, "cell 0 5");
+
                 //======== scrollPane2 ========
                 {
 
@@ -299,7 +321,7 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel2;
     private JPanel panel3;
     private JButton back;
@@ -324,23 +346,81 @@ public class EmailStudents extends JFrame implements ActionListener, ListSelecti
     private JLabel label2;
     private JTextField subject;
     private JLabel jlabel4;
+    private JButton attach;
+    private JButton send;
     private JScrollPane scrollPane2;
     private JTextArea content;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
-    private ObjectInputStream in;
     private ObjectOutputStream out;
+    private ObjectInputStream in;
     private Course course;
-    private boolean visible;
-    //    public static void main(String[] args) {
-//        EmailStudents obj = new EmailStudents();
-//    }
+    private User prof;
+    private MultiPartEmail email;
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == back) {
+            this.dispose();
+        } else if (e.getSource() == send) {
+            try {
+                email.setSubject(subject.getText());
+                email.setMsg(content.getText());
 
+                email.send();
+
+                JOptionPane.showMessageDialog(this, "Email sent!");
+            }
+            catch(EmailException f) {
+                f.printStackTrace();
+            }
+        } else if(e.getSource() == attach) {
+            JFileChooser fileBrowser = new JFileChooser();
+            File selectedFile;
+            if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                selectedFile = fileBrowser.getSelectedFile();
+                EmailAttachment attachment = new EmailAttachment();
+                attachment.setPath(selectedFile.getAbsolutePath());
+                attachment.setDisposition(EmailAttachment.ATTACHMENT);
+                attachment.setDescription("Attachment");
+                attachment.setName(selectedFile.getName());
+                try {
+                    email.attach(attachment);
+                }
+                catch(EmailException f) {
+                    f.printStackTrace();
+                }
+            }
+        } else if(e.getSource() == search) {
+
+        } else if(e.getSource() == addAll) {
+            addRecipient.setEnabled(false);
+        } else if(e.getSource() == addRecipient) {
+
+        }
     }
 
-    public void valueChanged(ListSelectionEvent e){
+    private void setupMail() {
+
+        String myEmailId = "ensf409proffessoremail@gmail.com";
+        String myPassword = "ensf409finalproject";
+        String senderId = "eddyg0303@gmail.com";
+        try {
+            email = new MultiPartEmail();
+            email.setSmtpPort(587);
+            email.setAuthenticator(new DefaultAuthenticator(myEmailId, myPassword));
+            email.setDebug(true);
+            email.setHostName("smtp.gmail.com");
+            email.setFrom(myEmailId);
+            email.addTo(senderId);
+            to.setText(senderId);
+            to.setEditable(false);
+            from.setText(myEmailId);
+            from.setEditable(false);
+            email.setTLS(true);
+        }
+        catch(EmailException e) {
+            e.printStackTrace();
+        }
     }
 
 }

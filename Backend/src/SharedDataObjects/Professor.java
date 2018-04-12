@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Professor extends User implements Serializable{
     public Professor(String lastName, String firstName, String userEmail, int id) {
-        super(lastName, firstName, userEmail,'P');
+        super(lastName, firstName, userEmail, 'P');
         super.setID(id);
     }
 

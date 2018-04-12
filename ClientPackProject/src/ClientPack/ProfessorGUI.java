@@ -278,7 +278,7 @@ public class ProfessorGUI extends JPanel implements ActionListener {
         }
         else if(e.getSource() == openCourse) {
             Course current = courseList.getSelectedValue();
-            manager = new ManageCourses(in, out, current);
+            manager = new ManageCourses(in, out, current, prof);
         }
         else if(e.getSource() == addCourse) {
             this.add();

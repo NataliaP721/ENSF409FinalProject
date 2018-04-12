@@ -14,11 +14,12 @@ import SharedDataObjects.*;
 
 class ManageCourses extends JFrame implements ActionListener{
 
-    ManageCourses(ObjectInputStream in, ObjectOutputStream out, Course course) {
+    ManageCourses(ObjectInputStream in, ObjectOutputStream out, Course course, User prof) {
 
         this.in = in;
         this.out = out;
         this.course = course;
+        this.prof = prof;
         initComponents();
         manageAssignments.addActionListener(this);
         manageSubmissions.addActionListener(this);
@@ -279,7 +280,7 @@ class ManageCourses extends JFrame implements ActionListener{
     private ManageGrades gradeManager;
     private EmailStudents emailManager;
     private EnrollStudents enrollManager;
-
+    private User prof;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -297,7 +298,7 @@ class ManageCourses extends JFrame implements ActionListener{
             gradeManager = new ManageGrades(in, out, course);
         }
         else if(e.getSource() == emailStudents) {
-            emailManager = new EmailStudents(in, out, course);
+            emailManager = new EmailStudents(in, out, course, prof);
         }
         else if(e.getSource() == enrollStudents) {
             enrollManager = new EnrollStudents(in, out, course);

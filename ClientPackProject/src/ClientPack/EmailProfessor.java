@@ -7,20 +7,19 @@ package ClientPack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Properties;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 import SharedDataObjects.*;
+import org.apache.commons.mail.*;
+
 
 /**
  * Creates a page where the student can email their course's professor.
  * @author Aysha Panatch
+ * ObjectInputStream in, ObjectOutputStream out, Course course, User student
  */
 public class EmailProfessor extends JFrame implements ActionListener {
     EmailProfessor(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
@@ -31,12 +30,13 @@ public class EmailProfessor extends JFrame implements ActionListener {
         initComponents();
         back.addActionListener(this);
         send.addActionListener(this);
+        attach.addActionListener(this);
         //USE THE DATABASE TO FIND THE PROF EMAIL USING THE PROF ID IN COURSE THEN SET THE TEXT BELOW
         to.setText("");
         this.setSize(700, 700);
         this.setVisible(true);
         this.setupMail();
-        this.from.setText(student.getUserEmail());
+        //this.from.setText(student.getUserEmail());
     }
 
     /**
@@ -44,7 +44,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
      */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel2 = new JPanel();
         panel5 = new JPanel();
         back = new JButton();
@@ -58,6 +58,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
         label2 = new JLabel();
         subject = new JTextField();
         jlabel4 = new JLabel();
+        attach = new JButton();
         scrollPane2 = new JScrollPane();
         content = new JTextArea();
 
@@ -66,11 +67,11 @@ public class EmailProfessor extends JFrame implements ActionListener {
         setBackground(new Color(115, 194, 251));
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
-                "hidemode 3",
-                // columns
-                "0[700,grow,fill]0",
-                // rows
-                "0[700,grow,fill]0"));
+            "hidemode 3",
+            // columns
+            "0[700,grow,fill]0",
+            // rows
+            "0[700,grow,fill]0"));
 
         //======== panel2 ========
         {
@@ -78,49 +79,44 @@ public class EmailProfessor extends JFrame implements ActionListener {
 
             // JFormDesigner evaluation mark
             panel2.setBorder(new javax.swing.border.CompoundBorder(
-                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                            "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                            javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                            java.awt.Color.red), panel2.getBorder()));
-            panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-                public void propertyChange(java.beans.PropertyChangeEvent e) {
-                    if ("border".equals(e.getPropertyName())) throw new RuntimeException();
-                }
-            });
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                    java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel2.setLayout(new MigLayout(
-                    "hidemode 3",
-                    // columns
-                    "[381,grow,fill]",
-                    // rows
-                    "[]" +
-                            "[]" +
-                            "[]"));
+                "hidemode 3",
+                // columns
+                "[381,grow,fill]",
+                // rows
+                "[]" +
+                "[]" +
+                "[]"));
 
             //======== panel5 ========
             {
                 panel5.setBackground(new Color(115, 194, 251));
                 panel5.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "[]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]" +
-                                "[fill]0" +
-                                "[fill]0",
-                        // rows
-                        "0[fill]0"));
+                    "hidemode 3",
+                    // columns
+                    "[]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]" +
+                    "[fill]0" +
+                    "[fill]0",
+                    // rows
+                    "0[fill]0"));
 
                 //---- back ----
                 back.setText("Back");
@@ -148,17 +144,17 @@ public class EmailProfessor extends JFrame implements ActionListener {
             {
                 panel1.setBackground(new Color(115, 194, 251));
                 panel1.setLayout(new MigLayout(
-                        "hidemode 3",
-                        // columns
-                        "5[644,fill]0",
-                        // rows
-                        "0[22]" +
-                                "[0]" +
-                                "[]" +
-                                "[]" +
-                                "[0]" +
-                                "[]" +
-                                "[479]0"));
+                    "hidemode 3",
+                    // columns
+                    "5[644,fill]0",
+                    // rows
+                    "0[22]" +
+                    "[0]" +
+                    "[]" +
+                    "[]" +
+                    "[0]" +
+                    "[]" +
+                    "[479]0"));
 
                 //---- label1 ----
                 label1.setText("To:");
@@ -200,12 +196,17 @@ public class EmailProfessor extends JFrame implements ActionListener {
                 jlabel4.setForeground(Color.black);
                 panel1.add(jlabel4, "cell 0 5,aligny top,growy 0");
 
+                //---- attach ----
+                attach.setText("attach...");
+                attach.setBackground(Color.white);
+                attach.setForeground(Color.black);
+                panel1.add(attach, "cell 0 5");
+
                 //======== scrollPane2 ========
                 {
 
                     //---- content ----
                     content.setBackground(Color.white);
-                    content.setForeground(Color.white);
                     scrollPane2.setViewportView(content);
                 }
                 panel1.add(scrollPane2, "cell 0 6,grow");
@@ -219,7 +220,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel2;
     private JPanel panel5;
     private JButton back;
@@ -233,6 +234,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
     private JLabel label2;
     private JTextField subject;
     private JLabel jlabel4;
+    private JButton attach;
     private JScrollPane scrollPane2;
     private JTextArea content;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
@@ -249,12 +251,9 @@ public class EmailProfessor extends JFrame implements ActionListener {
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private Course course;
-    private Properties properties;
-    private Session session;
     private User student;
     private User prof;
-    private Message message;
-
+    private MultiPartEmail email;
     /**
      * Generates the correct response/actions depending on what buttons the professor clicks.
      */
@@ -264,49 +263,60 @@ public class EmailProfessor extends JFrame implements ActionListener {
             this.dispose();
         } else if (e.getSource() == send) {
             try {
-                message.setSubject(subject.getText());
-                message.setText(content.getText());
+                email.setSubject(subject.getText());
+                email.setMsg(content.getText());
 
-                Transport.send(message);
+                email.send();
+
+                JOptionPane.showMessageDialog(this, "Email sent!");
             }
-            catch(MessagingException f) {
+            catch(EmailException f) {
                 f.printStackTrace();
             }
-
+        } else if(e.getSource() == attach) {
+            JFileChooser fileBrowser = new JFileChooser();
+            File selectedFile;
+            if(fileBrowser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                selectedFile = fileBrowser.getSelectedFile();
+                EmailAttachment attachment = new EmailAttachment();
+                attachment.setPath(selectedFile.getAbsolutePath());
+                attachment.setDisposition(EmailAttachment.ATTACHMENT);
+                attachment.setDescription("Attachment");
+                attachment.setName(selectedFile.getName());
+                try {
+                    email.attach(attachment);
+                }
+                catch(EmailException f) {
+                    f.printStackTrace();
+                }
+            }
         }
     }
     private void setupMail() {
-        properties = new Properties();
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
-        session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(student.getUserEmail(), "1111");
-            }
-        });
+
+        String myEmailId = "ensf409proffessoremail@gmail.com";
+        String myPassword = "ensf409finalproject";
+        String senderId = "eddyg0303@gmail.com";
         try {
-            message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(student.getUserEmail()));
+            email = new MultiPartEmail();
+            email.setSmtpPort(587);
+            email.setAuthenticator(new DefaultAuthenticator(myEmailId, myPassword));
+            email.setDebug(true);
+            email.setHostName("smtp.gmail.com");
+            email.setFrom(myEmailId);
+            email.addTo(senderId);
+            to.setText(senderId);
+            to.setEditable(false);
+            from.setText(myEmailId);
+            from.setEditable(false);
+            email.setTLS(true);
         }
-        catch(MessagingException e) {
+        catch(EmailException e) {
             e.printStackTrace();
         }
-
-        course.setCommand("GETPROF");
-        try {
-            out.writeObject(course);
-            out.reset();
-            prof = (User)in.readObject();
-        }
-        catch(ClassNotFoundException f) {
-            f.printStackTrace();
-        }
-        catch(IOException g) {
-            g.printStackTrace();
-        }
-        to.setText(prof.getUserEmail());
     }
+//    public static void main(String[] args) {
+//
+//        EmailProfessor mail  = new EmailProfessor(null,  null, null, null);
+//    }
 }
