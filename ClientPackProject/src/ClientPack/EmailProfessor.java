@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import javax.swing.*;
@@ -294,9 +295,21 @@ public class EmailProfessor extends JFrame implements ActionListener {
     }
     private void setupMail() {
 
-        String myEmailId = "ensf409proffessoremail@gmail.com";
+        String myEmailId = student.getUserEmail();
         String myPassword = "ensf409finalproject";
-        String senderId = "eddyg0303@gmail.com";
+        course.setCommand("GETPROFEMAIL");
+        String senderId = "";
+        try {
+            out.writeObject(course);
+            out.reset();
+            senderId = ((User)in.readObject()).getUserEmail();
+        }
+        catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
         try {
             email = new MultiPartEmail();
             email.setSmtpPort(587);
@@ -309,7 +322,7 @@ public class EmailProfessor extends JFrame implements ActionListener {
             to.setEditable(false);
             from.setText(myEmailId);
             from.setEditable(false);
-            email.setTLS(true);
+            email.setSSLOnConnect(true);
         }
         catch(EmailException e) {
             e.printStackTrace();

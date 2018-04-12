@@ -119,6 +119,9 @@ new FormModel {
 							name: "studentList"
 							"background": sfield java.awt.Color lightGray
 							"foreground": sfield java.awt.Color black
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "User"
+							}
 						} )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 0 4,grow"
@@ -207,7 +210,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "attach"
-						"text": "Attach"
+						"text": "attach..."
 						"foreground": sfield java.awt.Color black
 						"background": sfield java.awt.Color white
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
@@ -215,7 +218,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "send"
-						"text": "Send"
+						"text": "send"
 						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {

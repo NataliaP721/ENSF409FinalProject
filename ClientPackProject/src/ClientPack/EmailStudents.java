@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -44,7 +45,7 @@ public class EmailStudents extends JFrame implements ActionListener {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Aysha Panatch
+        // Generated using JFormDesigner Evaluation license - Edward Gu
         panel2 = new JPanel();
         panel3 = new JPanel();
         back = new JButton();
@@ -58,7 +59,7 @@ public class EmailStudents extends JFrame implements ActionListener {
         searchparameter = new JTextField();
         search = new JButton();
         scrollPane5 = new JScrollPane();
-        studentList = new JList();
+        studentList = new JList<>();
         addAll = new JButton();
         addRecipient = new JButton();
         panel1 = new JPanel();
@@ -294,13 +295,13 @@ public class EmailStudents extends JFrame implements ActionListener {
                 panel1.add(jlabel4, "cell 0 5,aligny top,growy 0");
 
                 //---- attach ----
-                attach.setText("Attach");
+                attach.setText("attach...");
                 attach.setForeground(Color.black);
                 attach.setBackground(Color.white);
                 panel1.add(attach, "cell 0 5");
 
                 //---- send ----
-                send.setText("Send");
+                send.setText("send");
                 send.setBackground(Color.white);
                 send.setForeground(Color.black);
                 panel1.add(send, "cell 0 5");
@@ -324,7 +325,7 @@ public class EmailStudents extends JFrame implements ActionListener {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Aysha Panatch
+    // Generated using JFormDesigner Evaluation license - Edward Gu
     private JPanel panel2;
     private JPanel panel3;
     private JButton back;
@@ -338,7 +339,7 @@ public class EmailStudents extends JFrame implements ActionListener {
     private JTextField searchparameter;
     private JButton search;
     private JScrollPane scrollPane5;
-    private JList studentList;
+    private JList<User> studentList;
     private JButton addAll;
     private JButton addRecipient;
     private JPanel panel1;
@@ -394,19 +395,76 @@ public class EmailStudents extends JFrame implements ActionListener {
                 }
             }
         } else if(e.getSource() == search) {
-
+            String param = searchparameter.getText();
+            if(IDradioButton.isSelected()) {
+                Student current = new Student(null, null, null, Integer.parseInt(param));
+                current.setCommand("SEARCHBYID");
+                try {
+                    out.writeObject(current);
+                    out.reset();
+                    studentList.setListData((User[])in.readObject());
+                }
+                catch(ClassNotFoundException f) {
+                    f.printStackTrace();
+                }
+                catch(IOException f) {
+                    f.printStackTrace();
+                }
+            }
+            else if(lastNameradioButton.isSelected()) {
+                Student current = new Student(param, null, null, 0);
+                current.setCommand("SEARCHBYLASTNAME");
+                try {
+                    out.writeObject(current);
+                    out.reset();
+                    studentList.setListData((User[])in.readObject());
+                }
+                catch(ClassNotFoundException f) {
+                    f.printStackTrace();
+                }
+                catch(IOException f) {
+                    f.printStackTrace();
+                }
+            }
         } else if(e.getSource() == addAll) {
             addRecipient.setEnabled(false);
+            course.setCommand("GETEMAILLIST");
+
+            try {
+                out.writeObject(course);
+                out.reset();
+                User[] list = ((User[])in.readObject());
+                for(User current : list) {
+                    email.addBcc(current.getUserEmail());
+                }
+            }
+            catch(ClassNotFoundException f) {
+                f.printStackTrace();
+            }
+            catch(EmailException f) {
+                f.printStackTrace();
+            }
+            catch(IOException f) {
+                f.printStackTrace();
+            }
+            to.setText("ALL");
         } else if(e.getSource() == addRecipient) {
+            User current = studentList.getSelectedValue();
+            try {
+                email.addBcc(current.getUserEmail());
+                to.setText(to.getText() + ", " + current.getUserEmail());
+            }
+            catch(EmailException f) {
+                f.printStackTrace();
+            }
 
         }
     }
 
     private void setupMail() {
 
-        String myEmailId = "ensf409proffessoremail@gmail.com";
+        String myEmailId = prof.getUserEmail();
         String myPassword = "ensf409finalproject";
-        String senderId = "eddyg0303@gmail.com";
         try {
             email = new MultiPartEmail();
             email.setSmtpPort(587);
@@ -414,12 +472,11 @@ public class EmailStudents extends JFrame implements ActionListener {
             email.setDebug(true);
             email.setHostName("smtp.gmail.com");
             email.setFrom(myEmailId);
-            email.addTo(senderId);
-            to.setText(senderId);
+            to.setText("");
             to.setEditable(false);
             from.setText(myEmailId);
             from.setEditable(false);
-            email.setTLS(true);
+            email.setSSLOnConnect(true);
         }
         catch(EmailException e) {
             e.printStackTrace();
