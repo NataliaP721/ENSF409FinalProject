@@ -86,13 +86,6 @@ public class EmailProfessor extends JFrame implements ActionListener {
         {
             panel2.setBackground(new Color(115, 194, 251));
 
-            // JFormDesigner evaluation mark
-            panel2.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
             panel2.setLayout(new MigLayout(
                 "hidemode 3",
                 // columns

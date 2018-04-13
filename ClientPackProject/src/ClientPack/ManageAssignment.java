@@ -54,7 +54,7 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
             out.reset();
             courseName.setText(course.getCourseName());
             Assignment[] received = (Assignment[])(in.readObject());
-            if(received==null) {
+            if(received!=null) {
                 assignmentList.setListData(received);
             }
         }
@@ -95,13 +95,6 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
         //======== panel2 ========
         {
             panel2.setBackground(new Color(115, 194, 251));
-
-            // JFormDesigner evaluation mark
-            panel2.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), panel2.getBorder())); panel2.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
             panel2.setLayout(new MigLayout(
                 "hidemode 3",
@@ -219,12 +212,17 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
         else if(e.getSource() == addAssignment) {
 
             String filePath = addFile();
-            this.addAssign(filePath);
+            boolean r = false;
+            if(filePath!=null) {
+                r = this.addAssign(filePath);
+            }
 
             try {
-                Assignment[] received = (Assignment[])(in.readObject());
-                if(received==null) {
-                    assignmentList.setListData(received);
+                if(r==true){
+                    Assignment[] received = (Assignment[])(in.readObject());
+                    if(received!=null) {
+                        assignmentList.setListData(received);
+                    }
                 }
             }
             catch(ClassNotFoundException c) {
@@ -241,7 +239,7 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
                 out.writeObject(current);
                 out.reset();
                 Assignment[] received = (Assignment[])(in.readObject());
-                if(received==null) {
+                if(received!=null) {
                     assignmentList.setListData(received);
                 }
             }
@@ -265,7 +263,7 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
                 out.writeObject(current);
                 out.reset();
                 Assignment[] received = (Assignment[])(in.readObject());
-                if(received==null) {
+                if(received!=null) {
                     assignmentList.setListData(received);
                 }
             }
@@ -297,6 +295,9 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
             System.out.println(fileExtension);
             fileName = splitString[0];
 
+        }
+        else {
+            return null;
         }
         assert selectedFile != null;
         long length = selectedFile.length();
@@ -333,7 +334,7 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
     /**
      * Creates the dialog box prompting the professor for the assignment they'd like to add.
      */
-    private void addAssign(String filePath) {
+    private boolean addAssign(String filePath) {
 
 
         JTextField assignTitle = new JTextField(20);
@@ -360,8 +361,9 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
             catch(IOException d) {
                 d.printStackTrace();
             }
+            return true;
         }
-
+        return false;
     }
     /**
      * Enables certain buttons when the list is clicked.

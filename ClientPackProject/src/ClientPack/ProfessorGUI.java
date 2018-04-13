@@ -308,11 +308,13 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
             manager = new ManageCourses(in, out, current, prof);
         }
         else if(e.getSource() == addCourse) {
-            this.add();
+            boolean r = this.add();
             try {
-                Course[] received = (Course[])(in.readObject());
-                if(received!=null) {
-                    courseList.setListData(received);
+                if(r == true) {
+                    Course[] received = (Course[]) (in.readObject());
+                    if (received != null) {
+                        courseList.setListData(received);
+                    }
                 }
             }
             catch(ClassNotFoundException c) {
@@ -369,7 +371,7 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
     /**
      * Creates the dialog box prompting the professor for course information for the course they'd like to add.
      */
-    private void add() {
+    private boolean add() {
 
         JTextField courseName = new JTextField(7);
         JTextField courseID = new JTextField(6);
@@ -379,15 +381,11 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
         JPanel addCoursePanel = new JPanel();
         addCoursePanel.add(new JLabel("Enter the course name: "));
         addCoursePanel.add(courseName);
-//        addCoursePanel.add(new JLabel("Enter the course ID: "));
-//        addCoursePanel.add(courseID);
 
         int result = JOptionPane.showConfirmDialog(null, addCoursePanel,
                 "Please Enter Course Information", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             Course newCourse = new Course(this.prof.getID(), courseName.getText(), false);
-
-            //Course newCourse = new Course(Integer.parseInt(courseID.getText()), courseName.getText(), false);
             newCourse.setCourseID(prof.getID());
             newCourse.setCommand("ADD");
             try {
@@ -397,8 +395,9 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
             catch(IOException d) {
                 System.err.println("IO Error");
             }
+            return true;
         }
-
+        return false;
     }
     /**
      * Enables certain buttons when the list is clicked.
