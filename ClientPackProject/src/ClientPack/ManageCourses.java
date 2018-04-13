@@ -13,7 +13,8 @@ import SharedDataObjects.*;
  */
 
 /**
- * @author  Natalia Pavlovic
+ * * Creates the course homepage with the ability to navigate to other windows: Enroll Students, Send Emails, Manage Grades, Manage Submissions, Manage Assignments, or go back to the homepage.
+ * @author  Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
@@ -36,6 +37,9 @@ class ManageCourses extends JFrame implements ActionListener{
         frame1.setVisible(true);
      }
 
+    /**
+     * Intialises and creates the GUI.
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Edward Gu
@@ -276,7 +280,22 @@ class ManageCourses extends JFrame implements ActionListener{
     private EmailStudents emailManager;
     private EnrollStudents enrollManager;
     private User prof;
+    /**
+     * The frame is the main frame of the GUI.
+     * The panel, scrollpane and label fields help with the formatting of the GUI.
+     * Each JButton is named the window that is opened when they are pressed.
+     * in and out are ObjectStreams used to help send data to the server from the client.
+     * Course stores the current course of the GUI.
+     * assignManager is a ManageAssignment object to help modify/create/delete data regarding assignments in and after this GUI.
+     * subManager is a ManageSubmissions object to help modify/create/delete data regarding submissions in and after this GUI.
+     * gradeManager is a ManageGrades object to help modify/create/delete data regarding grades in and after this GUI.
+     * emailManager is a EmailStudents object to help send emails enrolled in the course.
+     * enrollManager is a EnrollStudent object to help modify/create/delete data regarding enrollment in and after this GUI.
+     */
 
+    /**
+     * Generates the correct response/actions depending on what buttons the professor clicks.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == backk) {

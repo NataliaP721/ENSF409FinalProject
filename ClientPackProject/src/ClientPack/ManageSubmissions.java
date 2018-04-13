@@ -15,7 +15,8 @@ import net.miginfocom.swing.*;
  */
 
 /**
- * @author Edward Gu, Natalia Pavlovic
+ * Creates a page that manages submissions according to each assignment submitted.
+ * @author Eddy Gu, Natalia Pavlovic, Aysha Panatch
  * @version 2.0
  * @since April 11, 2018
  */
@@ -50,7 +51,9 @@ import net.miginfocom.swing.*;
             System.err.println("IO Error");
         }
     }
-
+    /**
+     * Intialises and creates the GUI.
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Aysha Panatch
@@ -241,8 +244,18 @@ import net.miginfocom.swing.*;
     private Course course;
     private ObjectInputStream in;
     private ObjectOutputStream out;
+    /**
+     * The frame is the main frame of the GUI.
+     * The panel, scrollpanes and labels fields help with the formatting of the GUI.
+     * the JLists display all assignments and their corresponding submissions.
+     * Each JButton is named the action that executed when they are pressed.
+     * course stores the course in the GUI.
+     * in and out are ObjectStreams used to help send data to the server from the client.
+     */
 
-
+    /**
+     * Generates the correct response/actions depending on what buttons the professor clicks.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == back) {
@@ -290,7 +303,9 @@ import net.miginfocom.swing.*;
         }
     }
 
-
+    /**
+     * Allows the professor to grade the passed in submission.
+     */
     private void grade(Submission submit) {
 
         JTextField gradeMark = new JTextField(3);
@@ -322,6 +337,9 @@ import net.miginfocom.swing.*;
 
     }
 
+    /**
+     * Enables certain buttons when the list is clicked.
+     */
     public void valueChanged(ListSelectionEvent e){
         if(e.getSource()==assignmentList){
             selectAssignment.setEnabled(true);

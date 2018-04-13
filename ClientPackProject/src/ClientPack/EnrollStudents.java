@@ -19,7 +19,8 @@ import javax.swing.event.ListSelectionListener;
 
 
 /**
- * @author Aysha Panatch, Natalia Pavlovic
+ * Creates the student enrollment page with the ability to search all students, enroll/unenroll students, and view class list.
+ * @author Aysha Panatch, Natalia Pavlovic, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
@@ -60,7 +61,9 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
     private void displayClassListActionPerformed(ActionEvent e) {
         // TODO add your code here
     }
-
+    /**
+     * Intialises and creates the GUI.
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Aysha Panatch
@@ -188,7 +191,7 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
 
                 //---- search ----
                 search.setText("Search");
-                search.setFont(new Font("Ubuntu", Font.PLAIN, 17));
+                search.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
                 search.setBackground(Color.white);
                 search.setForeground(Color.black);
                 panel4.add(search, "cell 1 5,alignx right,growx 0");
@@ -207,7 +210,7 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
                 displayAll.setText("Display All");
                 displayAll.setBackground(Color.white);
                 displayAll.setForeground(Color.black);
-                displayAll.setFont(new Font("Ubuntu", Font.PLAIN, 17));
+                displayAll.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
                 displayAll.addActionListener(e -> displayClassListActionPerformed(e));
                 panel4.add(displayAll, "cell 1 7");
 
@@ -215,13 +218,13 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
                 displayClassList.setText("Display Class List");
                 displayClassList.setBackground(Color.white);
                 displayClassList.setForeground(Color.black);
-                displayClassList.setFont(new Font("Ubuntu", Font.PLAIN, 17));
+                displayClassList.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
                 displayClassList.addActionListener(e -> displayClassListActionPerformed(e));
                 panel4.add(displayClassList, "cell 1 7");
 
                 //---- enrollunenrollStudent ----
                 enrollunenrollStudent.setText("Enroll/Unenroll Student");
-                enrollunenrollStudent.setFont(new Font("Ubuntu", Font.PLAIN, 17));
+                enrollunenrollStudent.setFont(new Font(".SF NS Text", Font.PLAIN, 15));
                 enrollunenrollStudent.setBackground(Color.white);
                 enrollunenrollStudent.setForeground(Color.black);
                 panel4.add(enrollunenrollStudent, "cell 1 7");
@@ -256,10 +259,18 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private Course course;
+    /**
+     * The panel, scrollpanes, and labels fields help with the formatting of the GUI.
+     * enrollList is the JList that displays searched students or students in the course.
+     * Each JRadioButton is named the search criteria to find students.
+     * Each JButton is named the action that is executed when they are pressed.
+     * Course stores the current course of the GUI.
+     * in and out are ObjectStreams used to help send data to the server from the client.
+     */
 
-//    public static void main(String[] args) {
-//        EnrollStudents obj = new EnrollStudents();
-//    }
+    /**
+     * Generates the correct response/actions depending on what buttons the professor clicks.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == back) {
@@ -357,6 +368,9 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
         }
     }
 
+    /**
+     * Enables certain buttons when the list is clicked.
+     */
     public void valueChanged(ListSelectionEvent e){
         enrollunenrollStudent.setEnabled(true);
     }

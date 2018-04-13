@@ -7,15 +7,21 @@ import java.io.IOException;
 import SharedDataObjects.*;
 
 /**
- * @author  Natalia Pavlovic
+ *
+ * Represents and allows each user to connect to the learning platform through the Server.
+ * @author  Natalia Pavlovic, Eddy Gu, Aysha Panatch
  * @version 2.0
  * @since April 11, 2018
  */
 
 public class Client {
 
-//    private ProfGui professor;
-//    private StudGui student;
+    /**
+     * login is the LoginWindow GUI class, that is created to authenticate the user.
+     * isProfessor is a boolean that is assigned to true if the user is a professor and not a student.
+     * socket is the Socket between client and server.
+     * socketIn and socketOut are ObjectStreams used to help send data to the server from the client.
+     */
     private LoginWindow login;
     private boolean isProfessor;
     private Socket socket;
@@ -36,6 +42,9 @@ public class Client {
         login = new LoginWindow(socketIn, socketOut);
     }
 
+    /**
+     * Used to communicate with the server during initial authentication and setup.
+     */
     private void communicateServer() {
 
         User user = null;

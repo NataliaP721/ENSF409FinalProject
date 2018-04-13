@@ -17,7 +17,8 @@ import javax.swing.event.ListSelectionListener;
 import SharedDataObjects.*;
 
 /**
- * @author Aysha Panatch, Natalia Pavlovic
+ *  * Creates the student's homepage with all their courses listed, including the ability to activate/deactivate, add, delete and open course page.
+ * @author Aysha Panatch, Natalia Pavlovic, Eddy Gu
  * @version 1.0
  * @since April 11, 2018
  */
@@ -50,6 +51,9 @@ public class StudentGUI extends JFrame implements ActionListener, ListSelectionL
         frame1.setVisible(true);
     }
 
+    /**
+     * Intialises and creates the GUI.
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Edward Gu
@@ -252,7 +256,19 @@ public class StudentGUI extends JFrame implements ActionListener, ListSelectionL
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private ViewCourses manager;
+    /**
+     * The frame is the main frame of the GUI.
+     * The panel, scrollpanes, labels and spacers fields help with the formatting of the GUI.
+     * courseList is the JList that displays all the professor's courses.
+     * Each JButton is named the action that executed when they are pressed.
+     * User stores the professor using the GUI.
+     * in and out are ObjectStreams used to help send data to the server from the client.
+     * manager is a ViewCourses manager to help modify/create/delete data regarding courses in this GUI.
+     */
 
+    /**
+     * Generates the correct response/actions depending on what buttons the professor clicks.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == logout) {
@@ -263,6 +279,9 @@ public class StudentGUI extends JFrame implements ActionListener, ListSelectionL
             manager = new ViewCourses(in, out, current, student);
         }
     }
+    /**
+     * Enables certain buttons when the list is clicked.
+     */
     public void valueChanged (ListSelectionEvent e){
         if(e.getSource() == courseList) {
             openCourse.setEnabled(true);

@@ -19,7 +19,7 @@ import org.apache.commons.mail.*;
 
 /**
  * Creates a page where the student can email their course's professor.
- * @author Aysha Panatch, Natalia Pavlovic
+ * @author Aysha Panatch, Natalia Pavlovic, Eddy Gu
  * @version 1.0
  * @since April 11, 2018
  * ObjectInputStream in, ObjectOutputStream out, Course course, User student
@@ -35,12 +35,10 @@ public class EmailProfessor extends JFrame implements ActionListener {
         back.addActionListener(this);
         send.addActionListener(this);
         attach.addActionListener(this);
-        //USE THE DATABASE TO FIND THE PROF EMAIL USING THE PROF ID IN COURSE THEN SET THE TEXT BELOW
         to.setText("");
         this.setSize(700, 700);
         this.setVisible(true);
         this.setupMail();
-        //this.from.setText(student.getUserEmail());
     }
 
     /**
@@ -298,6 +296,10 @@ public class EmailProfessor extends JFrame implements ActionListener {
             }
         }
     }
+
+    /**
+     * A method to setup each field of the email
+     */
     private void setupMail() {
 
         String myEmailId = student.getUserEmail();
@@ -333,8 +335,4 @@ public class EmailProfessor extends JFrame implements ActionListener {
             e.printStackTrace();
         }
     }
-//    public static void main(String[] args) {
-//
-//        EmailProfessor mail  = new EmailProfessor(null,  null, null, null);
-//    }
 }

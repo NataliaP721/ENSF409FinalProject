@@ -19,7 +19,8 @@ import org.apache.commons.mail.*;
  */
 
 /**
- * @author Aysha Panatch, Natalia Pavlovic
+ * * Creates a page where the professor can email their course's students.
+ * @author Aysha Panatch, Natalia Pavlovic, Eddy Gu
  * @version 1.0
  * @since April 11, 2018
  */
@@ -45,7 +46,9 @@ public class EmailStudents extends JFrame implements ActionListener {
         this.setVisible(true);
 
     }
-
+    /**
+     * Intialises and creates the GUI.
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Aysha Panatch
@@ -364,6 +367,20 @@ public class EmailStudents extends JFrame implements ActionListener {
     private Course course;
     private User prof;
     private MultiPartEmail email;
+    /**
+     * The frame is the main frame of the GUI.
+     * The panel, scrollpanes and labels fields help with the formatting of the GUI.
+     * content is the JTextArea where the student can enter their message.
+     * studentList is the JList that displays the searched student results.
+     * Each JButton is named the action that executed when they are pressed.
+     * course stores the course using the GUI.
+     * in and out are ObjectStreams used to help send data to the server from the client.
+     * visible is the boolean indicating whether the frame is visible.
+     */
+
+    /**
+     * Generates the correct response/actions depending on what buttons the professor clicks.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == back) {
@@ -466,7 +483,9 @@ public class EmailStudents extends JFrame implements ActionListener {
 
         }
     }
-
+    /**
+     * A method to setup each field of the email
+     */
     private void setupMail() {
 
         String myEmailId = prof.getUserEmail();

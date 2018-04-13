@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * @author  Natalia Pavlovic
+ * Represents an email with all it's corresponding fields of information that is sent between client and server as a Serialized object.
+ * @author  Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
 
 public class Email implements Serializable{
+    /**
+     * from email, to emails, email subject, and email content are all fields of data about the email.
+     * command is the command sent to the server so the server knows what to execute according to what the user does in the GUI.
+     */
     private String from;
     private ArrayList<String> to;
     private String emailSubject;
@@ -23,8 +28,9 @@ public class Email implements Serializable{
         this.emailContent = emailContent;
         this.command = null;
     }
-    // Helper methods
-    // get
+    /**
+     * Listed below are helper methods that help us retrieve certain fields and data from the Assignment object.
+     */
     public String getfrom(){
         return this.from;
     }

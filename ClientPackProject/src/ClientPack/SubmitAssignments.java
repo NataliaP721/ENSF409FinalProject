@@ -22,6 +22,9 @@ import java.util.Random;
 
 /**
  * Creates the assignment submission's homepage with all the assignments listed, including the ability to submit assignments
+ * @author Aysha Panatch, Natalia Pavlovic, Eddy Gu
+ * @version 1.0
+ * @since April 11, 2018
  */
 public class SubmitAssignments extends JFrame implements ActionListener, ListSelectionListener {
     SubmitAssignments(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
@@ -259,6 +262,9 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
         }
     }
 
+    /**
+     * Allows the student to add the file to upload.
+     */
     private String addFile() {
         JFileChooser fileBrowser = new JFileChooser();
         File selectedFile = null;
@@ -309,6 +315,9 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
         return filePath;
     }
 
+    /**
+     * Allows the student to add to submission to a particular assignment.
+     */
     private void addSub(String filePath) {
 
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -341,6 +350,9 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
         }
     }
 
+    /**
+     * Enables certain buttons when the list is clicked.
+     */
     public void valueChanged(ListSelectionEvent e){
         if(e.getSource()==assignmentList){
             submitAssignment.setEnabled(true);

@@ -15,7 +15,8 @@ import SharedDataObjects.*;
  */
 
 /**
- * @author  Natalia Pavlovic
+ * Creates the professor's homepage with all their courses listed, including the ability to activate/deactivate, add, delete and open course page.
+ * @author  Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
@@ -56,6 +57,10 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
         frame1.setSize(700, 700);
         frame1.setVisible(true);
     }
+
+    /**
+     * Intialises and creates the GUI.
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Aysha Panatch
@@ -98,6 +103,11 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
                 panel1.setBackground(new Color(115, 194, 251));
 
                 // JFormDesigner evaluation mark
+                panel1.setBorder(new javax.swing.border.CompoundBorder(
+                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                        "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                        java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
                 panel1.setLayout(new GridLayout(4, 1));
 
@@ -198,10 +208,12 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
 
                 //---- activatedeactivate ----
                 activatedeactivate.setText("Activate/Deactivate");
+                activatedeactivate.setBackground(Color.white);
                 panel5.add(activatedeactivate);
 
                 //---- openCourse ----
                 openCourse.setText("Open Course");
+                openCourse.setBackground(Color.white);
                 panel5.add(openCourse);
 
                 //---- addCourse ----
@@ -211,6 +223,7 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
 
                 //---- deleteCourse ----
                 deleteCourse.setText("Delete Course");
+                deleteCourse.setBackground(Color.white);
                 panel5.add(deleteCourse);
             }
             frame1ContentPane.add(panel5, BorderLayout.SOUTH);
@@ -270,12 +283,19 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private ManageCourses manager;
+    /**
+     * The frame is the main frame of the GUI.
+     * The panel, scrollpanes, labels and spacers fields help with the formatting of the GUI.
+     * courseList is the JList that displays all the professor's courses.
+     * Each JButton is named the action that executed when they are pressed.
+     * User stores the professor using the GUI.
+     * in and out are ObjectStreams used to help send data to the server from the client.
+     * manager is a ManageCourses manager to help modify/create/delete data regarding courses in this GUI.
+     */
 
-//
-//    public static void main(String[] args) {
-//        ProfessorGUI obj = new ProfessorGUI();
-//
-//    }
+    /**
+     * Generates the correct response/actions depending on what buttons the professor clicks.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == logout) {
@@ -335,6 +355,9 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
         }
     }
 
+    /**
+     * Creates the dialog box prompting the professor for course information for the course they'd like to add.
+     */
     private void add() {
 
         JTextField courseName = new JTextField(7);
@@ -366,6 +389,9 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
         }
 
     }
+    /**
+     * Enables certain buttons when the list is clicked.
+     */
     public void valueChanged(ListSelectionEvent e){
         activatedeactivate.setEnabled(true);
         deleteCourse.setEnabled(true);

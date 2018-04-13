@@ -3,7 +3,8 @@ package SharedDataObjects;
 import java.io.Serializable;
 
 /**
- * @author  Natalia Pavlovic
+ * Represents a student user with all it's corresponding fields of information.
+ * @author  Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
@@ -16,7 +17,9 @@ public class Student extends User implements Serializable{
     }
 
 
-    // Should specify allowed commands for Students
+    /**
+     * Sets the command that tells the server what to do.
+     */
     public void setCommand(String command) {
         super.setCommand(command);
     }

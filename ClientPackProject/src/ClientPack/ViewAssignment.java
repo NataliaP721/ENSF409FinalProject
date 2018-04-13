@@ -17,10 +17,7 @@ import SharedDataObjects.*;
 
 /**
  * Creates a page listing all assignments with options to view the assignment or view recorded grades for each assignment
- */
-
-/**
- * @author  Natalia Pavlovic
+ * @author  Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
@@ -213,6 +210,9 @@ public class ViewAssignment extends JFrame implements ActionListener, ListSelect
 
     }
 
+    /**
+     * Enables certain buttons when the list is clicked.
+     */
     public void valueChanged(ListSelectionEvent e){
         viewAssignment.setEnabled(true);
     }

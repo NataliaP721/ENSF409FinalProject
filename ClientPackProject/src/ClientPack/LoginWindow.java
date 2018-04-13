@@ -17,7 +17,8 @@ import java.io.IOException;
 
 
 /**
- * @author Aysha Panatch, Natalia Pavlovic
+ * Creates the login window page where uses can authenticate themselves to get into the system as either a professor or student.
+ * @author Aysha Panatch, Natalia Pavlovic, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
@@ -30,7 +31,9 @@ public class LoginWindow extends JFrame implements ActionListener{
         ok.addActionListener(this);
         this.setVisible(true);
     }
-
+    /**
+     * Intialises and creates the GUI.
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Aysha Panatch
@@ -168,17 +171,23 @@ public class LoginWindow extends JFrame implements ActionListener{
 
     private ObjectInputStream in;
     private ObjectOutputStream out;
+    /**
+     * The frame is the main frame of the GUI.
+     * The panel and label fields help with the formatting of the GUI.
+     * The OK JButton is hit when the user is ready to login.
+     * in and out are ObjectStreams used to help send data to the server from the client.
+     */
 
-//    public static void main(String[] args) { //DONT DELETE YET
-//        LoginWindow obj = new LoginWindow();
-//    }
-
-
+    /**
+     * Displays a warning message if the user is not found in the system.
+     */
     JLabel getWarning() {
 
         return warning;
     }
-
+    /**
+     * Generates the correct response/actions when the user clicks the OK button.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == ok) {

@@ -19,7 +19,8 @@ import SharedDataObjects.*;
 
 
 /**
- * @author Aysha Panatch, Natalia Pavlovic
+ *  * Creates the manage assignments page with the ability to add, delete, activate/deactivate and view all assignments.
+ * @author Aysha Panatch, Natalia Pavlovic, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
@@ -54,7 +55,9 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
             System.err.println("IO Error");
         }
     }
-
+    /**
+     * Intialises and creates the GUI.
+     */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Aysha Panatch
@@ -187,7 +190,17 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
     private Course course;
     private ObjectInputStream in;
     private ObjectOutputStream out;
+    /**
+     * The panel, scrollpanes, and labels fields help with the formatting of the GUI.
+     * assignmentList is the JList that displays assignments in the course.
+     * Each JButton is named the action that is executed when they are pressed.
+     * Course stores the current course of the GUI.
+     * in and out are ObjectStreams used to help send data to the server from the client.
+     */
 
+    /**
+     * Generates the correct response/actions depending on what buttons the professor clicks.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == back) {
@@ -246,7 +259,9 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
         }
     }
 
-
+    /**
+     * Allows the professor to add the file to the server's harddrive.
+     */
     private String addFile() {
         JFileChooser fileBrowser = new JFileChooser();
         File selectedFile = null;
@@ -296,7 +311,9 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
 
         return filePath;
     }
-
+    /**
+     * Creates the dialog box prompting the professor for the assignment they'd like to add.
+     */
     private void addAssign(String filePath) {
 
 
@@ -327,7 +344,9 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
         }
 
     }
-
+    /**
+     * Enables certain buttons when the list is clicked.
+     */
     public void valueChanged(ListSelectionEvent e){
         activatedeactivate.setEnabled(true);
         deleteAssignment.setEnabled(true);
