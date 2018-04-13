@@ -20,10 +20,20 @@ public class StudentEnrollment implements Serializable{
     private boolean enrolling;
     private String command;
 
+    /**
+     * Empty constructor
+     */
     public StudentEnrollment() {
 
     }
 
+    /**
+     * Constructs a StudentEnrollment with the specified values for studentID, courseID and Enrolling.
+     * The values for the fields are supplied by the given parameters.
+     * @param studentID the ID of the Student
+     * @param courseID the ID of the Course
+     * @param Enrolling a boolean containing information on if the Student is enrolled in the Course or not.
+     */
     public StudentEnrollment(int studentID, int courseID, boolean Enrolling) {
         this.studentID = studentID;
         this.courseID = courseID;

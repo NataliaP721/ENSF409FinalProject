@@ -22,6 +22,13 @@ import net.miginfocom.swing.*;
  */
 
     class ManageSubmissions extends JFrame implements ActionListener, ListSelectionListener{
+    /**
+     * Constructs a ManageSubmissions object with the specified values for in, out and course.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     * @param course the course whose Submissions are being managed
+     */
     ManageSubmissions(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
@@ -42,7 +49,10 @@ import net.miginfocom.swing.*;
             course.setCommand("GETASSIGNMENTS");
             out.writeObject(course);
             out.reset();
-            assignmentList.setListData((Assignment[])(in.readObject()));
+            Assignment [] received = (Assignment[])(in.readObject());
+            if(received!=null) {
+                assignmentList.setListData(received);
+            }
         }
         catch(ClassNotFoundException e) {
             System.err.println("error");
@@ -267,7 +277,10 @@ import net.miginfocom.swing.*;
             try {
                 out.writeObject(current);
                 out.reset();
-                submissionList.setListData((Submission[])(in.readObject()));
+                Submission [] received = (Submission[])(in.readObject());
+                if(received!=null) {
+                    submissionList.setListData(received);
+                }
             }
             catch(ClassNotFoundException c) {
                 System.err.println("Object error");
@@ -325,7 +338,10 @@ import net.miginfocom.swing.*;
             try {
                 out.writeObject(newGrade);
                 out.reset();
-                submissionList.setListData((Submission[])(in.readObject()));
+                Submission [] received = (Submission[])(in.readObject());
+                if(received!=null) {
+                    submissionList.setListData(received);
+                }
             }
             catch(ClassNotFoundException e) {
                 System.err.println("error");

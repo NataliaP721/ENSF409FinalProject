@@ -20,6 +20,14 @@ import SharedDataObjects.*;
  */
 
 public class ViewCourses extends JFrame implements ActionListener{
+    /**
+     * Constructs a ViewCourses object with the specified values for in, out, course and student.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     * @param course the Course that is being viewed
+     * @param student the Student who is viewing the course
+     */
     ViewCourses(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;
         this.out = out;

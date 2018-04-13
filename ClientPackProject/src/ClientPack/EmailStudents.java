@@ -19,13 +19,21 @@ import org.apache.commons.mail.*;
  */
 
 /**
- * * Creates a page where the professor can email their course's students.
+ * Creates a page where the professor can email their course's students.
  * @author Aysha Panatch, Natalia Pavlovic, Eddy Gu
  * @version 1.0
  * @since April 11, 2018
  */
 
 public class EmailStudents extends JFrame implements ActionListener {
+    /**
+     * Constructs an EmailStudents object with the specified values for in, out, course and prof.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     * @param course the Course of the Professor
+     * @param prof the Professor who is emailing the Students
+     */
     EmailStudents(ObjectInputStream in, ObjectOutputStream out, Course course, User prof) {
         this.in = in;
         this.out = out;
@@ -425,7 +433,10 @@ public class EmailStudents extends JFrame implements ActionListener {
                 try {
                     out.writeObject(current);
                     out.reset();
-                    studentList.setListData((User[])in.readObject());
+                    User[] received = (User[])in.readObject();
+                    if(received!=null){
+                        studentList.setListData(received);
+                    }
                 }
                 catch(ClassNotFoundException f) {
                     f.printStackTrace();
@@ -440,7 +451,10 @@ public class EmailStudents extends JFrame implements ActionListener {
                 try {
                     out.writeObject(current);
                     out.reset();
-                    studentList.setListData((User[])in.readObject());
+                    User[] received = (User[])in.readObject();
+                    if(received!=null){
+                        studentList.setListData(received);
+                    }
                 }
                 catch(ClassNotFoundException f) {
                     f.printStackTrace();

@@ -3,7 +3,8 @@ package SharedDataObjects;
 import java.io.Serializable;
 
 /**
- * Represents an upload instance with all it's corresponding fields of information that is sent between client and server as a Serialized object.
+ * Represents an upload instance with all it's corresponding fields of information that is sent between client and server as a
+ * Serialized object, allowing the user to upload or download a file as a byte array
  * @author  Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
@@ -20,7 +21,11 @@ public class Upload implements Serializable{
     private String fileExtension;
 
     /**
-     * A method to allow the user to upload a file as a byte array
+     * Constructs an Upload object with the specified values for content, fileName and fileExtension.
+     * The values for the fields are supplied by the given parameters.
+     * @param content the content of the file as a byte array
+     * @param fileName the name of the file
+     * @param fileExtension the file extension of the file
      */
     public Upload(byte[] content, String fileName, String fileExtension) {
         this.content = content;

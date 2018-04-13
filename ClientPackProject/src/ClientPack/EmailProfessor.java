@@ -22,10 +22,17 @@ import org.apache.commons.mail.*;
  * @author Aysha Panatch, Natalia Pavlovic, Eddy Gu
  * @version 1.0
  * @since April 11, 2018
- * ObjectInputStream in, ObjectOutputStream out, Course course, User student
  */
 
 public class EmailProfessor extends JFrame implements ActionListener {
+    /**
+     * Constructs an EmailProfessor object with the specified values for in, out, course and student.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     * @param course the Course of the Professor
+     * @param student the Student who is emailing the Professor
+     */
     EmailProfessor(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;
         this.out = out;

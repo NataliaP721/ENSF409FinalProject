@@ -24,6 +24,12 @@ import java.io.IOException;
  */
 
 public class LoginWindow extends JFrame implements ActionListener{
+    /**
+     * Creates a LoginWindow object with the specified values for in and out.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     */
     LoginWindow(ObjectInputStream in, ObjectOutputStream out) {
         this.out = out;
         this.in = in;

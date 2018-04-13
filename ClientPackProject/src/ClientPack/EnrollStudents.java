@@ -26,6 +26,13 @@ import javax.swing.event.ListSelectionListener;
  */
 
 public class EnrollStudents extends JFrame implements ActionListener, ListSelectionListener{
+    /**
+     * Creates an EnrollStudents object with the specified values for in, out and course.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     * @param course the course the students are being enrolled/unenrolled from
+     */
     EnrollStudents(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
@@ -47,8 +54,10 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
             course.setCommand("GETSTUDENTS");
             out.writeObject(course);
             out.reset();
-            System.out.println(course.getCourseName());
-            enrollList.setListData((StudentEnrollment[]) (in.readObject()));
+            StudentEnrollment[] received = (StudentEnrollment[]) (in.readObject());
+            if(received!=null){
+                enrollList.setListData(received);
+            }
         }
         catch (ClassNotFoundException e) {
             System.err.println("Object Error");
@@ -286,7 +295,10 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
                 try {
                     out.writeObject(current);
                     out.reset();
-                    enrollList.setListData((StudentEnrollment[]) (in.readObject()));
+                    StudentEnrollment[] received = (StudentEnrollment[]) (in.readObject());
+                    if(received!=null){
+                        enrollList.setListData(received);
+                    }
                 }
                 catch(ClassNotFoundException f) {
                     System.err.println("Object Error");
@@ -302,7 +314,10 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
                 try {
                     out.writeObject(current);
                     out.reset();
-                    enrollList.setListData((StudentEnrollment[])in.readObject());
+                    StudentEnrollment[] received = (StudentEnrollment[]) (in.readObject());
+                    if(received!=null){
+                        enrollList.setListData(received);
+                    }
                 }
                 catch(ClassNotFoundException f) {
                     System.err.println("Object Error");
@@ -319,7 +334,10 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
             try {
                 out.writeObject(course);
                 out.reset();
-                enrollList.setListData((StudentEnrollment[]) in.readObject());
+                StudentEnrollment[] received = (StudentEnrollment[]) (in.readObject());
+                if(received!=null){
+                    enrollList.setListData(received);
+                }
             }
             catch(ClassNotFoundException f) {
                 System.err.println("Object Error");
@@ -342,7 +360,10 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
             try {
                 out.writeObject(current);
                 out.reset();
-                enrollList.setListData((StudentEnrollment[])in.readObject());
+                StudentEnrollment[] received = (StudentEnrollment[]) (in.readObject());
+                if(received!=null){
+                    enrollList.setListData(received);
+                }
             }
             catch(ClassNotFoundException f) {
                 System.err.println("Object Error");
@@ -356,8 +377,10 @@ public class EnrollStudents extends JFrame implements ActionListener, ListSelect
                 course.setCommand("GETSTUDENTS");
                 out.writeObject(course);
                 out.reset();
-                System.out.println(course.getCourseName());
-                enrollList.setListData((StudentEnrollment[]) (in.readObject()));
+                StudentEnrollment[] received = (StudentEnrollment[]) (in.readObject());
+                if(received!=null){
+                    enrollList.setListData(received);
+                }
             }
             catch (ClassNotFoundException d) {
                 System.err.println("Object Error");

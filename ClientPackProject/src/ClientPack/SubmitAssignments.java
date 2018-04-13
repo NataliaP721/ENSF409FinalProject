@@ -27,6 +27,14 @@ import java.util.Random;
  * @since April 11, 2018
  */
 public class SubmitAssignments extends JFrame implements ActionListener, ListSelectionListener {
+    /**
+     * Constructs a SubmitAssignments object with the specified values for in, out, course and student.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     * @param course the Course the Student is submitting the Assignments for
+     * @param student the Student who is submitting their Assignments
+     */
     SubmitAssignments(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;
         this.out = out;
@@ -41,14 +49,17 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
         submitAssignment.setEnabled(false);
         assignmentList.addListSelectionListener(this);
         submissionList.addListSelectionListener(this);
-        viewSubmissions.setEnabled(false);
+        viewSubmissions.setEnabled(true);
         this.setSize(700,700);
         this.setVisible(true);
         try {
             course.setCommand("GETACTIVE");
             out.writeObject(course);
             out.reset();
-            assignmentList.setListData((Assignment[])(in.readObject()));
+            Assignment [] received = (Assignment[])(in.readObject());
+            if(received!=null) {
+                assignmentList.setListData(received);
+            }
         }
         catch(ClassNotFoundException e) {
             System.err.println("error");
@@ -234,7 +245,10 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
             selected = assignmentList.getSelectedValue();
             this.addSub(this.addFile());
             try {
-                submissionList.setListData((Submission[])in.readObject());
+                Submission[] received = (Submission[])in.readObject();
+                if(received!=null) {
+                    submissionList.setListData(received);
+                }
             }
             catch(ClassNotFoundException f) {
                 f.printStackTrace();
@@ -250,8 +264,10 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
             try {
                 out.writeObject(view);
                 out.reset();
-               // System.out.println(((Submission[])in.readObject())[0].getSubmissionPath());
-                submissionList.setListData((Submission[])in.readObject());
+                Submission[] received = (Submission[])in.readObject();
+                if(received!=null) {
+                    submissionList.setListData(received);
+                }
             }
             catch(ClassNotFoundException f) {
                 f.printStackTrace();
@@ -356,9 +372,6 @@ public class SubmitAssignments extends JFrame implements ActionListener, ListSel
     public void valueChanged(ListSelectionEvent e){
         if(e.getSource()==assignmentList){
             submitAssignment.setEnabled(true);
-        }
-        else if(e.getSource()==submissionList){
-            viewSubmissions.setEnabled(true);
         }
     }
 }

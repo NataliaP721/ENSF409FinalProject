@@ -16,13 +16,21 @@ import net.miginfocom.swing.*;
 import SharedDataObjects.*;
 
 /**
- * Creates a page listing all assignments with options to view the assignment or view recorded grades for each assignment
+ * Creates a page listing all assignments with options to view the assignment
  * @author  Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
 
 public class ViewAssignment extends JFrame implements ActionListener, ListSelectionListener {
+    /**
+     * Constructs a ViewAssignment object with the specifed values for in, out, course and student.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     * @param course the Course whose Assignments the Student is viewing
+     * @param student the Student who is viewing the Assignments
+     */
     ViewAssignment(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;
         this.out = out;
@@ -43,7 +51,10 @@ public class ViewAssignment extends JFrame implements ActionListener, ListSelect
             out.writeObject(course);
             out.reset();
             System.out.println(course.getCourseName());
-            assignmentList.setListData((Assignment[]) (in.readObject()));
+            Assignment[] received = (Assignment[])in.readObject();
+            if(received!=null) {
+                assignmentList.setListData(received);
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException f) {

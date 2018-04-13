@@ -9,7 +9,6 @@ import java.io.Serializable;
  * @since April 11, 2018
  */
 
-
 public class LoginInfo implements Serializable{
     /**
      * assignmentID and password are fields of data of any instance of login information.
@@ -19,6 +18,11 @@ public class LoginInfo implements Serializable{
     private String password;
     private String command;
 
+    /**
+     * Constructs a LoginInfo object with the specified value password.
+     * The values for the fields are supplied by the given parameters.
+     * @param password the password of the User used to Login
+     */
     public LoginInfo(String password) {
         this.password = password;
         this.command = null;

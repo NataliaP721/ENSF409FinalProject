@@ -21,6 +21,13 @@ public class Course implements Serializable{
     private boolean active;
     private String command;
 
+    /**
+     * Constructs the Course object with the specfied values for professorID, courseName and active.
+     * The values for the fields are supplied by the given parameters.
+     * @param professorID the ID of the Professor for the Course
+     * @param courseName the name of the Course
+     * @param active a boolean containing information on if the Course is active or not
+     */
     public Course(int professorID, String courseName, boolean active) {
         this.professorID = professorID;
         this.courseName = courseName;

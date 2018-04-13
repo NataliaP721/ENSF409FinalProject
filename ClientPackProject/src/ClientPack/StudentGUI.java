@@ -24,6 +24,13 @@ import SharedDataObjects.*;
  */
 
 public class StudentGUI extends JFrame implements ActionListener, ListSelectionListener {
+    /**
+     * Constructs a Student object with the specified values for in, out and student.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     * @param student the Student whose GUI is constructed
+     */
     StudentGUI(ObjectInputStream in, ObjectOutputStream out, User student) {
         this.in = in;
         this.out = out;
@@ -35,7 +42,10 @@ public class StudentGUI extends JFrame implements ActionListener, ListSelectionL
             //MODIFY COMMAND BASED ON THE FUNCTION DESIRED
             student.setCommand("GETCOURSES");
             out.writeObject(student);
-            courseList.setListData((Course[])(in.readObject()));
+            Course[] received = (Course[])(in.readObject());
+            if(received!=null) {
+                courseList.setListData(received);
+            }
         }
         catch(ClassNotFoundException e) {
             e.printStackTrace();
@@ -91,13 +101,6 @@ public class StudentGUI extends JFrame implements ActionListener, ListSelectionL
             //======== panel1 ========
             {
                 panel1.setBackground(new Color(115, 194, 251));
-
-                // JFormDesigner evaluation mark
-                panel1.setBorder(new javax.swing.border.CompoundBorder(
-                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                        "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
                 panel1.setLayout(new GridLayout(4, 1));
 

@@ -7,7 +7,6 @@ import java.io.IOException;
 import SharedDataObjects.*;
 
 /**
- *
  * Represents and allows each user to connect to the learning platform through the Server.
  * @author  Natalia Pavlovic, Eddy Gu, Aysha Panatch
  * @version 2.0
@@ -28,6 +27,12 @@ public class Client {
     private ObjectInputStream socketIn;
     private ObjectOutputStream socketOut;
 
+    /**
+     * Constructs a Client object with the specified values for host and port.
+     * The values for the fields are supplied by the given parameters.
+     * @param host the name of the server the Client is trying to connect to
+     * @param port the port number that will be used to connect to the server
+     */
     private Client(String host, int port) {
 
         try {

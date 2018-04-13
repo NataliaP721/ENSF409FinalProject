@@ -22,7 +22,13 @@ import SharedDataObjects.*;
  */
 
 public class ProfessorGUI extends JPanel implements ActionListener, ListSelectionListener {
-
+    /**
+     * Constructs a ProfessorGUI with the specfied values for in, out and prof.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     * @param prof the Professor whose GUI is constructed
+     */
     ProfessorGUI(ObjectInputStream in, ObjectOutputStream out, User prof) {
         this.in = in;
         this.out = out;
@@ -33,7 +39,10 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
         try {
             prof.setCommand("GETCOURSES");
             out.writeObject(prof);
-            courseList.setListData((Course[])(in.readObject()));
+            Course[] received = (Course[])(in.readObject());
+            if(received!=null) {
+                courseList.setListData(received);
+            }
         }
         catch(ClassNotFoundException e) {
             System.err.println("error");
@@ -101,13 +110,6 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
             //======== panel1 ========
             {
                 panel1.setBackground(new Color(115, 194, 251));
-
-                // JFormDesigner evaluation mark
-                panel1.setBorder(new javax.swing.border.CompoundBorder(
-                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                        "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
                 panel1.setLayout(new GridLayout(4, 1));
 
@@ -308,7 +310,10 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
         else if(e.getSource() == addCourse) {
             this.add();
             try {
-                courseList.setListData((Course[])(in.readObject()));
+                Course[] received = (Course[])(in.readObject());
+                if(received!=null) {
+                    courseList.setListData(received);
+                }
             }
             catch(ClassNotFoundException c) {
                 System.err.println("Object error");
@@ -328,8 +333,11 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
             current.setCommand("MOD");
             try {
                 out.writeObject(current);
-                out.flush();
-                courseList.setListData((Course[])in.readObject());
+                out.reset();
+                Course[] received = (Course[])(in.readObject());
+                if(received!=null) {
+                    courseList.setListData(received);
+                }
             }
             catch(ClassNotFoundException c) {
                 System.err.println("Object error");
@@ -344,7 +352,10 @@ public class ProfessorGUI extends JPanel implements ActionListener, ListSelectio
             try {
                 out.writeObject(current);
                 out.flush();
-                courseList.setListData((Course[])in.readObject());
+                Course[] received = (Course[])(in.readObject());
+                if(received!=null) {
+                    courseList.setListData(received);
+                }
             }
             catch(ClassNotFoundException c) {
                 System.err.println("Object error");

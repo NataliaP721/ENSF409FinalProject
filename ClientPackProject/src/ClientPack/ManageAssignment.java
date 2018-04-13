@@ -26,6 +26,13 @@ import SharedDataObjects.*;
  */
 
 public class ManageAssignment extends JFrame implements ActionListener, ListSelectionListener{
+    /**
+     * Constructs a ManageAssignment object with the specified values for in, out and course.
+     * The values for the fields are supplied by the given parameters.
+     * @param in the ObjectInputStream used to read objects from the socket
+     * @param out the ObjectOutputStream used to write objects to the socket
+     * @param course the Course whose Assignments are being managed
+     */
     ManageAssignment(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
         this.out = out;
@@ -46,7 +53,10 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
             out.writeObject(course);
             out.reset();
             courseName.setText(course.getCourseName());
-            assignmentList.setListData((Assignment[]) (in.readObject()));
+            Assignment[] received = (Assignment[])(in.readObject());
+            if(received==null) {
+                assignmentList.setListData(received);
+            }
         }
         catch (ClassNotFoundException e) {
             System.err.println("Class not found");
@@ -212,7 +222,10 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
             this.addAssign(filePath);
 
             try {
-                assignmentList.setListData((Assignment[])(in.readObject()));
+                Assignment[] received = (Assignment[])(in.readObject());
+                if(received==null) {
+                    assignmentList.setListData(received);
+                }
             }
             catch(ClassNotFoundException c) {
                 System.err.println("Object error");
@@ -227,7 +240,10 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
             try {
                 out.writeObject(current);
                 out.reset();
-                assignmentList.setListData((Assignment[])(in.readObject()));
+                Assignment[] received = (Assignment[])(in.readObject());
+                if(received==null) {
+                    assignmentList.setListData(received);
+                }
             }
             catch(ClassNotFoundException c) {
                 System.err.println("Object error");
@@ -248,7 +264,10 @@ public class ManageAssignment extends JFrame implements ActionListener, ListSele
             try {
                 out.writeObject(current);
                 out.reset();
-                assignmentList.setListData((Assignment[])(in.readObject()));
+                Assignment[] received = (Assignment[])(in.readObject());
+                if(received==null) {
+                    assignmentList.setListData(received);
+                }
             }
             catch(ClassNotFoundException c) {
                 System.err.println("Object error");

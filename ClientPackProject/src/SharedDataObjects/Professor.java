@@ -10,6 +10,14 @@ import java.io.Serializable;
  */
 
 public class Professor extends User implements Serializable{
+    /**
+     * Constructs a Professor object with the specified values for lastName, firstName, userEmail and id.
+     * The values for the fields are supplied by the given parameters.
+     * @param lastName the last name of the Professor
+     * @param firstName the first name of the Professor
+     * @param userEmail the email of the Professor
+     * @param id the id of the Professor
+     */
     public Professor(String lastName, String firstName, String userEmail, int id) {
         super(lastName, firstName, userEmail, 'P');
         super.setID(id);

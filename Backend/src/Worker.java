@@ -10,7 +10,7 @@ import SharedDataObjects.*;
 /**
  * The purpose of this class read objects from the socket, respond to this input, and write
  * objects to the socket for the Client to read.
- * @author  Natalia Pavlovic
+ * @author Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
@@ -38,7 +38,7 @@ public class Worker implements Runnable {
 
     /**
      * Constructs a Worker object with the specified values for database and socket.
-     * The values for the fields are supplised by the given paramets.
+     * The values for the fields are supplied by the given parameters.
      * @param database the DatabaseHelper that manages connecting and communicating with database.
      * @param socket the Server socket used to communicate with the Client
      */
@@ -164,7 +164,6 @@ public class Worker implements Runnable {
                     else if(course.getCommand().equals("GETEMAILLIST")) {
                         ArrayList<User> classlist= databaseHelper.searchEnrolledEmail(course.getCourseID());
                         User [] students = classlist.toArray(new User [classlist.size()]);
-                        System.out.println(students[0].getUserEmail());
                         out.writeObject(students);
                         out.reset();
                     }

@@ -97,7 +97,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "search"
 						"text": "Search"
-						"font": new java.awt.Font( "Ubuntu", 0, 17 )
+						"font": new java.awt.Font( ".SF NS Text", 0, 15 )
 						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
@@ -121,7 +121,7 @@ new FormModel {
 						"text": "Display All"
 						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
-						"font": &Font0 new java.awt.Font( "Ubuntu", 0, 17 )
+						"font": new java.awt.Font( ".SF NS Text", 0, 15 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "displayClassListActionPerformed", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 7"
@@ -131,7 +131,7 @@ new FormModel {
 						"text": "Display Class List"
 						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
-						"font": #Font0
+						"font": new java.awt.Font( ".SF NS Text", 0, 15 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "displayClassListActionPerformed", true ) )
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 						"value": "cell 1 7"
@@ -139,7 +139,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "enrollunenrollStudent"
 						"text": "Enroll/Unenroll Student"
-						"font": new java.awt.Font( "Ubuntu", 0, 17 )
+						"font": new java.awt.Font( ".SF NS Text", 0, 15 )
 						"background": sfield java.awt.Color white
 						"foreground": sfield java.awt.Color black
 					}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {

@@ -9,7 +9,7 @@ import java.util.Iterator;
 /**
  * This class allows you to create and manage a FinalProjectDB database.
  * It creates a database and several datatables, then populates them based on user input.
- * @author Natalia Pavlovic
+ * @author Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
@@ -92,11 +92,11 @@ public class DatabaseHelper {
             addUser(new User("Flintstone", "Fred", "ensf409proffessoremail@gmail.com",  'S' ), new LoginInfo("12345"));
             addUser(new User("Simpson", "Bart", "natalia.nzp@gmail.com",  'S' ), new LoginInfo("12345"));
 
-            addCourse(new Course( 1, "ENSF409", true));
-            addCourse(new Course(1, "ENSF410", true));
-            addCourse(new Course(1, "ENSF411", true));
-            addCourse(new Course( 1, "ENSF412", true));
-            addCourse(new Course( 2, "ENSF413", true));
+            addCourse(new Course( 1, "ENSF409", false));
+            addCourse(new Course(1, "ENSF410", false));
+            addCourse(new Course(1, "ENSF411", false));
+            addCourse(new Course( 1, "ENSF412", false));
+            addCourse(new Course( 2, "ENSF413", false));
         }
         catch( SQLException e)
         {

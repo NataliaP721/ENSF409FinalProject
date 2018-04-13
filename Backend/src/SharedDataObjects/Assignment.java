@@ -3,12 +3,18 @@ package SharedDataObjects;
 import java.io.Serializable;
 
 /**
- * @author  Natalia Pavlovic
+ * Represents an assignment with all it's corresponding fields of information that is sent between client and server as a Serialized object.
+ * @author  Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 2.0
  * @since April 11, 2018
  */
 
 public class Assignment implements Serializable{
+    /**
+     * generated assignmentID, corresponding courseID, assignmentTitle, assignmentPath in the server harddrive,
+     * activity of the assignment (boolean) and dueDate of the assignment are all fields of data about the assignment.
+     * command is the command sent to the server so the server knows what to execute according to what the user does in the GUI.
+     */
     private int assignmentID;
     private int courseID;
     private String assignmentTitle;
@@ -17,6 +23,16 @@ public class Assignment implements Serializable{
     private String dueDate;
     private String command;
 
+    /**
+     * Conctructs an Assignment object from the specified values for courseID,
+     * assignmentTitle, assignmentOath, active and dueDate.
+     * The values for the fields are supplied by the given parameters.
+     * @param courseID the ID of the Course the Assignment is for
+     * @param assignmentTitle the title of the Assignment
+     * @param assignmentPath the path of the Assignment on the server harddrive
+     * @param active a boolean containing information on if the Assignment is active or not
+     * @param dueDate the Assignment due date
+     */
     public Assignment(int courseID, String assignmentTitle,
                       String assignmentPath, boolean active, String dueDate) {
         this.courseID = courseID;
@@ -27,8 +43,9 @@ public class Assignment implements Serializable{
         this.command = null;
     }
 
-    // Helper methods
-    // get
+    /**
+     * Listed below are helper methods that help us retrieve certain fields and data from the Assignment object.
+     */
     public int getAssignmentID() {
         return this.assignmentID;
     }
@@ -54,6 +71,9 @@ public class Assignment implements Serializable{
     public String getCommand() {
         return this.command;
     }
+    /**
+     * Sets the command that tells the server what to do.
+     */
     public void setCommand(String com) { this.command = com;}
     public void setActive(boolean active) {
         this.active = active;
@@ -62,6 +82,9 @@ public class Assignment implements Serializable{
         this.assignmentID = assignmentID;
     }
 
+    /**
+     * Overridden toString function for this object to allow us to print the desired data from the object as a String in ManageAssignments.
+     */
     @Override
     public String toString() {
         String answer = assignmentTitle;

@@ -21,9 +21,21 @@ public class User implements Serializable{
     private char userType;
     private String command;
 
+    /**
+     * Empty constructor
+     */
     public User() {
 
     }
+
+    /**
+     * Constructs a User object with the specified values for lastName, firstName, userEmail and userType.
+     * The values for the fields are supplied by the given parameters.
+     * @param lastName the last name of the Professor
+     * @param firstName the first name of the Professor
+     * @param userEmail the email of the Professor
+     * @param userType the type of user. Either 'S" for Student or 'P' for Professor.
+     */
     public User(String lastName, String firstName, String userEmail, char userType) {
         this.lastName = lastName;
         this.firstName = firstName;

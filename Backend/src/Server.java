@@ -4,7 +4,7 @@ import java.util.concurrent.*;
 
 /**
  * The purpose of this class is to create the Server to allow communication with the Client.
- * @author  Natalia Pavlovic
+ * @author Natalia Pavlovic, Aysha Panatch, Eddy Gu
  * @version 1.0
  * @since April 5, 2018
  */

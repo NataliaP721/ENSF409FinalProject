@@ -107,10 +107,12 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "activatedeactivate"
 					"text": "Activate/Deactivate"
+					"background": sfield java.awt.Color white
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "openCourse"
 					"text": "Open Course"
+					"background": sfield java.awt.Color white
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "addCourse"
@@ -120,6 +122,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "deleteCourse"
 					"text": "Delete Course"
+					"background": sfield java.awt.Color white
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "South"

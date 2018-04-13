@@ -25,11 +25,28 @@ public class Submission implements Serializable{
     private String assignmentTitle;
     private String command;
 
-
+    /**
+     * Constructs a Submission object with the specified values for assignmentID and studentID.
+     * The values for the fields are supplied by the given parameters.
+     * @param assignmentID the ID of the Assignment for which this Submission was made.
+     * @param studentID the ID of the Student who made the Submission
+     */
     public Submission(int assignmentID, int studentID) {
         this.assignmentID = assignmentID;
         this.studentID = studentID;
     }
+    /**
+     * Constructs a Submission object with the specified values for assignmentID, studentID,
+     * submissionPath, submissionGrade, submissionComment, submissionTimeStamp and assignmentTitle.
+     * The values for the fields are supplied by the given parameters.
+     * @param assignmentID the ID of the Assignment for which this Submission was made.
+     * @param studentID the ID of the Student who made the Submission
+     * @param submissionPath the path of the Submission on the server harddrive
+     * @param submissionGrade the Grade given for the Submission
+     * @param submissionComment the comment the Student gave when making the submission
+     * @param submissionTimestamp the date and time the Submission was made
+     * @param assignmentTitle the title of the Assignment the Submission was made for
+     */
     public Submission(int assignmentID, int studentID, String submissionPath, int submissionGrade,
                       String submissionComment, String submissionTimestamp, String assignmentTitle) {
         this.assignmentID = assignmentID;

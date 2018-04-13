@@ -23,6 +23,16 @@ public class Assignment implements Serializable{
     private String dueDate;
     private String command;
 
+    /**
+     * Conctructs an Assignment object from the specified values for courseID,
+     * assignmentTitle, assignmentOath, active and dueDate.
+     * The values for the fields are supplied by the given parameters.
+     * @param courseID the ID of the Course the Assignment is for
+     * @param assignmentTitle the title of the Assignment
+     * @param assignmentPath the path of the Assignment on the server harddrive
+     * @param active a boolean containing information on if the Assignment is active or not
+     * @param dueDate the Assignment due date
+     */
     public Assignment(int courseID, String assignmentTitle,
                       String assignmentPath, boolean active, String dueDate) {
         this.courseID = courseID;

@@ -22,6 +22,14 @@ public class Grade implements Serializable{
     private int assignmentGrade;
     private String command;
 
+    /**
+     * Constructs a Grade object from the specified values for assignmentID, studentID, courseID and assignmentGrade.
+     * The values for the fields are supplied by the given parameters.
+     * @param assignmentID the ID of the Assignment whose Submissions are being graded
+     * @param studentID the ID of the Student who Assignment Submission is being graded
+     * @param courseID the ID of the Course this Assignment belongs to
+     * @param assignmentGrade the Grade the Student Submission received for the Assignment
+     */
     public Grade(int assignmentID, int studentID, int courseID, int assignmentGrade) {
         this.assignmentID = assignmentID;
         this.studentID = studentID;
