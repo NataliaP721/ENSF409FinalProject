@@ -18,11 +18,12 @@ import org.apache.commons.mail.*;
  * Created by JFormDesigner on Sun Apr 01 12:19:26 MDT 2018
  */
 
-
-
 /**
- * @author Aysha Panatch
+ * @author Aysha Panatch, Natalia Pavlovic
+ * @version 1.0
+ * @since April 11, 2018
  */
+
 public class EmailStudents extends JFrame implements ActionListener {
     EmailStudents(ObjectInputStream in, ObjectOutputStream out, Course course, User prof) {
         this.in = in;
@@ -457,8 +458,7 @@ public class EmailStudents extends JFrame implements ActionListener {
             User current = studentList.getSelectedValue();
             try {
                 email.addBcc(current.getUserEmail());
-                to.setText(to.getText()+current.getUserEmail());
-                //to.setText(to.getText() + ", " + current.getUserEmail());
+                to.setText(to.getText()+current.getUserEmail()+ ", ");
             }
             catch(EmailException f) {
                 f.printStackTrace();

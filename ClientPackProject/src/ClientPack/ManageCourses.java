@@ -12,6 +12,12 @@ import SharedDataObjects.*;
  * Created by JFormDesigner on Sun Apr 01 12:59:24 MDT 2018
  */
 
+/**
+ * @author  Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
+ */
+
 class ManageCourses extends JFrame implements ActionListener{
 
     ManageCourses(ObjectInputStream in, ObjectOutputStream out, Course course, User prof) {
@@ -267,7 +273,6 @@ class ManageCourses extends JFrame implements ActionListener{
     private ObjectOutputStream out;
     private ManageAssignment assignManager;
     private ManageSubmissions subManager;
-    private ManageGrades gradeManager;
     private EmailStudents emailManager;
     private EnrollStudents enrollManager;
     private User prof;

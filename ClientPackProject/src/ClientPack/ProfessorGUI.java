@@ -14,11 +14,12 @@ import SharedDataObjects.*;
  * Created by JFormDesigner on Fri Mar 30 13:52:20 MDT 2018
  */
 
-
-
 /**
- * @author unknown
+ * @author  Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
  */
+
 public class ProfessorGUI extends JPanel implements ActionListener, ListSelectionListener {
 
     ProfessorGUI(ObjectInputStream in, ObjectOutputStream out, User prof) {

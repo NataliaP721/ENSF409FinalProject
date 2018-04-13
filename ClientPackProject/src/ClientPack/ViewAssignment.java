@@ -18,6 +18,13 @@ import SharedDataObjects.*;
 /**
  * Creates a page listing all assignments with options to view the assignment or view recorded grades for each assignment
  */
+
+/**
+ * @author  Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
+ */
+
 public class ViewAssignment extends JFrame implements ActionListener, ListSelectionListener {
     ViewAssignment(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;

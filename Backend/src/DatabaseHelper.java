@@ -10,10 +10,19 @@ import java.util.Iterator;
  * This class allows you to create and manage a FinalProjectDB database.
  * It creates a database and several datatables, then populates them based on user input.
  * @author Natalia Pavlovic
- * @version 1.0
- * @since April 3, 2018
+ * @version 2.0
+ * @since April 11, 2018
  */
+
 public class DatabaseHelper {
+    /**
+     * totalUserEnteries is the number of total enteries in the User table
+     * totalCourseEnteries is the number of total enteries in the Course table
+     * totalEnrollmentEnteries is the number of total enteries in the Student Enrollment table
+     * totalAssignmentEnteries is the number of total enteries in the Assignment table
+     * totalSubmissionEnteries is the number of total enteries in the Submission table
+     * totalGradeEnteries is the number of total enteries in the Grade table
+     */
     static private int totalUserEnteries = 1;
     static private int totalCourseEnteries = 1;
     static private int totalEnrollmentEnteries = 1;
@@ -32,11 +41,16 @@ public class DatabaseHelper {
 
     /**
      * databaseName is the name of the MySQL database
-     * tableName is the name of the table in the database
      * dataFile is the name of the input text file
+     * userTableName is the name of the User table in the database
+     * courseTableName is the name of the Course table in the database
+     * studentEnrollmentTableName is the name of the StudentEnrollment table in the database
+     * assignmentTableName is the name of the Assignment table in the database
+     * submissionTableName is the name of the Submission table in the database
+     * gradeTableName is the name of the Grade table in the database
      */
     public String databaseName = "FinalProjectDB";
-     public String dataFile = "UserInput.txt";
+    public String dataFile = "UserInput.txt";
 
     public String userTableName = "UserTable";
     public String courseTableName = "CourseTable";
@@ -76,18 +90,13 @@ public class DatabaseHelper {
             createTables();
             addUser(new User("Pavlovic", "Natalia", "ensf409proffessoremail@gmail.com", 'P' ), new LoginInfo("12345"));
             addUser(new User("Flintstone", "Fred", "ensf409proffessoremail@gmail.com",  'S' ), new LoginInfo("12345"));
-            addUser(new User("Simpson", "Bart", "ensf409proffessoremail@gmail.com",  'S' ), new LoginInfo("12345"));
+            addUser(new User("Simpson", "Bart", "natalia.nzp@gmail.com",  'S' ), new LoginInfo("12345"));
 
             addCourse(new Course( 1, "ENSF409", true));
             addCourse(new Course(1, "ENSF410", true));
             addCourse(new Course(1, "ENSF411", true));
             addCourse(new Course( 1, "ENSF412", true));
             addCourse(new Course( 2, "ENSF413", true));
-
-            // addAssignment(new Assignment( 1, "abc", "test", true, "18:04:06"));
-            //addStudentEnrollment(new StudentEnrollment(2, 1, false));
-            //addStudentEnrollment(new StudentEnrollment(2, 2, false));
-
         }
         catch( SQLException e)
         {
@@ -488,9 +497,9 @@ public class DatabaseHelper {
         return null;
     }
     /**
-     * This method searches the Users database table for a User matching the lastName parameter and return that User.
+     * This method searches the Users database table for a User matching the lastName parameter and return that StudentEnrollment.
      * @param lastName the lastName of the User to be searched
-     * @return the User matching the lastName. It should return null if no Users matching that ID are found.
+     * @return an ArrayList containing the StudentEnrollment matching the lastName. It should return null if no Users matching that ID are found.
      */
     ArrayList<StudentEnrollment> searchUsers(String lastName) {
         try{
@@ -523,6 +532,11 @@ public class DatabaseHelper {
         }catch (SQLException e) { e.printStackTrace(); }
         return null;
     }
+    /**
+     * This method searches the Users database table for a User matching the lastName parameter and return that User.
+     * @param lastName the lastName of the User to be searched
+     * @return an ArrayList containing the User matching the lastName. It should return null if no Users matching that ID are found.
+     */
     ArrayList<User> searchLastnameUsers(String lastName) {
         try{
             printUserTable();
@@ -555,9 +569,9 @@ public class DatabaseHelper {
         return null;
     }
     /**
-     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
-     * @param userType the ID of the Course to be searched
-     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     * This method searches the User database table for a User matching the ID parameter and return that User.
+     * @param userType the type of user being searched
+     * @return an ArrayList of Users of that userType. It should return null if no Users matching that type are found.
      */
     ArrayList<User> searchAllUsers(char userType) {
         try {
@@ -565,7 +579,7 @@ public class DatabaseHelper {
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet users = statement.executeQuery();
             User temp;
-            ArrayList<User> courseList = new ArrayList<>();
+            ArrayList<User> userList = new ArrayList<>();
             while(users.next())
             {
                 temp = new User (users.getString("LASTNAME"),
@@ -574,10 +588,10 @@ public class DatabaseHelper {
                         users.getString("TYPE").charAt(0));
 
                 temp.setID(users.getInt("ID"));
-                courseList.add(temp);
+                userList.add(temp);
             }
             users.close();
-            return courseList;
+            return userList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -616,10 +630,10 @@ public class DatabaseHelper {
         }
         return null;
     }
-
     /**
-     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
-     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     * This method searches the Courses database table for a Course matching the profID parameter and return that prof's Courses.
+     * @param profID the ID of the professor whose courses are being searched.
+     * @return the Course matching the profID. It should return null if no Courses matching that ID are found.
      */
     ArrayList<Course> searchAllCourses(int profID) {
         try {
@@ -653,6 +667,11 @@ public class DatabaseHelper {
         return null;
     }
 
+    /**
+     * This method searches the Course database table and checks if the Student is enrolled in found Courses.
+     * @param studentID the ID of the student whose Active and Enrolled in Courses are being searched.
+     * @return an ArrayList of Active Courses the Student is enrolled in. This should return null if no Courses are found.
+     */
     ArrayList<Course> searchEnrolledActiveCourses(int studentID) {
         try {
             String sql = "SELECT * FROM " + courseTableName;
@@ -687,6 +706,13 @@ public class DatabaseHelper {
         }
         return null;
     }
+
+    /**
+     * This method checks if a Student is Enrolled in a specified course.
+     * @param courseID the ID of the Course
+     * @param studentID the ID of the Student
+     * @return true if the Student is enrolled in the course, and false if not.
+     */
     public boolean isEnrolled(int courseID, int studentID) {
         try {
             printStudentEnrollmentTable();
@@ -770,8 +796,9 @@ public class DatabaseHelper {
         return null;
     }
     /**
-     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
-     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     * This method searches the StudentEnrollment database table for a Students enrolled in a Course of specified courseID.
+     * @param courseID the ID of the Course we are checking if Students are enrolled in.
+     * @return an ArrayList of StudentEnrollments for the specified Course. It should return null if no StudentEnrollments matching that courseID are found.
      */
     ArrayList<StudentEnrollment> searchAllStudentEnrollments(int courseID) {
         try {
@@ -779,7 +806,7 @@ public class DatabaseHelper {
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet enrollments = statement.executeQuery();
             StudentEnrollment temp;
-            ArrayList<StudentEnrollment> courseList = new ArrayList<>();
+            ArrayList<StudentEnrollment> enrollmentList = new ArrayList<>();
             while(enrollments.next())
             {
                 boolean activeBoolean = false;
@@ -794,16 +821,22 @@ public class DatabaseHelper {
                 temp.setEnrollmentID(enrollments.getInt("ID"));
 
                 if(courseID == temp.getCourseID()){
-                    courseList.add(temp);
+                    enrollmentList.add(temp);
                 }
             }
             enrollments.close();
-            return courseList;
+            return enrollmentList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    /**
+     *
+     * @param courseID
+     * @return
+     */
     ArrayList<User> searchEnrolledEmail(int courseID) {
         try {
             String sql = "SELECT * FROM " +userTableName;
@@ -831,7 +864,10 @@ public class DatabaseHelper {
         }
         return null;
     }
-
+    /**
+     *
+     * @return
+     */
     ArrayList<StudentEnrollment> searchEnrolled() {
         try {
             String sql = "SELECT * FROM " + studentEnrollmentTableName;
@@ -934,6 +970,12 @@ public class DatabaseHelper {
         }
         return null;
     }
+
+    /**
+     * This method searches the Assignment database table for Assignments for a specified Course.
+     * @param courseID the ID of the Course whose Assignments are being searched
+     * @return an ArrayList of the Assignment for the specified Course. It should return null if no Assignments are found.
+     */
     ArrayList<Assignment> searchAllActiveAssignments(int courseID) {
         try {
             String sql = "SELECT * FROM " + assignmentTableName;
@@ -970,13 +1012,17 @@ public class DatabaseHelper {
         }
         return null;
     }
+    /**
+     * This method searches the Assignment database table for all Assignments.
+     * @return an ArrayList of all Assignments found. It should return null if there are no Assignments.
+     */
     ArrayList<Assignment> searchAllAssignments() {
         try {
             String sql = "SELECT * FROM " + assignmentTableName;
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet assignments = statement.executeQuery();
             Assignment temp;
-            ArrayList<Assignment> courseList = new ArrayList<>();
+            ArrayList<Assignment> assignList = new ArrayList<>();
             while(assignments.next())
             {
                 boolean activeBoolean = false;
@@ -994,19 +1040,20 @@ public class DatabaseHelper {
 
                 temp.setAssignmentID(assignments.getInt("ID"));
 
-                    courseList.add(temp);
+                    assignList.add(temp);
             }
             assignments.close();
-            return courseList;
+            return assignList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
     /**
-     * This method searches the Submissions database table for a Submission matching the ID parameter and return that Submission.
+     * This method searches the Submissions database table for a Submission matching the assignmentID parameter for a specifed Student and return that Submission.
      * @param studentID the ID of the Submission to be searched
-     * @return the Submission matching the ID. It should return null if no Submissions matching that ID are found.
+     * @param assignmentID the ID of the Assignment whose Submissions are being searched
+     * @return an ArrayList of Submissions matching the assignmentID and studentID. It should return null if no Submissions matching the IDs are found.
      */
     ArrayList<Submission> searchSubmissions(int assignmentID, int studentID) {
         try {
@@ -1040,7 +1087,11 @@ public class DatabaseHelper {
         }
         return null;
     }
-
+    /**
+     * This method searches the Submissions database table for Submissions that match the specified assignmentID.
+     * @param assignmentID the ID of the assignment whose Submissions are being searched
+     * @return an ArrayList of the Submissions matching the assignmentID. It should return null if no Submissions are found.
+     */
     ArrayList<Submission> searchSubmissions(int assignmentID) {
         try {
             String sql = "SELECT * FROM " + submissionTableName + "  WHERE ASSIGNMENTID =" + assignmentID;
@@ -1072,6 +1123,13 @@ public class DatabaseHelper {
         }
         return null;
     }
+
+    /**
+     * This method searches the Submission database table for a single Submission matching an assignmentID and a studentID.
+     * @param assignmentID the ID of the assignment whose Submission is being searched.
+     * @param studentID the ID of the student whose Submission is being searched.
+     * @return the Submission matching the assignmentID and studentID. It shoudl return null if none are found.
+     */
     Submission searchSingleSubmission(int assignmentID, int studentID) {
         try {
             String sql = "SELECT * FROM " + submissionTableName + "  WHERE ASSIGNMENTID =" + assignmentID;
@@ -1104,10 +1162,9 @@ public class DatabaseHelper {
         return null;
     }
     /**
-     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
-     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     * This method searches the Submission database table for all Submissions.
+     * @return an ArrayList of Submissions. It should return null if no Submissions are found.
      */
-
     ArrayList<Submission> searchAllSubmissions() {
         try {
             String sql = "SELECT * FROM " + submissionTableName;
@@ -1164,17 +1221,16 @@ public class DatabaseHelper {
         return null;
     }
     /**
-     * This method searches the Courses database table for a Course matching the ID parameter and return that Course.
-     * @return the Course matching the ID. It should return null if no Courses matching that ID are found.
+     * This method searches the Grades database table for all Grades.
+     * @return an ArrayList of Grades. It should return null if no Grades are found.
      */
-
     ArrayList<Grade> searchAllGrades() {
         try {
             String sql = "SELECT * FROM " + gradeTableName;
             statement = jdbc_connection.prepareStatement(sql);
             ResultSet grades = statement.executeQuery();
             Grade temp;
-            ArrayList<Grade> courseList = new ArrayList<>();
+            ArrayList<Grade> gradeList = new ArrayList<>();
             while(grades.next())
             {
                 temp = new Grade (grades.getInt("ASSIGNMENTID"),
@@ -1184,16 +1240,15 @@ public class DatabaseHelper {
 
                 temp.setGradeID(grades.getInt("ID"));
 
-                courseList.add(temp);
+                gradeList.add(temp);
             }
             grades.close();
-            return courseList;
+            return gradeList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-
     /**
      * Prints all the items in the User database to console
      */
@@ -1219,7 +1274,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Prints all the items in the Course database to console
      */
@@ -1243,7 +1297,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Prints all the items in the StudentEnrollment database to console
      */
@@ -1266,7 +1319,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Prints all the items in the Assignment database to console
      */
@@ -1292,7 +1344,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Prints all the items in the Submission database to console
      */
@@ -1320,7 +1371,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Prints all the items in the Grade database to console
      */
@@ -1345,7 +1395,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Deletes a User from the database with a matching id.
      * @param userID the userID of the User to be deleted.
@@ -1361,7 +1410,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Deletes a Course from the database with a matching id.
      * @param courseID the courseID of the Course to be deleted.
@@ -1377,7 +1425,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Deletes a StudentEnrollment from the database with a matching id.
      * @param enrollmentID the enrollmentID of the StudentEnrollment to be deleted.
@@ -1393,7 +1440,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Deletes an Assignment from the database with a matching id.
      * @param assignmentID the assignmentID of the Assignment to be deleted.
@@ -1409,7 +1455,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Deletes a Submission from the database with a matching id.
      * @param submissionID the submissionID of the Submission to be deleted.
@@ -1425,7 +1470,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     /**
      * Deletes a Grade from the database with a matching id.
      * @param gradeID the gradeID of the Grade to be deleted.
@@ -1441,7 +1485,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     // ID must be kept the same for all modifies
     /**
      * Modifies a Course from the database with a matching id.
@@ -1462,7 +1505,6 @@ public class DatabaseHelper {
         }
 
     }
-
     // ID must be kept the same for all modifies
     /**
      * Modifies a StudentEnrollmet from the database with a matching id.
@@ -1482,7 +1524,6 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
     }
-
     // ID must be kept the same for all modifies
     /**
      * Modifies an Assignment from the database with a matching id.
@@ -1505,6 +1546,11 @@ public class DatabaseHelper {
         }
 
     }
+    // ID must be kept the same for all modifies
+    /**
+     * Modifies a Submission from the database with a matching id.
+     * @param submission the updated Submission to be modified in the database.
+     */
     void modifySubmission(Submission submission) {
         String sql = "UPDATE " + submissionTableName + " SET  " +
                 " ID = "+ submission.getSubmissionID() + ", " +

@@ -2,6 +2,13 @@ package SharedDataObjects;
 
 import java.io.Serializable;
 
+/**
+ * @author  Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
+ */
+
+
 public class Grade implements Serializable{
     private int gradeID;
     private int assignmentID;

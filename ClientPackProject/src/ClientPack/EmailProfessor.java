@@ -19,9 +19,12 @@ import org.apache.commons.mail.*;
 
 /**
  * Creates a page where the student can email their course's professor.
- * @author Aysha Panatch
+ * @author Aysha Panatch, Natalia Pavlovic
+ * @version 1.0
+ * @since April 11, 2018
  * ObjectInputStream in, ObjectOutputStream out, Course course, User student
  */
+
 public class EmailProfessor extends JFrame implements ActionListener {
     EmailProfessor(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;

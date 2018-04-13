@@ -19,8 +19,11 @@ import SharedDataObjects.*;
 
 
 /**
- * @author Aysha Panatch
+ * @author Aysha Panatch, Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
  */
+
 public class ManageAssignment extends JFrame implements ActionListener, ListSelectionListener{
     ManageAssignment(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;

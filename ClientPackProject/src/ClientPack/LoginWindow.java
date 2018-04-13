@@ -17,8 +17,11 @@ import java.io.IOException;
 
 
 /**
- * @author Aysha Panatch
+ * @author Aysha Panatch, Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
  */
+
 public class LoginWindow extends JFrame implements ActionListener{
     LoginWindow(ObjectInputStream in, ObjectOutputStream out) {
         this.out = out;

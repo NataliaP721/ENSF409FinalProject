@@ -1,31 +1,49 @@
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Array;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.*;
 import java.io.*;
-
-
-
 import SharedDataObjects.*;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
-import javax.swing.*;
+/**
+ * The purpose of this class read objects from the socket, respond to this input, and write
+ * objects to the socket for the Client to read.
+ * @author  Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
+ */
 
 public class Worker implements Runnable {
+    /**
+     * The DatabaseHelper that manages connecting and communicating with the mySQL database
+     */
     private DatabaseHelper databaseHelper;
-    private EmailHelper emailHelper;
-    private FileHelper fileHelper;
+
+    /**
+     * The ObjectOutputStream used to write objects to the socket.
+     */
     private ObjectOutputStream out;
+
+    /**
+     * The ObjectInputStream used to read objects from the socket.
+     */
     private ObjectInputStream in;
+
+    /**
+     * The socket of the server
+     */
     private Socket socket;
 
-    Worker (DatabaseHelper database, EmailHelper emailService, FileHelper fileManager, Socket socket) {
+    /**
+     * Constructs a Worker object with the specified values for database and socket.
+     * The values for the fields are supplised by the given paramets.
+     * @param database the DatabaseHelper that manages connecting and communicating with database.
+     * @param socket the Server socket used to communicate with the Client
+     */
+    Worker (DatabaseHelper database, Socket socket) {
         this.databaseHelper = database;
-        this.emailHelper = emailService;
-        this.fileHelper = fileManager;
         this.socket = socket;
         try{
             out = new ObjectOutputStream(socket.getOutputStream());
@@ -38,6 +56,8 @@ public class Worker implements Runnable {
 
     /**
      * {@InheritDoc}
+     * Reads input objects from the socket, responds to the input and writes objects
+     * to the socket.
      */
     @Override
     public void run() {
@@ -385,6 +405,9 @@ public class Worker implements Runnable {
 
     }
 
+    /**
+     * Closes the connection to the database if an exception occurs.
+     */
     void closeConnection() {
         try {
             databaseHelper.removeTables();

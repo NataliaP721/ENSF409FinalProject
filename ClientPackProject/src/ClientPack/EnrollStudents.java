@@ -19,8 +19,11 @@ import javax.swing.event.ListSelectionListener;
 
 
 /**
- * @author Aysha Panatch
+ * @author Aysha Panatch, Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
  */
+
 public class EnrollStudents extends JFrame implements ActionListener, ListSelectionListener{
     EnrollStudents(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;

@@ -3,6 +3,12 @@ package SharedDataObjects;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * @author  Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
+ */
+
 public class Email implements Serializable{
     private String from;
     private ArrayList<String> to;

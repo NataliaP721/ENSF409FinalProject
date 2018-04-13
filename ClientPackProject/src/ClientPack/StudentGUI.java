@@ -17,8 +17,11 @@ import javax.swing.event.ListSelectionListener;
 import SharedDataObjects.*;
 
 /**
- * @author Aysha Panatch
+ * @author Aysha Panatch, Natalia Pavlovic
+ * @version 1.0
+ * @since April 11, 2018
  */
+
 public class StudentGUI extends JFrame implements ActionListener, ListSelectionListener {
     StudentGUI(ObjectInputStream in, ObjectOutputStream out, User student) {
         this.in = in;

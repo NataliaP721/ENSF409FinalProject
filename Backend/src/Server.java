@@ -3,7 +3,8 @@ import java.net.ServerSocket;
 import java.util.concurrent.*;
 
 /**
- * The purpose of this class is to create
+ * The purpose of this class is to create the Server to allow communication with the Client.
+ * @author  Natalia Pavlovic
  * @version 1.0
  * @since April 5, 2018
  */
@@ -25,23 +26,11 @@ public class Server {
     private DatabaseHelper database;
 
     /**
-     * The EmailHelper that manages sending emails.
-     */
-    private EmailHelper emailService;
-
-    /**
-     * The FileHelper that manages the downloading of files to server and uploading files from the server.
-     */
-    private FileHelper fileManager;
-
-    /**
      * Constructs a Server Object with specified port value.
      * @throws IOException
      */
     public Server() {
         database = new DatabaseHelper();
-        emailService = new EmailHelper();
-        fileManager = new FileHelper();
 
         try {
             serverSocket = new ServerSocket(8099);
@@ -61,7 +50,7 @@ public class Server {
         try {
             // Constantly listening to what client does and looking for new clients to be added
             while(true) {
-                Worker worker = new Worker(database, emailService, fileManager, serverSocket.accept());
+                Worker worker = new Worker(database, serverSocket.accept());
 
                 System.out.println("Connected to new Client");
 

@@ -14,8 +14,11 @@ import net.miginfocom.swing.*;
 import SharedDataObjects.*;
 /**
  * Creates the course homepage with the ability to navigate to other windows: Send Emails, View Grades, Submit Assignment, View Assignments, or go back to the homepage.
- * @author Aysha Panatch
+ * @author Aysha Panatch, Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
  */
+
 public class ViewCourses extends JFrame implements ActionListener{
     ViewCourses(ObjectInputStream in, ObjectOutputStream out, Course course, User student) {
         this.in = in;

@@ -6,6 +6,12 @@ import java.net.Socket;
 import java.io.IOException;
 import SharedDataObjects.*;
 
+/**
+ * @author  Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
+ */
+
 public class Client {
 
 //    private ProfGui professor;

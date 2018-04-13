@@ -14,11 +14,12 @@ import net.miginfocom.swing.*;
  * Created by JFormDesigner on Sun Apr 01 13:36:12 MDT 2018
  */
 
-
-
 /**
- * @author Edward Gu
+ * @author Edward Gu, Natalia Pavlovic
+ * @version 2.0
+ * @since April 11, 2018
  */
+
     class ManageSubmissions extends JFrame implements ActionListener, ListSelectionListener{
     ManageSubmissions(ObjectInputStream in, ObjectOutputStream out, Course course) {
         this.in = in;
